@@ -1,0 +1,20 @@
+/* Layout Rules */
+.l-container {
+    min-height: 100vh;
+    position: relative;
+}
+
+.l-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+.l-main {
+    padding-top: 80px;
+    min-height: 100vh;
+}

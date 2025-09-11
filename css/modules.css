@@ -1,0 +1,518 @@
+/* Module Rules - Loading Screen */
+.loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading__logo {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    margin-bottom: 2rem;
+    animation: pulse 2s infinite;
+}
+
+.loading__spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(0, 255, 255, 0.3);
+    border-top: 3px solid #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.loading__text {
+    color: #888;
+    font-size: 1rem;
+}
+
+/* Module Rules - Age Verification */
+.age-verification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8888;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.age-verification--hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.age-verification__modal {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+    max-width: 500px;
+    width: 90%;
+}
+
+.age-verification__title {
+    font-size: 2rem;
+    color: #00ffff;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.age-verification__text {
+    color: #ccc;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.age-verification__buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.8rem 2rem;
+    border: 2px solid #00ffff;
+    background: transparent;
+    color: #00ffff;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: #00ffff;
+    color: #0a0a0a;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+.btn--danger {
+    border-color: #ff4444;
+    color: #ff4444;
+}
+
+.btn--danger:hover {
+    background: #ff4444;
+    color: #0a0a0a;
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.5);
+}
+
+/* Module Rules - Header */
+.header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.header__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.header__menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.header__link {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.header__link:hover {
+    color: #00ffff;
+}
+
+.header__link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #00ffff;
+    transition: width 0.3s ease;
+}
+
+.header__link:hover::after {
+    width: 100%;
+}
+
+/* Module Rules - Gallery */
+/* ... (código existente) ... */
+
+/* Module Rules - Gallery */
+.gallery {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery__title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #00ffff;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+.gallery__grid {
+    display: grid;
+    /* Mantener 3 columnas en desktop, 2 en tablet, 1 en móvil */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.gallery__item {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.gallery__item:hover {
+    border-color: #00ffff;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+    transform: translateY(-5px);
+}
+
+.gallery__image {
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery__item:hover .gallery__image {
+    transform: scale(1.05);
+}
+
+.gallery__info {
+    padding: 1.5rem;
+}
+
+.gallery__item-title {
+    color: #00ffff;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.gallery__item-desc {
+    color: #999;
+    line-height: 1.4;
+}
+
+.gallery__load-more {
+    text-align: center;
+}
+
+/* ... (resto del código) ... */
+
+/* Media Queries para Responsividad */
+@media (max-width: 1024px) {
+
+    /* Tablet: 2 columnas */
+    .gallery__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile: 1 columna */
+    .gallery__grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .gallery {
+        padding: 1rem;
+    }
+
+    /* Ajustes adicionales para móvil */
+    .header__menu {
+        gap: 1rem;
+    }
+
+    .age-verification__modal {
+        padding: 2rem 1.5rem;
+    }
+
+    .age-verification__buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Mobile pequeño: ajustes adicionales */
+    .gallery__item {
+        border-radius: 8px;
+    }
+
+    .gallery__info {
+        padding: 1rem;
+    }
+}
+
+/* Module Rules - Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 7777;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal--active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal__content {
+    position: relative;
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.3);
+}
+
+.modal__image {
+    width: 400px;
+}
+
+.modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.modal__close:hover {
+    background: #00ffff;
+    color: #0a0a0a;
+}
+
+/* Modal Image Zoom */
+.modal__image--zoomed {
+    transform: scale(1.5);
+    cursor: zoom-out;
+}
+
+/* Download Notifications */
+.download-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    padding: 12px 24px;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    z-index: 10000;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.download-notification--show {
+    transform: translateX(-50%) translateY(0);
+}
+
+.download-notification--success {
+    background: rgba(76, 175, 80, 0.9);
+    border: 1px solid #4CAF50;
+}
+
+.download-notification--error {
+    background: rgba(244, 67, 54, 0.9);
+    border: 1px solid #F44336;
+}
+
+/* ... (código existente) ... */
+
+/* Download Options Modal */
+.download-options-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.download-options__content {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+}
+
+.download-options__content h3 {
+    color: #00ffff;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.download-options__content p {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+.download-options__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Botones secundarios */
+.btn--secondary {
+    border-color: #888;
+    color: #888;
+}
+
+.btn--secondary:hover {
+    background: #888;
+    color: #0a0a0a;
+    box-shadow: 0 0 20px rgba(136, 136, 136, 0.5);
+}
+
+/* Language Selector Styles */
+.language-selector {
+    background: transparent;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    color: #00ffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-selector:hover {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.language-selector option {
+    background: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* About Section */
+.about {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about__title {
+    text-align: center;
+    font-size: 2rem;
+    color: #00ffff;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.about__text {
+    color: #ccc;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Contact Section */
+.contact {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.contact__title {
+    text-align: center;
+    font-size: 2rem;
+    color: #00ffff;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.contact__text {
+    color: #ccc;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Modal Actions */
+.modal__actions {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
