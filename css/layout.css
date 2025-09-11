@@ -1,4 +1,7 @@
-/* Layout Rules */
+/* ==========================================================================
+   Layout Styles - Major layout components
+   ========================================================================== */
+
 .l-container {
     min-height: 100vh;
     position: relative;
@@ -12,9 +15,18 @@
     z-index: 1000;
     background: rgba(10, 10, 10, 0.95);
     backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .l-main {
     padding-top: 80px;
     min-height: 100vh;
+}
+
+/* Container for centered content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }

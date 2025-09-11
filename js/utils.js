@@ -32,7 +32,8 @@ const Utils = {
             'copy-link': 'Copiar enlace',
             'close': 'Cerrar',
             'copy-success': 'Enlace copiado al portapapeles',
-            'copy-error': 'Error al copiar el enlace'
+            'copy-error': 'Error al copiar el enlace',
+            'loading-text': 'Cargando imágenes...',
         },
         en: {
             'age-title': 'Age Verification',
@@ -60,7 +61,8 @@ const Utils = {
             'copy-link': 'Copy link',
             'close': 'Close',
             'copy-success': 'Link copied to clipboard',
-            'copy-error': 'Error copying link'
+            'copy-error': 'Error copying link',
+            'loading-text': 'Loading images...',
         },
         ja: {
             'age-title': '年齢確認',
@@ -88,8 +90,61 @@ const Utils = {
             'copy-link': 'リンクをコピー',
             'close': '閉じる',
             'copy-success': 'リンクをクリップボードにコピーしました',
-            'copy-error': 'リンクのコピー中にエラーが発生しました'
+            'copy-error': 'リンクのコピー中にエラーが発生しました',
+            'loading-text': '画像を読み込み中...',
         }
+    },
+
+    fetchImageData: async function (scriptUrl) {
+        try {
+            const response = await fetch(scriptUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'text/plain; charset=utf-8'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al cargar datos: ' + response.status);
+            }
+
+            const textData = await response.text();
+
+            // Procesar texto plano (formato: id|title|desc|thumb|full\n)
+            const lines = textData.split('\n').filter(line => line.trim() !== '');
+            const imageData = [];
+
+            for (const line of lines) {
+                const parts = line.split('|');
+                if (parts.length >= 5) {
+                    imageData.push({
+                        id: parseInt(parts[0]) || 0,
+                        title: parts[1] || '',
+                        description: parts[2] || '',
+                        thumbnail: parts[3] || '',
+                        fullSize: parts[4] || ''
+                    });
+                }
+            }
+
+            return imageData;
+        } catch (error) {
+            console.error('Error fetching image data:', error);
+            // Devolver datos de respaldo en caso de error
+            return this.getFallbackImageData();
+        }
+    },
+
+    getFallbackImageData: function () {
+        return [
+            {
+                id: 1,
+                title: "...",
+                description: "...",
+                thumbnail: "../assets/img/img1.png",
+                fullSize: "../assets/img/img1.png"
+            }
+        ];
     },
 
     // Detect browser language
