@@ -77,7 +77,7 @@ const Gallery = (function () {
                 showLoading();
 
                 // URL de tu Google Apps Script (debes reemplazarla con la tuya)
-                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyEqse3kc7X98JR5IsmPFfuDN0DUnuJoGlqXWILCY72_qo-tvOy1T06RawKyISIL6wt/exec';
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycbyEqse3kc7X98JR5IsmPFfuDN0DUnuJoGlqXWILCY72_qo-tvOy1T06RawKyISIL6wt/exec?hoja=Hoja%201';
 
                 // Cargar datos desde Google Sheets
                 imageDatabase = await Utils.fetchImageData(scriptUrl);

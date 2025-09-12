@@ -93,6 +93,8 @@ const KuronekoApp = (function () {
 // Initialize the application when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     KuronekoApp.init();
+    Navigation.init();
+    Contact.init();
 });
 
 // Handle page visibility change

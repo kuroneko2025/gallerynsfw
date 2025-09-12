@@ -34,6 +34,22 @@ const Utils = {
             'copy-success': 'Enlace copiado al portapapeles',
             'copy-error': 'Error al copiar el enlace',
             'loading-text': 'Cargando imágenes...',
+            'shop-title': 'Tienda くろねこ',
+            'shop-subtitle': 'Obras exclusivas disponibles para coleccionistas',
+            'shop-empty': 'No hay productos disponibles en este momento.',
+            'nav-gallery': 'Galería',
+            'nav-shop': 'Tienda',
+            'view-details': 'Ver Detalles',
+            'contact': 'Contactar',
+            'contact-title': 'Contactar sobre:',
+            'contact-name': 'Nombre completo',
+            'contact-email': 'Correo electrónico',
+            'contact-message': 'Mensaje',
+            'contact-message-placeholder': 'Estoy interesado en este producto y me gustaría obtener más información.',
+            'contact-cancel': 'Cancelar',
+            'contact-submit': 'Enviar mensaje',
+            'contact-success': 'Mensaje enviado correctamente. Nos pondremos en contacto pronto.',
+            'contact-error': 'Error al enviar el mensaje. Por favor, inténtalo de nuevo.'
         },
         en: {
             'age-title': 'Age Verification',
@@ -63,6 +79,22 @@ const Utils = {
             'copy-success': 'Link copied to clipboard',
             'copy-error': 'Error copying link',
             'loading-text': 'Loading images...',
+            'shop-title': 'Shop くろねこ',
+            'shop-subtitle': 'Exclusive works available for collectors',
+            'shop-empty': 'No products available at the moment.',
+            'nav-gallery': 'Gallery',
+            'nav-shop': 'Shop',
+            'view-details': 'View Details',
+            'contact': 'Contact',
+            'contact-title': 'Contact about:',
+            'contact-name': 'Full name',
+            'contact-email': 'Email address',
+            'contact-message': 'Message',
+            'contact-message-placeholder': 'I am interested in this product and would like more information.',
+            'contact-cancel': 'Cancel',
+            'contact-submit': 'Send message',
+            'contact-success': 'Message sent successfully. We will contact you soon.',
+            'contact-error': 'Error sending message. Please try again.'
         },
         ja: {
             'age-title': '年齢確認',
@@ -92,6 +124,22 @@ const Utils = {
             'copy-success': 'リンクをクリップボードにコピーしました',
             'copy-error': 'リンクのコピー中にエラーが発生しました',
             'loading-text': '画像を読み込み中...',
+            'shop-title': 'ショップ くろねこ',
+            'shop-subtitle': 'コレクター向けの限定作品',
+            'shop-empty': '現在ご利用可能な商品はありません',
+            'nav-gallery': 'ギャラリー',
+            'nav-shop': 'ショップ',
+            'view-details': '詳細を見る',
+            'contact': 'お問い合わせ',
+            'contact-title': 'について問い合わせる:',
+            'contact-name': '氏名',
+            'contact-email': 'メールアドレス',
+            'contact-message': 'メッセージ',
+            'contact-message-placeholder': 'この商品に興味があります。詳細情報をご提供ください。',
+            'contact-cancel': 'キャンセル',
+            'contact-submit': 'メッセージを送信',
+            'contact-success': 'メッセージを送信しました。すぐにご連絡いたします。',
+            'contact-error': 'メッセージの送信に失敗しました。もう一度お試しください。'
         }
     },
 
@@ -100,7 +148,7 @@ const Utils = {
             const response = await fetch(scriptUrl, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'text/plain; charset=utf-8'
+                    'Accept': 'text/plain; charset=utf-8',
                 }
             });
 

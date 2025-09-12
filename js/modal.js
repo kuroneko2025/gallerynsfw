@@ -1,5 +1,5 @@
 // Modal Module
-const Modal = (function() {
+const Modal = (function () {
     'use strict';
 
     // Private variables
@@ -38,34 +38,59 @@ const Modal = (function() {
 
     function downloadImage() {
         if (!currentImageSrc) return;
-        
-        // Solución alternativa para imágenes externas (CORS)
-        try {
-            // Intentar descargar con método tradicional
-            const fileName = `kuroneko-image-${new Date().getTime()}.jpg`;
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = currentImageSrc;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            
-            // Limpiar
-            setTimeout(() => {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(currentImageSrc);
-            }, 100);
-            
-            // Mostrar notificación de descarga exitosa
-            showDownloadNotification();
-            
-        } catch (error) {
-            console.error('Error downloading image:', error);
-            
-            // Solución de respaldo: abrir en nueva pestaña
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous'; // Intentar evitar problemas CORS si el servidor lo permite
+        img.src = currentImageSrc;
+
+        img.onload = function () {
+            try {
+                // Crear canvas temporal
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                // Convertir a Blob y descargar
+                canvas.toBlob(function (blob) {
+                    if (!blob) {
+                        console.error('No se pudo generar el blob de la imagen');
+                        showDownloadOptions();
+                        return;
+                    }
+
+                    const fileName = `kuroneko-image-${Date.now()}.jpg`;
+                    const url = URL.createObjectURL(blob);
+
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+
+                    // Limpieza
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+
+                    showDownloadNotification();
+                }, 'image/jpeg', 0.95); // Calidad 95%
+            } catch (error) {
+                console.error('Error al procesar la imagen:', error);
+                showDownloadOptions();
+            }
+        };
+
+        img.onerror = function () {
+            console.error('No se pudo cargar la imagen para descarga directa');
             showDownloadOptions();
-        }
+        };
     }
+
 
     function showDownloadOptions() {
         // Crear modal de opciones de descarga
@@ -88,16 +113,16 @@ const Modal = (function() {
                 </div>
             </div>
         `;
-        
+
         document.body.appendChild(downloadModal);
-        
+
         // Event listeners para los botones
-        document.getElementById('openInNewTab').addEventListener('click', function() {
+        document.getElementById('openInNewTab').addEventListener('click', function () {
             window.open(currentImageSrc, '_blank');
             document.body.removeChild(downloadModal);
         });
-        
-        document.getElementById('copyImageLink').addEventListener('click', function() {
+
+        document.getElementById('copyImageLink').addEventListener('click', function () {
             navigator.clipboard.writeText(currentImageSrc).then(() => {
                 showCopySuccessNotification();
                 document.body.removeChild(downloadModal);
@@ -106,13 +131,13 @@ const Modal = (function() {
                 showCopyErrorNotification();
             });
         });
-        
-        document.getElementById('closeDownloadOptions').addEventListener('click', function() {
+
+        document.getElementById('closeDownloadOptions').addEventListener('click', function () {
             document.body.removeChild(downloadModal);
         });
-        
+
         // Cerrar al hacer clic fuera del contenido
-        downloadModal.addEventListener('click', function(e) {
+        downloadModal.addEventListener('click', function (e) {
             if (e.target === downloadModal) {
                 document.body.removeChild(downloadModal);
             }
@@ -126,14 +151,14 @@ const Modal = (function() {
         notification.innerHTML = `
             <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['download-success'] || 'Descarga completada'}</span>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         // Mostrar y luego eliminar la notificación
         setTimeout(() => {
             notification.classList.add('download-notification--show');
         }, 10);
-        
+
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
@@ -148,13 +173,13 @@ const Modal = (function() {
         notification.innerHTML = `
             <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['copy-success'] || 'Enlace copiado al portapapeles'}</span>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.classList.add('download-notification--show');
         }, 10);
-        
+
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
@@ -169,13 +194,13 @@ const Modal = (function() {
         notification.innerHTML = `
             <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['copy-error'] || 'Error al copiar el enlace'}</span>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         setTimeout(() => {
             notification.classList.add('download-notification--show');
         }, 10);
-        
+
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
@@ -186,28 +211,28 @@ const Modal = (function() {
 
     // Public methods
     return {
-        init: function() {
+        init: function () {
             // Modal events
             DOM.modalClose.addEventListener('click', hideModal);
             DOM.modalImage.addEventListener('click', toggleImageZoom);
             DOM.downloadBtn.addEventListener('click', downloadImage);
             DOM.zoomBtn.addEventListener('click', toggleImageZoom);
 
-            DOM.imageModal.addEventListener('click', function(e) {
+            DOM.imageModal.addEventListener('click', function (e) {
                 if (e.target === DOM.imageModal) {
                     hideModal();
                 }
             });
 
             // Keyboard events
-            document.addEventListener('keydown', function(e) {
+            document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') {
                     hideModal();
                 }
             });
         },
 
-        show: function(imageSrc, imageTitle = '') {
+        show: function (imageSrc, imageTitle = '') {
             currentImageSrc = imageSrc;
             currentImageName = imageTitle;
             DOM.modalImage.src = imageSrc;
@@ -216,7 +241,7 @@ const Modal = (function() {
             document.body.style.overflow = 'hidden';
             isImageZoomed = false;
             DOM.modalImage.classList.remove('modal__image--zoomed');
-            
+
             // Actualizar texto del botón de zoom
             DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()]['zoom'] || 'Zoom';
         }

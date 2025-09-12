@@ -43,8 +43,7 @@
     <meta property="og:image:secure_url" content="https://shinai-dev.github.io/gallerynsfw/assets\img\img2.png">
 
     <!-- Pinterest -->
-    <meta name="pinterest:description"
-        content="NSFW Gallery">
+    <meta name="pinterest:description" content="NSFW Gallery">
     <meta name="pinterest:image" content="https://shinai-dev.github.io/gallerynsfw/assets\img\img2.png">
     <meta name="pinterest:site_name" content="くろねこ Gallery">
 
@@ -68,6 +67,25 @@
     <link rel="stylesheet" href="css/modules.css">
     <link rel="stylesheet" href="css/states.css">
     <link rel="stylesheet" href="css/themes.css">
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            // F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+            // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+U
+            if (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key.toUpperCase())) {
+                e.preventDefault();
+            }
+            if (e.ctrlKey && e.key.toUpperCase() === 'U') {
+                e.preventDefault();
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -105,6 +123,13 @@
                     <div class="header__logo">くろねこ</div>
                     <ul class="header__menu">
                         <li>
+                            <a href="#gallery" class="header__link active" data-section="gallery"
+                                data-lang="nav-gallery">Galería</a>
+                        </li>
+                        <li>
+                            <a href="#shop" class="header__link" data-section="shop" data-lang="nav-shop">Tienda</a>
+                        </li>
+                        <li>
                             <select class="language-selector" id="languageSelector">
                                 <option value="es">Español</option>
                                 <option value="en">English</option>
@@ -118,7 +143,7 @@
 
         <!-- Main Content -->
         <main class="l-main">
-            <section class="gallery" id="gallery">
+            <section class="gallery section-active" id="gallery">
                 <h1 class="gallery__title" data-lang="gallery-title">Galería くろねこ</h1>
 
                 <!-- Loading indicator for gallery -->
@@ -132,6 +157,28 @@
                 </div>
                 <div class="gallery__load-more">
                     <button class="btn" id="loadMoreBtn" data-lang="load-more">Cargar más</button>
+                </div>
+            </section>
+
+            <!-- Sección de Tienda -->
+            <section class="shop section" id="shop">
+                <div class="shop__header">
+                    <h1 class="shop__title" data-lang="shop-title">Tienda くろねこ</h1>
+                    <p class="shop__subtitle" data-lang="shop-subtitle">Obras exclusivas disponibles para coleccionistas
+                    </p>
+                </div>
+
+                <div class="shop__loading" id="shopLoading">
+                    <div class="shop-loading__spinner"></div>
+                    <div class="shop-loading__text" data-lang="loading-text">Cargando productos...</div>
+                </div>
+
+                <div class="shop__grid" id="shopGrid">
+                    <!-- Productos cargados dinámicamente -->
+                </div>
+
+                <div class="shop__empty" id="shopEmpty">
+                    <p data-lang="shop-empty">No hay productos disponibles en este momento.</p>
                 </div>
             </section>
         </main>
@@ -149,10 +196,54 @@
         </div>
     </div>
 
+    <!-- Modal de Contacto -->
+    <div class="modal" id="contactModal">
+        <div class="modal__content modal__content--contact">
+            <button class="modal__close" id="contactModalClose">&times;</button>
+
+            <div class="contact-form">
+                <h2 class="contact-form__title" data-lang="contact-title">Contactar sobre: <span
+                        id="contactProductTitle"></span></h2>
+
+                <form id="contactForm">
+                    <input type="hidden" id="contactProductId" name="productId">
+                    <input type="hidden" id="contactProductName" name="productName">
+
+                    <div class="form-group">
+                        <label for="contactName" data-lang="contact-name">Nombre completo</label>
+                        <input type="text" id="contactName" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail" data-lang="contact-email">Correo electrónico</label>
+                        <input type="email" id="contactEmail" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMessage" data-lang="contact-message">Mensaje</label>
+                        <textarea id="contactMessage" name="message" rows="5" required
+                            data-lang="contact-message-placeholder">Estoy interesado en este producto y me gustaría obtener más información.</textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--secondary" id="contactCancel"
+                            data-lang="contact-cancel">Cancelar</button>
+                        <button type="submit" class="btn" id="contactSubmit" data-lang="contact-submit">
+                            <span class="btn__text" data-lang="contact-submit">Enviar mensaje</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="js/utils.js"></script>
     <script src="js/age-verification.js"></script>
     <script src="js/modal.js"></script>
     <script src="js/gallery.js"></script>
+    <script src="js/contact.js"></script>
+    <script src="js/shop.js"></script>
+    <script src="js/navigation.js"></script>
     <script src="js/app.js"></script>
 </body>
 
