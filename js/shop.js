@@ -4,7 +4,7 @@ const Shop = (function() {
 
     // Private variables
     let products = [];
-    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyEqse3kc7X98JR5IsmPFfuDN0DUnuJoGlqXWILCY72_qo-tvOy1T06RawKyISIL6wt/exec?hoja=Hoja%202'; // Reemplazar con tu URL
+    const scriptUrl = 'https://script.google.com/macros/s/AKfycbyPEBhS2XhAEt7XBhnzoFFyIEEtyAwh4XLRqjrejy-Fmk1Y3v0Ek5i8HL8Ar4-QfoL3/exec?hoja=Hoja%202'; // Reemplazar con tu URL
 
     // DOM Elements
     const DOM = {

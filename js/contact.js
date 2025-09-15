@@ -69,7 +69,7 @@ const Contact = (function () {
     }
 
     async function sendViaGoogleAppsScript(formData) {
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbyEqse3kc7X98JR5IsmPFfuDN0DUnuJoGlqXWILCY72_qo-tvOy1T06RawKyISIL6wt/exec';
+        const scriptUrl = 'https://script.google.com/macros/s/AKfycbyPEBhS2XhAEt7XBhnzoFFyIEEtyAwh4XLRqjrejy-Fmk1Y3v0Ek5i8HL8Ar4-QfoL3/exec';
 
         // Usamos URLSearchParams para enviar como texto plano tipo formulario
         const params = new URLSearchParams();
