@@ -258,6 +258,177 @@
     align-items: center;
 }
 
+/* ==========================================================================
+   Header Mobile Styles
+   ========================================================================== */
+
+/* Botón Hamburguesa */
+.header__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1001;
+}
+
+.hamburger__line {
+    width: 24px;
+    height: 2px;
+    background-color: #ccc;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Estado activo del botón hamburguesa */
+.header__hamburger.active .hamburger__line:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.header__hamburger.active .hamburger__line:nth-child(2) {
+    opacity: 0;
+}
+
+.header__hamburger.active .hamburger__line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Menú para desktop (estado por defecto) */
+.header__menu {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+/* Media Query para móviles */
+@media (max-width: 768px) {
+    .header__hamburger {
+        display: flex;
+    }
+
+    .header__menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 2rem;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+        transition: right 0.3s ease;
+    }
+
+    .header__menu.active {
+        right: 0;
+    }
+
+    /* Overlay cuando el menú está abierto */
+    .header__menu::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: -1;
+        transition: left 0.3s ease;
+    }
+
+    .header__menu.active::before {
+        left: 0;
+    }
+
+    .header__link {
+        font-size: 1.2rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .header__link:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .language-selector {
+        margin-top: 1rem;
+    }
+}
+
+/* Media Query para tablets */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .header__menu {
+        gap: 1rem;
+    }
+
+    .header__link {
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* Animación suave para los items del menú */
+@media (max-width: 768px) {
+    .header__menu li {
+        opacity: 0;
+        transform: translateX(20px);
+        transition: all 0.3s ease;
+    }
+
+    .header__menu.active li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Retrasos escalonados para la animación */
+    .header__menu.active li:nth-child(1) { transition-delay: 0.1s; }
+    .header__menu.active li:nth-child(2) { transition-delay: 0.2s; }
+    .header__menu.active li:nth-child(3) { transition-delay: 0.3s; }
+}
+
+/* Prevenir scroll cuando el menú está abierto */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Focus states para accesibilidad */
+.header__hamburger:focus {
+    outline: 2px solid #00bcd4;
+    outline-offset: 2px;
+}
+
+/* Modo de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .header__menu,
+    .header__menu li,
+    .hamburger__line {
+        transition: none;
+    }
+    
+    .header__menu::before {
+        transition: none;
+    }
+}
+
 /* Language Selector */
 .language-selector {
     background: rgba(255, 255, 255, 0.05);
