@@ -1,12 +1,102 @@
-const Gallery=(function(){'use strict';let currentImageIndex=0;const imagesPerLoad=6;let imageDatabase=[];const DOM={galleryGrid:document.getElementById('galleryGrid'),loadMoreBtn:document.getElementById('loadMoreBtn'),loadingIndicator:document.getElementById('galleryLoading')};function createImageElement(imageData){const galleryItem=document.createElement('div');galleryItem.className='gallery__item fade-in';galleryItem.innerHTML=`
+const Gallery = (function () {
+    'use strict';
+    let currentImageIndex = 0;
+    const imagesPerLoad = 6;
+    let imageDatabase = [];
+    const DOM = {
+        galleryGrid: document.getElementById('galleryGrid'),
+        loadMoreBtn: document.getElementById('loadMoreBtn'),
+        loadingIndicator: document.getElementById('galleryLoading')
+    };
+
+    function createImageElement(imageData) {
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery__item fade-in';
+        galleryItem.innerHTML = `
             <img class="gallery__image" src="${imageData.thumbnail}" alt="${imageData.title}" loading="lazy">
             <div class="gallery__info">
                 <h3 class="gallery__item-title">${imageData.title}</h3>
                 <p class="gallery__item-desc">${imageData.description}</p>
             </div>
-        `;galleryItem.addEventListener('click',function(){Modal.show(imageData.fullSize,imageData.title)});return galleryItem}
-function loadImages(startIndex=0,count=imagesPerLoad){if(imageDatabase.length===0)return;const endIndex=Math.min(startIndex+count,imageDatabase.length);const imagesToLoad=imageDatabase.slice(startIndex,endIndex);imagesToLoad.forEach((imageData,index)=>{setTimeout(()=>{const imageElement=createImageElement(imageData);DOM.galleryGrid.appendChild(imageElement)},index*100)});currentImageIndex=endIndex;if(currentImageIndex>=imageDatabase.length){DOM.loadMoreBtn.style.display='none'}}
-function showLoading(){if(DOM.loadingIndicator){DOM.loadingIndicator.style.display='block'}
-DOM.galleryGrid.innerHTML='';DOM.loadMoreBtn.style.display='none'}
-function hideLoading(){if(DOM.loadingIndicator){DOM.loadingIndicator.style.display='none'}}
-return{init:async function(){try{showLoading();const scriptUrl='https://script.google.com/macros/s/AKfycby_GmDeWidXU8VjFSJ_3ABiNw6stgn-IJqZUJF0Jzb29XZi_s8He4fzoke2y4T8OcjP/exec?hoja=Hoja%201';imageDatabase=await Utils.fetchImageData(scriptUrl);hideLoading();this.loadImages(0,imagesPerLoad);DOM.loadMoreBtn.addEventListener('click',function(){loadImages(currentImageIndex,imagesPerLoad)})}catch(error){console.error('Error initializing gallery:',error);hideLoading();imageDatabase=Utils.getFallbackImageData();this.loadImages(0,imagesPerLoad)}},loadImages:loadImages,addImages:function(newImages){imageDatabase.push(...newImages)},refresh:function(){DOM.galleryGrid.innerHTML='';currentImageIndex=0;loadImages(0,imagesPerLoad);DOM.loadMoreBtn.style.display='block'},getStats:function(){return{totalImages:imageDatabase.length,loadedImages:currentImageIndex}}}})()
+        `;
+        galleryItem.addEventListener('click', function () {
+            Modal.show(imageData.fullSize, imageData.title)
+        });
+        return galleryItem
+    }
+
+    function loadImages(startIndex = 0, count = imagesPerLoad) {
+        if (!Array.isArray(imageDatabase) || imageDatabase.length === 0) {
+            DOM.loadMoreBtn.style.display = 'none';
+            return;
+        }
+
+        const endIndex = Math.min(startIndex + count, imageDatabase.length);
+        const imagesToLoad = imageDatabase.slice(startIndex, endIndex);
+
+        imagesToLoad.forEach((imageData, index) => {
+            setTimeout(() => {
+                const imageElement = createImageElement(imageData);
+                DOM.galleryGrid.appendChild(imageElement);
+            }, index * 100);
+        });
+
+        currentImageIndex = endIndex;
+
+        if (currentImageIndex < imageDatabase.length) {
+            DOM.loadMoreBtn.style.display = 'block';
+        } else {
+            DOM.loadMoreBtn.style.display = 'none';
+        }
+    }
+
+
+    function showLoading() {
+        if (DOM.loadingIndicator) {
+            DOM.loadingIndicator.style.display = 'block'
+        }
+        DOM.galleryGrid.innerHTML = '';
+        DOM.loadMoreBtn.style.display = 'none'
+    }
+
+    function hideLoading() {
+        if (DOM.loadingIndicator) {
+            DOM.loadingIndicator.style.display = 'none'
+        }
+    }
+    return {
+        init: async function () {
+            try {
+                showLoading();
+                const scriptUrl = 'https://script.google.com/macros/s/AKfycby_GmDeWidXU8VjFSJ_3ABiNw6stgn-IJqZUJF0Jzb29XZi_s8He4fzoke2y4T8OcjP/exec?hoja=Hoja%201';
+                imageDatabase = await Utils.fetchImageData(scriptUrl);
+                hideLoading();
+                this.loadImages(0, imagesPerLoad);
+                DOM.loadMoreBtn.addEventListener('click', function () {
+                    loadImages(currentImageIndex, imagesPerLoad)
+                })
+            } catch (error) {
+                console.error('Error initializing gallery:', error);
+                hideLoading();
+                imageDatabase = Utils.getFallbackImageData();
+                this.loadImages(0, imagesPerLoad)
+            }
+        },
+        loadImages: loadImages,
+        addImages: function (newImages) {
+            imageDatabase.push(...newImages)
+        },
+        refresh: function () {
+            DOM.galleryGrid.innerHTML = '';
+            currentImageIndex = 0;
+            loadImages(0, imagesPerLoad);
+            DOM.loadMoreBtn.style.display = 'block'
+        },
+        getStats: function () {
+            return {
+                totalImages: imageDatabase.length,
+                loadedImages: currentImageIndex
+            }
+        }
+    }
+})()
