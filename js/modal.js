@@ -2,7 +2,6 @@ const Modal = (function () {
     'use strict';
     let isImageZoomed = !1;
     let currentImageSrc = '';
-    let currentImageName = '';
     let posX = 0, posY = 0; // desplazamiento actual
     let startX = 0, startY = 0; // para arrastre/touch
     let isDragging = false;
@@ -81,21 +80,11 @@ const Modal = (function () {
         updateTransform();
     }
 
-    function startDrag(e) {
-        isDragging = true;
-        startX = e.clientX - posX;
-        startY = e.clientY - posY;
-    }
-
     function onDrag(e) {
         if (!isDragging) return;
         posX = e.clientX - startX;
         posY = e.clientY - startY;
         updateTransform();
-    }
-
-    function endDrag() {
-        isDragging = false;
     }
 
     function startTouch(e) {
