@@ -62,11 +62,11 @@
     <meta http-equiv="Content-Language" content="en">
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/modules.css">
-    <link rel="stylesheet" href="css/states.css">
-    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/base.css?v=2">
+    <link rel="stylesheet" href="css/layout.css?v=2">
+    <link rel="stylesheet" href="css/modules.css?v=2">
+    <link rel="stylesheet" href="css/states.css?v=2">
+    <link rel="stylesheet" href="css/themes.css?v=2">
     <script>
         document.addEventListener('contextmenu', function (e) { e.preventDefault() }); document.addEventListener('keydown', function (e) {
             if (e.key === 'F12') { e.preventDefault() }
@@ -221,14 +221,14 @@
         </div>
     </div>
 
-    <script src="js/utils.js"></script>
-    <script src="js/age-verification.js"></script>
-    <script src="js/modal.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/contact.js"></script>
-    <script src="js/shop.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/utils.js?v=2"></script>
+    <script src="js/age-verification.js?v=2"></script>
+    <script src="js/modal.js?v=2"></script>
+    <script src="js/gallery.js?v=2"></script>
+    <script src="js/contact.js?v=2"></script>
+    <script src="js/shop.js?v=2"></script>
+    <script src="js/navigation.js?v=2"></script>
+    <script src="js/app.js?v=2"></script>
     <script>
         const hamburgerButton = document.getElementById('hamburgerButton'); const headerMenu = document.getElementById('headerMenu'); if (hamburgerButton && headerMenu) { hamburgerButton.addEventListener('click', function () { this.classList.toggle('active'); headerMenu.classList.toggle('active'); document.body.classList.toggle('menu-open') }); headerMenu.querySelectorAll('.header__link').forEach(link => { link.addEventListener('click', () => { hamburgerButton.classList.remove('active'); headerMenu.classList.remove('active'); document.body.classList.remove('menu-open') }) }); document.addEventListener('click', (e) => { if (headerMenu.classList.contains('active') && !headerMenu.contains(e.target) && !hamburgerButton.contains(e.target)) { hamburgerButton.classList.remove('active'); headerMenu.classList.remove('active'); document.body.classList.remove('menu-open') } }) }
     </script>
