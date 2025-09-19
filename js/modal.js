@@ -2,8 +2,9 @@ const Modal = (function () {
     'use strict';
     let isImageZoomed = !1;
     let currentImageSrc = '';
-    let posX = 0, posY = 0; // desplazamiento actual
-    let startX = 0, startY = 0; // para arrastre/touch
+    let currentImageName = '';
+    let posX = 0, posY = 0;
+    let startX = 0, startY = 0;
     let isDragging = false;
 
     const DOM = {
