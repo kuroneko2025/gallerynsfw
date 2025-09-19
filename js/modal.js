@@ -27,25 +27,49 @@ const Modal = (function () {
         DOM.modalImage.classList.remove('dragging');
     }
 
+    function resetImageZoom() {
+        isImageZoomed = false;
+        posX = posY = 0;
+        DOM.modalImage.classList.remove('modal__image--zoomed', 'dragging');
+        DOM.modalImage.style.transform = '';
+        DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()].zoom || 'Zoom';
+        disableImagePan();
+    }
+
+    function openImage(src, name) {
+        currentImageSrc = src;
+        currentImageName = name;
+
+        // Resetear zoom antes de mostrar
+        resetImageZoom();
+
+        DOM.modalImage.src = src;
+        DOM.imageModal.classList.add('modal--active');
+        document.body.style.overflow = 'hidden';
+    }
+
     function toggleImageZoom() {
+        if (!DOM.imageModal.classList.contains('modal--active')) return; // solo si hay imagen abierta
+
         isImageZoomed = !isImageZoomed;
 
         if (isImageZoomed) {
             DOM.modalImage.classList.add('modal__image--zoomed');
-            DOM.modalImage.style.transform = `scale(2) translate(0px, 0px)`; // zoom inicial
+            DOM.modalImage.style.transform = `scale(2) translate(0px, 0px)`;
             posX = posY = 0;
-
             DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()]['zoom-out'] || 'Reducir';
-
             enableImagePan();
         } else {
-            DOM.modalImage.classList.remove('modal__image--zoomed');
-            DOM.modalImage.style.transform = '';
-            DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()].zoom || 'Zoom';
-
-            disableImagePan();
+            resetImageZoom();
         }
     }
+
+    function hideModal() {
+        DOM.imageModal.classList.remove('modal--active');
+        document.body.style.overflow = 'auto';
+        resetImageZoom();
+    }
+
 
     function enableImagePan() {
         // Teclado (flechas)
@@ -281,6 +305,9 @@ const Modal = (function () {
         show: function (imageSrc, imageTitle = '') {
             currentImageSrc = imageSrc;
             currentImageName = imageTitle;
+
+            openImage(imageSrc, imageTitle);
+
             DOM.modalImage.src = imageSrc;
             DOM.modalImage.alt = imageTitle;
             DOM.imageModal.classList.add('modal--active');
