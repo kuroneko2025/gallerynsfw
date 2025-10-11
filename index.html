@@ -62,21 +62,25 @@
     <meta http-equiv="Content-Language" content="en">
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/base.css?v=2">
-    <link rel="stylesheet" href="css/layout.css?v=2">
-    <link rel="stylesheet" href="css/modules.css?v=2">
-    <link rel="stylesheet" href="css/states.css?v=2.1">
-    <link rel="stylesheet" href="css/themes.css?v=2">
+    <link rel="stylesheet" href="css/base.css?v=5">
+    <link rel="stylesheet" href="css/layout.css?v=5">
+    <link rel="stylesheet" href="css/modules.css?v=5">
+    <link rel="stylesheet" href="css/states.css?v=5">
+    <link rel="stylesheet" href="css/themes.css?v=5">
     <script>
-        document.addEventListener('contextmenu', function (e) { e.preventDefault() }); document.addEventListener('keydown', function (e) {
+        document.addEventListener('contextmenu', function (e) { e.preventDefault() });
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'F12') { e.preventDefault() }
             if (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key.toUpperCase())) { e.preventDefault() }
             if (e.ctrlKey && e.key.toUpperCase() === 'U') { e.preventDefault() }
-        })
+        });
     </script>
 </head>
 
 <body>
+    <!-- Enhanced Loading Bar -->
+    <div class="page-loading-bar" id="pageLoadingBar"></div>
+
     <div class="loading" id="loadingScreen">
         <div class="loading__logo-container">
             <img class="loading__logo-icon" src="assets/img/img2.webp" alt="nekoprofile" loading="lazy">
@@ -84,6 +88,18 @@
         </div>
         <div class="loading__spinner"></div>
         <div class="loading__text" data-lang="loading-text">Cargando...</div>
+
+        <!-- Enhanced Particles -->
+        <div class="loading__particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
     </div>
 
     <div class="age-verification" id="ageVerification">
@@ -94,11 +110,87 @@
                 Por favor, confirma tu edad para continuar.
             </p>
             <div class="age-verification__buttons">
-                <button class="btn" id="confirmAge" data-lang="age-confirm">Soy mayor de 18</button>
-                <button class="btn btn--danger" id="denyAge" data-lang="age-deny">Soy menor de 18</button>
+                <button class="button button--primary button--ripple" id="confirmAge" data-lang="age-confirm">Soy mayor
+                    de 18</button>
+                <button class="button button--danger button--ripple" id="denyAge" data-lang="age-deny">Soy menor de
+                    18</button>
             </div>
         </div>
     </div>
+
+    <!-- Enhanced Side Navigation -->
+    <div class="side-nav" id="sideNav">
+        <div class="side-nav__header">
+            <h2 class="side-nav__title">くろねこ</h2>
+            <button class="side-nav__close" id="sideNavClose" aria-label="Cerrar menú">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="side-nav__content">
+            <div class="side-nav__section">
+                <h3 class="side-nav__section-title" data-lang="nav-navigation">Navegación</h3>
+                <ul class="side-nav__menu">
+                    <li class="side-nav__menu-item">
+                        <a href="#gallery" class="side-nav__menu-link" data-section="gallery">
+                            <span class="side-nav__menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
+                                        stroke="currentColor" stroke-width="2" />
+                                    <path d="M8 4v16M16 4v16M4 8h16M4 16h16" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </span>
+                            <span class="side-nav__menu-text" data-lang="nav-gallery">Galería</span>
+                        </a>
+                    </li>
+                    <li class="side-nav__menu-item">
+                        <a href="#shop" class="side-nav__menu-link" data-section="shop">
+                            <span class="side-nav__menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="side-nav__menu-text" data-lang="nav-shop">Tienda</span>
+                        </a>
+                    </li>
+                    <li class="side-nav__menu-item">
+                        <a href="#messages" class="side-nav__menu-link" data-section="messages">
+                            <span class="side-nav__menu-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2v10z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="side-nav__menu-text" data-lang="nav-messages">Mensajes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="side-nav__user-info" id="sideNavUserInfo" style="display: none;">
+                <div class="side-nav__user-welcome" data-lang="messages-welcome">Bienvenido,</div>
+                <div class="side-nav__username" id="sideNavUsername"></div>
+            </div>
+        </div>
+
+        <div class="side-nav__footer">
+            <select class="language-selector" id="sideNavLanguageSelector">
+                <option value="es">Español</option>
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Enhanced Menu Overlay -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <div class="l-container">
         <header class="l-header">
@@ -106,7 +198,7 @@
                 <div class="header__nav">
                     <div class="header__logo">くろねこ</div>
 
-                    <button class="header__hamburger" id="hamburgerButton" aria-label="Abrir menú">
+                    <button class="header__hamburger" id="hamburgerButton" aria-label="Abrir menú de navegación">
                         <span class="hamburger__line"></span>
                         <span class="hamburger__line"></span>
                         <span class="hamburger__line"></span>
@@ -121,6 +213,16 @@
                             <a href="#shop" class="header__link" data-section="shop" data-lang="nav-shop">Tienda</a>
                         </li>
                         <li>
+                            <a href="#messages" class="header__link" data-section="messages"
+                                data-lang="nav-messages">Mensajes</a>
+                        </li>
+                        <li class="header__auth" id="headerAuth" style="display: none;">
+                            <span class="header__user" id="headerUser"></span>
+                            <button class="button button--small button--danger button--ripple" id="headerLogout"
+                                data-lang="logout">Cerrar
+                                Sesión</button>
+                        </li>
+                        <li>
                             <select class="language-selector" id="languageSelector">
                                 <option value="es">Español</option>
                                 <option value="en">English</option>
@@ -133,18 +235,19 @@
         </header>
 
         <main class="l-main">
-            <section class="gallery section-active" id="gallery">
+            <section class="gallery section section--active" id="gallery">
                 <h1 class="gallery__title" data-lang="gallery-title">Galería くろねこ</h1>
 
                 <div class="gallery-loading" id="galleryLoading">
                     <div class="gallery-loading__spinner"></div>
-                    <div class="gallery-loading__text" data-lang="loading-text">Cargando imágenes...</div>
+                    <div class="gallery-loading__text" data-lang="loading-images">Cargando imágenes...</div>
                 </div>
 
                 <div class="gallery__grid" id="galleryGrid">
+                    <!-- Las imágenes se cargarán dinámicamente aquí -->
                 </div>
                 <div class="gallery__load-more">
-                    <button class="btn" id="loadMoreBtn" data-lang="load-more">Cargar más</button>
+                    <button class="button button--ripple" id="loadMoreBtn" data-lang="load-more">Cargar más</button>
                 </div>
             </section>
 
@@ -157,80 +260,464 @@
 
                 <div class="shop__loading" id="shopLoading">
                     <div class="shop-loading__spinner"></div>
-                    <div class="shop-loading__text" data-lang="loading-text">Cargando productos...</div>
+                    <div class="shop-loading__text" data-lang="loading-products">Cargando productos...</div>
                 </div>
 
                 <div class="shop__grid" id="shopGrid">
+                    <!-- Los productos se cargarán dinámicamente aquí -->
                 </div>
 
                 <div class="shop__empty" id="shopEmpty">
                     <p data-lang="shop-empty">No hay productos disponibles en este momento.</p>
                 </div>
             </section>
+
+            <!-- Enhanced Messages Section -->
+            <section class="messages section" id="messages">
+                <!-- Enhanced Auth System -->
+                <div class="auth-section" id="authSection">
+                    <div class="auth-container">
+                        <!-- Login Form -->
+                        <div class="auth-form auth-form--active" id="loginSection">
+                            <h2 class="auth-form__title" data-lang="login-title">Iniciar Sesión</h2>
+                            <form class="auth-form__form" id="loginForm">
+                                <div class="auth-form__group">
+                                    <label class="auth-form__label" data-lang="login-username">Usuario</label>
+                                    <input type="text" class="auth-form__input" name="username" required
+                                        data-lang="login-username-placeholder" placeholder="Ingresa tu usuario">
+                                    <div class="auth-form__error" id="loginUsernameError"></div>
+                                </div>
+                                <div class="auth-form__group">
+                                    <label class="auth-form__label" data-lang="login-password">Contraseña</label>
+                                    <input type="password" class="auth-form__input" name="password" required
+                                        data-lang="login-password-placeholder" placeholder="Ingresa tu contraseña">
+                                    <div class="auth-form__error" id="loginPasswordError"></div>
+                                </div>
+                                <button type="submit" class="button button--primary button--ripple auth-form__submit"
+                                    data-lang="login-submit">Iniciar Sesión</button>
+                            </form>
+                            <p class="auth-form__switch">
+                                <span data-lang="login-no-account">¿No tienes cuenta?</span>
+                                <a href="#" class="auth-form__link" id="showRegister"
+                                    data-lang="login-register-link">Regístrate aquí</a>
+                            </p>
+                        </div>
+
+                        <!-- Register Form -->
+                        <div class="auth-form" id="registerSection">
+                            <h2 class="auth-form__title" data-lang="register-title">Crear Cuenta</h2>
+                            <form class="auth-form__form" id="registerForm">
+                                <div class="auth-form__group">
+                                    <label class="auth-form__label" data-lang="register-username">Usuario</label>
+                                    <input type="text" class="auth-form__input" name="reg_username" required
+                                        data-lang="register-username-placeholder"
+                                        placeholder="Elige un usuario (mín. 3 caracteres)">
+                                    <div class="auth-form__error" id="registerUsernameError"></div>
+                                </div>
+                                <div class="auth-form__group">
+                                    <label class="auth-form__label" data-lang="register-password">Contraseña</label>
+                                    <input type="password" class="auth-form__input" name="reg_password" required
+                                        data-lang="register-password-placeholder"
+                                        placeholder="Crea una contraseña (mín. 6 caracteres)">
+                                    <div class="password-strength">
+                                        <div class="password-strength__bar" id="passwordStrengthBar"></div>
+                                    </div>
+                                    <div class="auth-form__error" id="registerPasswordError"></div>
+                                </div>
+                                <div class="auth-form__group">
+                                    <label class="auth-form__label" data-lang="register-confirm-password">Confirmar
+                                        Contraseña</label>
+                                    <input type="password" class="auth-form__input" name="reg_confirm_password" required
+                                        data-lang="register-confirm-password-placeholder"
+                                        placeholder="Repite la contraseña">
+                                    <div class="auth-form__error" id="registerConfirmPasswordError"></div>
+                                </div>
+                                <button type="submit" class="button button--primary button--ripple auth-form__submit"
+                                    data-lang="register-submit">Crear Cuenta</button>
+                            </form>
+                            <p class="auth-form__switch">
+                                <span data-lang="register-have-account">¿Ya tienes cuenta?</span>
+                                <a href="#" class="auth-form__link" id="showLogin"
+                                    data-lang="register-login-link">Inicia sesión aquí</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Messages System -->
+                <div class="messages-section" id="messagesSection" style="display: none;margin: 25px;">
+                    <div class="messages__header">
+                        <h1 class="messages__title" data-lang="messages-title">Mensajes Privados</h1>
+                        <p class="messages__subtitle" data-lang="messages-subtitle">Comunicación segura con el vendedor
+                        </p>
+                        <div class="messages__user-info">
+                            <span class="messages__welcome" data-lang="messages-welcome">Bienvenido,</span>
+                            <span class="messages__username" id="usernameDisplay"></span>
+                            <button class="button button--small button--danger button--ripple" id="logoutBtn"
+                                data-lang="logout">Cerrar
+                                Sesión</button>
+                        </div>
+                    </div>
+
+                    <div class="messages__loading" id="messagesLoading">
+                        <div class="messages-loading__spinner"></div>
+                        <div class="messages-loading__text" data-lang="loading-messages">Cargando mensajes...</div>
+                    </div>
+
+                    <div class="messages__container">
+                        <div class="messages__sidebar">
+                            <div class="messages__new-chat">
+                                <button class="button button--primary button--ripple" id="newMessageBtn"
+                                    data-lang="messages-new">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        style="margin-right: 8px;">
+                                        <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    Nuevo Mensaje
+                                </button>
+                            </div>
+                            <div class="messages__list" id="messagesList">
+                                <!-- Enhanced Loading Skeleton -->
+                                <div class="conversations-loading" id="conversationsLoading">
+                                    <div class="conversation-skeleton">
+                                        <div class="skeleton-avatar"></div>
+                                        <div class="skeleton-content">
+                                            <div class="skeleton-line"></div>
+                                            <div class="skeleton-line skeleton-line--short"></div>
+                                            <div class="skeleton-line skeleton-line--very-short"></div>
+                                        </div>
+                                    </div>
+                                    <div class="conversation-skeleton">
+                                        <div class="skeleton-avatar"></div>
+                                        <div class="skeleton-content">
+                                            <div class="skeleton-line"></div>
+                                            <div class="skeleton-line skeleton-line--short"></div>
+                                            <div class="skeleton-line skeleton-line--very-short"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="messages__content">
+                            <div class="messages__empty" id="messagesEmpty">
+                                <div class="empty-state">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none"
+                                        style="margin-bottom: 1rem; opacity: 0.5;">
+                                        <path
+                                            d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    <h3 data-lang="messages-empty-title">No hay conversaciones</h3>
+                                    <p data-lang="messages-empty-text">Selecciona una conversación o inicia un nuevo
+                                        mensaje para comenzar.</p>
+                                </div>
+                            </div>
+
+                            <div class="messages__chat" id="messagesChat" style="display: none;">
+                                <div class="messages__chat-header">
+                                    <div class="chat-header__info">
+                                        <h3 id="chatWith">Vendedor</h3>
+                                        <span class="messages__status" id="chatStatus" data-lang="conversation-online">
+                                            <span class="status-indicator"></span>
+                                            En línea
+                                        </span>
+                                    </div>
+                                    <div class="chat-header__actions">
+                                        <button class="button button--small button--ripple" id="chatInfoBtn"
+                                            title="Información del chat">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                                <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" />
+                                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="messages__messages" id="messagesContent">
+                                    <!-- Enhanced Loading for Messages -->
+                                    <div class="loading-container" id="chatLoading">
+                                        <div class="loading-spinner"></div>
+                                        <div class="loading-text">Cargando mensajes...</div>
+                                    </div>
+                                </div>
+
+                                <div class="messages__input-container">
+                                    <div class="messages__input">
+                                        <textarea id="messageInput" placeholder="Escribe tu mensaje..."
+                                            data-lang="messages-placeholder" rows="1"></textarea>
+                                        <button class="button button--primary button--ripple" id="sendMessageBtn"
+                                            data-lang="messages-send" title="Enviar mensaje">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                <path d="M22 2L11 13" stroke="currentColor" stroke-width="2"
+                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="messages__input-hint">
+                                        <span data-lang="messages-input-hint">Presiona Enter para enviar, Shift+Enter
+                                            para nueva línea</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
 
+    <!-- Enhanced Modal -->
     <div class="modal" id="imageModal">
         <div class="modal__content">
             <button class="modal__close" id="modalClose">&times;</button>
-            <img class="modal__image" id="modalImage" src="" alt="">
+            <img class="modal__image" id="modalImage" alt="Imagen ampliada">
             <div class="modal__actions">
-                <button class="btn" id="downloadBtn" data-lang="download">Descargar</button>
-                <button class="btn" id="zoomBtn" data-lang="zoom">Zoom</button>
+                <button class="button button--ripple" id="downloadBtn" data-lang="download">Descargar</button>
+                <button class="button button--ripple" id="zoomBtn" data-lang="zoom">Zoom</button>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="contactModal">
-        <div class="modal__content modal__content--contact">
-            <button class="modal__close" id="contactModalClose">&times;</button>
-
-            <div class="contact-form">
-                <h2 class="contact-form__title" data-lang="contact-title">Contactar sobre: <span
-                        id="contactProductTitle"></span></h2>
-
-                <form id="contactForm">
-                    <input type="hidden" id="contactProductId" name="productId">
-                    <input type="hidden" id="contactProductName" name="productName">
-
-                    <div class="form-group">
-                        <label for="contactName" data-lang="contact-name">Nombre completo</label>
-                        <input type="text" id="contactName" name="name" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contactEmail" data-lang="contact-email">Correo electrónico</label>
-                        <input type="email" id="contactEmail" name="email" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contactMessage" data-lang="contact-message">Mensaje</label>
-                        <textarea id="contactMessage" name="message" rows="5" required
-                            data-lang="contact-message-placeholder">Estoy interesado en este producto y me gustaría obtener más información.</textarea>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" class="btn btn--secondary" id="contactCancel"
-                            data-lang="contact-cancel">Cancelar</button>
-                        <button type="submit" class="btn" id="contactSubmit" data-lang="contact-submit">
-                            <span class="btn__text" data-lang="contact-submit">Enviar mensaje</span>
-                        </button>
-                    </div>
-                </form>
+    <!-- Enhanced Chat Info Modal -->
+    <div class="modal" id="chatInfoModal" style="display: none;">
+        <div class="modal__content">
+            <button class="modal__close" id="chatInfoClose">&times;</button>
+            <h3 class="modal__title">Información del Chat</h3>
+            <div class="chat-info__content">
+                <div class="chat-info__item">
+                    <strong>Conversación con:</strong>
+                    <span id="chatInfoContact">Vendedor</span>
+                </div>
+                <div class="chat-info__item">
+                    <strong>ID de Conversación:</strong>
+                    <span id="chatInfoId">-</span>
+                </div>
+                <div class="chat-info__item">
+                    <strong>Producto:</strong>
+                    <span id="chatInfoProduct">No especificado</span>
+                </div>
+                <div class="chat-info__item">
+                    <strong>Mensajes:</strong>
+                    <span id="chatInfoMessageCount">0</span>
+                </div>
+                <div class="chat-info__item">
+                    <strong>Estado:</strong>
+                    <span class="status-indicator online"></span>
+                    <span>En línea</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="js/utils.js?v=2"></script>
-    <script src="js/age-verification.js?v=2"></script>
-    <script src="js/modal.js?v=2.1"></script>
-    <script src="js/gallery.js?v=2"></script>
-    <script src="js/contact.js?v=2"></script>
-    <script src="js/shop.js?v=2"></script>
-    <script src="js/navigation.js?v=2"></script>
-    <script src="js/app.js?v=2"></script>
+    <!-- Enhanced Scripts -->
+    <script src="js/utils.js?v=5"></script>
+    <script src="js/age-verification.js?v=5"></script>
+    <script src="js/modal.js?v=5"></script>
+    <script src="js/gallery.js?v=5"></script>
+    <script src="js/messages.js?v=5"></script>
+    <script src="js/shop.js?v=5"></script>
+    <script src="js/navigation.js?v=5"></script>
+    <script src="js/app.js?v=5"></script>
+
     <script>
-        const hamburgerButton = document.getElementById('hamburgerButton'); const headerMenu = document.getElementById('headerMenu'); if (hamburgerButton && headerMenu) { hamburgerButton.addEventListener('click', function () { this.classList.toggle('active'); headerMenu.classList.toggle('active'); document.body.classList.toggle('menu-open') }); headerMenu.querySelectorAll('.header__link').forEach(link => { link.addEventListener('click', () => { hamburgerButton.classList.remove('active'); headerMenu.classList.remove('active'); document.body.classList.remove('menu-open') }) }); document.addEventListener('click', (e) => { if (headerMenu.classList.contains('active') && !headerMenu.contains(e.target) && !hamburgerButton.contains(e.target)) { hamburgerButton.classList.remove('active'); headerMenu.classList.remove('active'); document.body.classList.remove('menu-open') } }) }
+        // Enhanced Side Navigation Logic
+        const SideNavigation = (function () {
+            'use strict';
+
+            const DOM = {
+                sideNav: document.getElementById('sideNav'),
+                hamburgerButton: document.getElementById('hamburgerButton'),
+                sideNavClose: document.getElementById('sideNavClose'),
+                menuOverlay: document.getElementById('menuOverlay'),
+                sideNavLinks: document.querySelectorAll('.side-nav__menu-link[data-section]'),
+                sideNavUserInfo: document.getElementById('sideNavUserInfo'),
+                sideNavUsername: document.getElementById('sideNavUsername'),
+                sideNavLanguageSelector: document.getElementById('sideNavLanguageSelector')
+            };
+
+            function openSideNav() {
+                DOM.sideNav.classList.add('side-nav--open');
+                DOM.menuOverlay.classList.add('menu-overlay--active');
+                document.body.classList.add('body--menu-open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeSideNav() {
+                DOM.sideNav.classList.remove('side-nav--open');
+                DOM.menuOverlay.classList.remove('menu-overlay--active');
+                document.body.classList.remove('body--menu-open');
+                document.body.style.overflow = '';
+            }
+
+            function handleSideNavLinkClick(e) {
+                e.preventDefault();
+                const section = this.getAttribute('data-section');
+                closeSideNav();
+
+                // Enhanced navigation with loading states
+                const pageLoadingBar = document.getElementById('pageLoadingBar');
+                if (pageLoadingBar) {
+                    pageLoadingBar.classList.add('loading');
+                    setTimeout(() => {
+                        pageLoadingBar.classList.remove('loading');
+                        pageLoadingBar.classList.add('complete');
+                        setTimeout(() => {
+                            pageLoadingBar.classList.remove('complete');
+                        }, 500);
+                    }, 400);
+                }
+
+                // Usar Navigation si está disponible, sino cambiar sección manualmente
+                if (typeof Navigation !== 'undefined' && Navigation.switchToSection) {
+                    Navigation.switchToSection(section);
+                } else {
+                    // Cambio manual de sección como fallback
+                    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('section--active'));
+                    document.getElementById(section).classList.add('section--active');
+
+                    // Actualizar URL
+                    window.history.pushState(null, null, `#${section}`);
+                }
+            }
+
+            function updateUserInfo() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    try {
+                        const user = JSON.parse(savedUser);
+                        DOM.sideNavUsername.textContent = user.username;
+                        DOM.sideNavUserInfo.style.display = 'block';
+                    } catch (error) {
+                        console.error('Error parsing user for side nav:', error);
+                        DOM.sideNavUserInfo.style.display = 'none';
+                    }
+                } else {
+                    DOM.sideNavUserInfo.style.display = 'none';
+                }
+            }
+
+            function syncLanguageSelectors() {
+                const mainSelector = document.getElementById('languageSelector');
+                if (mainSelector && DOM.sideNavLanguageSelector) {
+                    // Sincronizar valor inicial
+                    DOM.sideNavLanguageSelector.value = mainSelector.value;
+
+                    // Sincronizar cambios desde side nav
+                    DOM.sideNavLanguageSelector.addEventListener('change', function () {
+                        mainSelector.value = this.value;
+                        mainSelector.dispatchEvent(new Event('change'));
+                    });
+
+                    // Sincronizar cambios desde main selector
+                    mainSelector.addEventListener('change', function () {
+                        DOM.sideNavLanguageSelector.value = this.value;
+                    });
+                }
+            }
+
+            function init() {
+                if (!DOM.sideNav) {
+                    console.error('Side Navigation: Elementos del DOM no encontrados');
+                    return;
+                }
+
+                // Enhanced event listeners
+                DOM.hamburgerButton.addEventListener('click', openSideNav);
+                DOM.sideNavClose.addEventListener('click', closeSideNav);
+                DOM.menuOverlay.addEventListener('click', closeSideNav);
+
+                // Enhanced navigation links
+                DOM.sideNavLinks.forEach(link => {
+                    link.addEventListener('click', handleSideNavLinkClick);
+                });
+
+                // Enhanced keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && DOM.sideNav.classList.contains('side-nav--open')) {
+                        closeSideNav();
+                    }
+                });
+
+                // Enhanced user info updates
+                updateUserInfo();
+
+                // Enhanced language selector sync
+                syncLanguageSelectors();
+
+                // Enhanced event listeners for user changes
+                document.addEventListener('userLoggedIn', updateUserInfo);
+                document.addEventListener('userLoggedOut', updateUserInfo);
+
+                console.log('Enhanced Side Navigation inicializado correctamente');
+            }
+
+            return {
+                init: init,
+                open: openSideNav,
+                close: closeSideNav,
+                updateUserInfo: updateUserInfo
+            };
+        })();
+
+        // Enhanced initialization
+        document.addEventListener('DOMContentLoaded', function () {
+            SideNavigation.init();
+
+            // Enhanced page loading bar
+            const pageLoadingBar = document.getElementById('pageLoadingBar');
+            if (pageLoadingBar) {
+                setTimeout(() => {
+                    pageLoadingBar.classList.add('loading');
+                    setTimeout(() => {
+                        pageLoadingBar.classList.remove('loading');
+                        pageLoadingBar.classList.add('complete');
+                        setTimeout(() => {
+                            pageLoadingBar.classList.remove('complete');
+                        }, 500);
+                    }, 1000);
+                }, 100);
+            }
+        });
+
+        // Enhanced scroll animations
+        function initScrollAnimations() {
+            const scrollElements = document.querySelectorAll('.scroll-reveal');
+
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (
+                    elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend
+                );
+            };
+
+            const displayScrollElement = (element) => {
+                element.classList.add('revealed');
+            };
+
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) {
+                        displayScrollElement(el);
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation();
+            });
+
+            // Initial check
+            handleScrollAnimation();
+        }
+
+        // Initialize scroll animations when page loads
+        window.addEventListener('load', initScrollAnimations);
     </script>
 </body>
 

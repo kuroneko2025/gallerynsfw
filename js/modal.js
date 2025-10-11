@@ -1,6 +1,6 @@
 const Modal = (function () {
     'use strict';
-    let isImageZoomed = !1;
+    let isImageZoomed = false;
     let currentImageSrc = '';
     let currentImageName = '';
     let posX = 0, posY = 0;
@@ -15,24 +15,41 @@ const Modal = (function () {
         zoomBtn: document.getElementById('zoomBtn')
     };
 
+    // Verificar que todos los elementos del DOM existen
+    function validateDOM() {
+        const requiredElements = ['imageModal', 'modalImage', 'modalClose', 'downloadBtn', 'zoomBtn'];
+        for (const element of requiredElements) {
+            if (!DOM[element]) {
+                console.error(`Modal: Elemento ${element} no encontrado en el DOM`);
+                return false;
+            }
+        }
+        return true;
+    }
+
     function startDrag(e) {
+        if (!isImageZoomed) return;
         isDragging = true;
-        DOM.modalImage.classList.add('dragging');
+        DOM.modalImage.classList.add('modal__image--zoomed--dragging');
         startX = e.clientX - posX;
         startY = e.clientY - posY;
     }
 
     function endDrag() {
         isDragging = false;
-        DOM.modalImage.classList.remove('dragging');
+        DOM.modalImage.classList.remove('modal__image--zoomed--dragging');
     }
 
     function resetImageZoom() {
         isImageZoomed = false;
         posX = posY = 0;
-        DOM.modalImage.classList.remove('modal__image--zoomed', 'dragging');
-        DOM.modalImage.style.transform = '';
-        DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()].zoom || 'Zoom';
+        if (DOM.modalImage) {
+            DOM.modalImage.classList.remove('modal__image--zoomed', 'modal__image--zoomed--dragging');
+            DOM.modalImage.style.transform = '';
+        }
+        if (DOM.zoomBtn) {
+            DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()]?.zoom || 'Zoom';
+        }
         disableImagePan();
     }
 
@@ -43,13 +60,24 @@ const Modal = (function () {
         // Resetear zoom antes de mostrar
         resetImageZoom();
 
-        DOM.modalImage.src = src;
-        DOM.imageModal.classList.add('modal--active');
+        if (DOM.modalImage) {
+            DOM.modalImage.src = src;
+            DOM.modalImage.alt = name || 'Imagen ampliada';
+        }
+        
+        if (DOM.imageModal) {
+            DOM.imageModal.style.display = 'flex';
+            // Pequeño delay para asegurar que el display flex se aplique antes de la animación
+            setTimeout(() => {
+                DOM.imageModal.classList.add('modal--active');
+            }, 10);
+        }
+        
         document.body.style.overflow = 'hidden';
     }
 
     function toggleImageZoom() {
-        if (!DOM.imageModal.classList.contains('modal--active')) return; // solo si hay imagen abierta
+        if (!DOM.imageModal || !DOM.imageModal.classList.contains('modal--active')) return;
 
         isImageZoomed = !isImageZoomed;
 
@@ -57,7 +85,9 @@ const Modal = (function () {
             DOM.modalImage.classList.add('modal__image--zoomed');
             DOM.modalImage.style.transform = `scale(2) translate(0px, 0px)`;
             posX = posY = 0;
-            DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()]['zoom-out'] || 'Reducir';
+            if (DOM.zoomBtn) {
+                DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()]?.['zoom-out'] || 'Reducir';
+            }
             enableImagePan();
         } else {
             resetImageZoom();
@@ -65,38 +95,63 @@ const Modal = (function () {
     }
 
     function hideModal() {
-        DOM.imageModal.classList.remove('modal--active');
+        if (DOM.imageModal) {
+            DOM.imageModal.classList.remove('modal--active');
+            // Usar timeout para permitir la animación CSS antes de ocultar completamente
+            setTimeout(() => {
+                if (DOM.imageModal) {
+                    DOM.imageModal.style.display = 'none';
+                }
+                
+                // Delay adicional de 100ms antes de limpiar la imagen para asegurar que la animación termine
+                setTimeout(() => {
+                    // Limpiar la imagen para liberar memoria (con delay para evitar que se borre durante la animación)
+                    if (DOM.modalImage) {
+                        DOM.modalImage.src = '';
+                        DOM.modalImage.alt = 'Imagen ampliada';
+                    }
+                }, 100);
+            }, 300); // Tiempo que dura la animación de fade out
+        }
         document.body.style.overflow = 'auto';
         resetImageZoom();
     }
-
 
     function enableImagePan() {
         // Teclado (flechas)
         document.addEventListener('keydown', handleArrowKeys);
 
         // Mouse drag
-        DOM.modalImage.addEventListener('mousedown', startDrag);
+        if (DOM.modalImage) {
+            DOM.modalImage.addEventListener('mousedown', startDrag);
+        }
         document.addEventListener('mousemove', onDrag);
         document.addEventListener('mouseup', endDrag);
 
         // Touch
-        DOM.modalImage.addEventListener('touchstart', startTouch, { passive: false });
-        DOM.modalImage.addEventListener('touchmove', onTouchMove, { passive: false });
-        DOM.modalImage.addEventListener('touchend', endTouch);
+        if (DOM.modalImage) {
+            DOM.modalImage.addEventListener('touchstart', startTouch, { passive: false });
+            DOM.modalImage.addEventListener('touchmove', onTouchMove, { passive: false });
+            DOM.modalImage.addEventListener('touchend', endTouch);
+        }
     }
 
     function disableImagePan() {
         document.removeEventListener('keydown', handleArrowKeys);
-        DOM.modalImage.removeEventListener('mousedown', startDrag);
+        if (DOM.modalImage) {
+            DOM.modalImage.removeEventListener('mousedown', startDrag);
+        }
         document.removeEventListener('mousemove', onDrag);
         document.removeEventListener('mouseup', endDrag);
-        DOM.modalImage.removeEventListener('touchstart', startTouch);
-        DOM.modalImage.removeEventListener('touchmove', onTouchMove);
-        DOM.modalImage.removeEventListener('touchend', endTouch);
+        if (DOM.modalImage) {
+            DOM.modalImage.removeEventListener('touchstart', startTouch);
+            DOM.modalImage.removeEventListener('touchmove', onTouchMove);
+            DOM.modalImage.removeEventListener('touchend', endTouch);
+        }
     }
 
     function handleArrowKeys(e) {
+        if (!isImageZoomed) return;
         const step = 20; // píxeles por pulsación
         if (e.key === 'ArrowUp') posY += step;
         if (e.key === 'ArrowDown') posY -= step;
@@ -106,21 +161,21 @@ const Modal = (function () {
     }
 
     function onDrag(e) {
-        if (!isDragging) return;
+        if (!isDragging || !isImageZoomed) return;
         posX = e.clientX - startX;
         posY = e.clientY - startY;
         updateTransform();
     }
 
     function startTouch(e) {
-        if (e.touches.length === 1) {
+        if (e.touches.length === 1 && isImageZoomed) {
             startX = e.touches[0].clientX - posX;
             startY = e.touches[0].clientY - posY;
         }
     }
 
     function onTouchMove(e) {
-        if (e.touches.length === 1) {
+        if (e.touches.length === 1 && isImageZoomed) {
             e.preventDefault(); // evita scroll de la página
             posX = e.touches[0].clientX - startX;
             posY = e.touches[0].clientY - startY;
@@ -133,16 +188,9 @@ const Modal = (function () {
     }
 
     function updateTransform() {
-        DOM.modalImage.style.transform = `scale(2) translate(${posX}px, ${posY}px)`;
-    }
-
-
-    function hideModal() {
-        DOM.imageModal.classList.remove('modal--active');
-        document.body.style.overflow = 'auto';
-        isImageZoomed = !1;
-        DOM.modalImage.classList.remove('modal__image--zoomed');
-        DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()].zoom || 'Zoom'
+        if (DOM.modalImage) {
+            DOM.modalImage.style.transform = `scale(2) translate(${posX}px, ${posY}px)`;
+        }
     }
 
     function downloadImage() {
@@ -161,7 +209,7 @@ const Modal = (function () {
                     if (!blob) {
                         console.error('No se pudo generar el blob de la imagen');
                         showDownloadOptions();
-                        return
+                        return;
                     }
                     const fileName = `kuroneko-image-${Date.now()}.jpg`;
                     const url = URL.createObjectURL(blob);
@@ -173,19 +221,19 @@ const Modal = (function () {
                     a.click();
                     setTimeout(() => {
                         document.body.removeChild(a);
-                        URL.revokeObjectURL(url)
+                        URL.revokeObjectURL(url);
                     }, 100);
-                    showDownloadNotification()
-                }, 'image/jpeg', 0.95)
+                    showDownloadNotification();
+                }, 'image/jpeg', 0.95);
             } catch (error) {
                 console.error('Error al procesar la imagen:', error);
-                showDownloadOptions()
+                showDownloadOptions();
             }
         };
         img.onerror = function () {
             console.error('No se pudo cargar la imagen para descarga directa');
-            showDownloadOptions()
-        }
+            showDownloadOptions();
+        };
     }
 
     function showDownloadOptions() {
@@ -193,128 +241,181 @@ const Modal = (function () {
         downloadModal.className = 'download-options-modal';
         downloadModal.innerHTML = `
             <div class="download-options__content">
-                <h3>${Utils.translations[KuronekoApp.getCurrentLanguage()]['download-options'] || 'Opciones de descarga'}</h3>
-                <p>${Utils.translations[KuronekoApp.getCurrentLanguage()]['download-restricted'] || 'No se puede descargar directamente debido a restricciones del servidor.'}</p>
+                <h3>${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['download-options'] || 'Opciones de descarga'}</h3>
+                <p>${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['download-restricted'] || 'No se puede descargar directamente debido a restricciones del servidor.'}</p>
                 <div class="download-options__buttons">
-                    <button class="btn btn--secondary" id="openInNewTab">
-                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]['open-tab'] || 'Abrir en nueva pestaña'}
+                    <button class="button button--secondary" id="openInNewTab">
+                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['open-tab'] || 'Abrir en nueva pestaña'}
                     </button>
-                    <button class="btn" id="copyImageLink">
-                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]['copy-link'] || 'Copiar enlace'}
+                    <button class="button" id="copyImageLink">
+                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['copy-link'] || 'Copiar enlace'}
                     </button>
-                    <button class="btn btn--danger" id="closeDownloadOptions">
-                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]['close'] || 'Cerrar'}
+                    <button class="button button--danger" id="closeDownloadOptions">
+                        ${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['close'] || 'Cerrar'}
                     </button>
                 </div>
             </div>
         `;
         document.body.appendChild(downloadModal);
-        document.getElementById('openInNewTab').addEventListener('click', function () {
-            window.open(currentImageSrc, '_blank');
-            document.body.removeChild(downloadModal)
-        });
-        document.getElementById('copyImageLink').addEventListener('click', function () {
-            navigator.clipboard.writeText(currentImageSrc).then(() => {
-                showCopySuccessNotification();
-                document.body.removeChild(downloadModal)
-            }).catch(err => {
-                console.error('Error copying text: ', err);
-                showCopyErrorNotification()
-            })
-        });
-        document.getElementById('closeDownloadOptions').addEventListener('click', function () {
-            document.body.removeChild(downloadModal)
-        });
+        
+        // Event listeners para los botones del modal de descarga
+        const openInNewTabBtn = document.getElementById('openInNewTab');
+        const copyImageLinkBtn = document.getElementById('copyImageLink');
+        const closeDownloadOptionsBtn = document.getElementById('closeDownloadOptions');
+        
+        if (openInNewTabBtn) {
+            openInNewTabBtn.addEventListener('click', function () {
+                window.open(currentImageSrc, '_blank');
+                document.body.removeChild(downloadModal);
+            });
+        }
+        
+        if (copyImageLinkBtn) {
+            copyImageLinkBtn.addEventListener('click', function () {
+                navigator.clipboard.writeText(currentImageSrc).then(() => {
+                    showCopySuccessNotification();
+                    document.body.removeChild(downloadModal);
+                }).catch(err => {
+                    console.error('Error copying text: ', err);
+                    showCopyErrorNotification();
+                });
+            });
+        }
+        
+        if (closeDownloadOptionsBtn) {
+            closeDownloadOptionsBtn.addEventListener('click', function () {
+                document.body.removeChild(downloadModal);
+            });
+        }
+        
         downloadModal.addEventListener('click', function (e) {
             if (e.target === downloadModal) {
-                document.body.removeChild(downloadModal)
+                document.body.removeChild(downloadModal);
             }
-        })
+        });
     }
 
     function showDownloadNotification() {
         const notification = document.createElement('div');
         notification.className = 'download-notification download-notification--success';
         notification.innerHTML = `
-            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['download-success'] || 'Descarga completada'}</span>
+            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['download-success'] || 'Descarga completada'}</span>
         `;
         document.body.appendChild(notification);
         setTimeout(() => {
-            notification.classList.add('download-notification--show')
+            notification.classList.add('download-notification--show');
         }, 10);
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
-                document.body.removeChild(notification)
-            }, 300)
-        }, 3000)
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
 
     function showCopySuccessNotification() {
         const notification = document.createElement('div');
         notification.className = 'download-notification download-notification--success';
         notification.innerHTML = `
-            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['copy-success'] || 'Enlace copiado al portapapeles'}</span>
+            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['copy-success'] || 'Enlace copiado al portapapeles'}</span>
         `;
         document.body.appendChild(notification);
         setTimeout(() => {
-            notification.classList.add('download-notification--show')
+            notification.classList.add('download-notification--show');
         }, 10);
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
-                document.body.removeChild(notification)
-            }, 300)
-        }, 3000)
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
 
     function showCopyErrorNotification() {
         const notification = document.createElement('div');
         notification.className = 'download-notification download-notification--error';
         notification.innerHTML = `
-            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]['copy-error'] || 'Error al copiar el enlace'}</span>
+            <span>${Utils.translations[KuronekoApp.getCurrentLanguage()]?.['copy-error'] || 'Error al copiar el enlace'}</span>
         `;
         document.body.appendChild(notification);
         setTimeout(() => {
-            notification.classList.add('download-notification--show')
+            notification.classList.add('download-notification--show');
         }, 10);
         setTimeout(() => {
             notification.classList.remove('download-notification--show');
             setTimeout(() => {
-                document.body.removeChild(notification)
-            }, 300)
-        }, 3000)
+                if (notification.parentNode) {
+                    document.body.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
+
     return {
         init: function () {
+            if (!validateDOM()) {
+                console.error('Modal: No se pudo inicializar debido a elementos faltantes en el DOM');
+                return;
+            }
+
+            // Asegurar que el modal esté oculto al inicio
+            DOM.imageModal.style.display = 'none';
+            
+            // Event listeners
             DOM.modalClose.addEventListener('click', hideModal);
             DOM.modalImage.addEventListener('click', toggleImageZoom);
             DOM.downloadBtn.addEventListener('click', downloadImage);
             DOM.zoomBtn.addEventListener('click', toggleImageZoom);
+            
             DOM.imageModal.addEventListener('click', function (e) {
                 if (e.target === DOM.imageModal) {
-                    hideModal()
+                    hideModal();
                 }
             });
+            
             document.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    hideModal()
+                if (e.key === 'Escape' && DOM.imageModal.classList.contains('modal--active')) {
+                    hideModal();
                 }
-            })
+            });
+
+            console.log('Modal inicializado correctamente');
         },
+        
         show: function (imageSrc, imageTitle = '') {
+            if (!validateDOM()) {
+                console.error('Modal: No se puede mostrar - elementos del DOM no disponibles');
+                return;
+            }
+            
             currentImageSrc = imageSrc;
             currentImageName = imageTitle;
-
             openImage(imageSrc, imageTitle);
-
-            DOM.modalImage.src = imageSrc;
-            DOM.modalImage.alt = imageTitle;
-            DOM.imageModal.classList.add('modal--active');
-            document.body.style.overflow = 'hidden';
-            isImageZoomed = !1;
-            DOM.modalImage.classList.remove('modal__image--zoomed');
-            DOM.zoomBtn.textContent = Utils.translations[KuronekoApp.getCurrentLanguage()].zoom || 'Zoom'
+        },
+        
+        // Método para verificar si el modal está activo
+        isActive: function() {
+            return DOM.imageModal && DOM.imageModal.classList.contains('modal--active');
+        },
+        
+        // Método para forzar el cierre del modal (sin delays)
+        forceClose: function() {
+            if (DOM.imageModal) {
+                DOM.imageModal.classList.remove('modal--active');
+                DOM.imageModal.style.display = 'none';
+            }
+            document.body.style.overflow = 'auto';
+            resetImageZoom();
+            
+            // Limpiar la imagen inmediatamente
+            if (DOM.modalImage) {
+                DOM.modalImage.src = '';
+                DOM.modalImage.alt = 'Imagen ampliada';
+            }
         }
-    }
-})()
+    };
+})();
