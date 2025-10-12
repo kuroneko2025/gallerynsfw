@@ -93,12 +93,12 @@ if(DOM.newMessageBtn){DOM.newMessageBtn.addEventListener('click',()=>{if(!curren
 createNewConversation()})}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopPolling()}else if(currentUser&&currentConversation){startPolling()}});EventSystem.on('refreshMessages',()=>{if(currentConversation){loadConversationMessages(currentConversation.id)}else{loadUserMessages()}});EventSystem.on('forceRefresh',()=>{stopPolling();if(currentConversation){loadConversationMessages(currentConversation.id)}
 startPolling()});isInitialized=!0;EventSystem.emit('messagesInitialized')}
-function onLanguageChange(){console.log('Language changed in Messages');if(this.isUserLoggedIn()&&currentConversation){this.refresh()}}
-function onUserLogin(){console.log('User login handled by Messages');this.loadUserMessages();if(currentConversation){this.startAutoRefresh()}}
-function onSectionActivated(){console.log('Messages section activated');if(this.isUserLoggedIn()&&currentConversation){this.startAutoRefresh()}}
-function onSectionDeactivated(){console.log('Messages section deactivated');this.stopAutoRefresh()}
-function onPageHidden(){console.log('Page hidden, stopping polling');this.stopAutoRefresh()}
-function onPageVisible(){console.log('Page visible, resuming polling if needed');if(this.isUserLoggedIn()&&currentConversation){const currentSection=typeof Navigation!=='undefined'&&Navigation.getCurrentSection?Navigation.getCurrentSection():'';if(currentSection==='messages'){this.startAutoRefresh()}}}
+function onLanguageChange(){if(this.isUserLoggedIn()&&currentConversation){this.refresh()}}
+function onUserLogin(){this.loadUserMessages();if(currentConversation){this.startAutoRefresh()}}
+function onSectionActivated(){if(this.isUserLoggedIn()&&currentConversation){this.startAutoRefresh()}}
+function onSectionDeactivated(){this.stopAutoRefresh()}
+function onPageHidden(){this.stopAutoRefresh()}
+function onPageVisible(){if(this.isUserLoggedIn()&&currentConversation){const currentSection=typeof Navigation!=='undefined'&&Navigation.getCurrentSection?Navigation.getCurrentSection():'';if(currentSection==='messages'){this.startAutoRefresh()}}}
 return{init:init,startNewMessage:function(productId,productTitle){if(!currentUser){showNotification('You must be signed in to send messages','error');if(typeof Navigation!=='undefined'&&Navigation.switchToSection){Navigation.switchToSection('messages')}
 return}
 if(typeof Navigation!=='undefined'&&Navigation.switchToSection){Navigation.switchToSection('messages')}else{showSection('messages')}
