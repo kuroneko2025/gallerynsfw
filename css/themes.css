@@ -96,7 +96,7 @@
     50% { opacity: .8; transform: scale(1.02) }
 }
 
-/* Animaciones optimizadas para móvil */
+
 .fade-in {
     animation: fadeIn 0.4s cubic-bezier(.4, 0, .2, 1) forwards;
 }
@@ -179,7 +179,7 @@
     animation: gradient-shift 12s ease infinite;
 }
 
-/* Clases de animación optimizadas */
+
 .animation--spin {
     animation: spin 1.5s cubic-bezier(.4, 0, .2, 1) infinite;
 }
@@ -232,7 +232,7 @@
     animation: ripple 0.6s ease-out;
 }
 
-/* Efectos hover optimizados */
+
 .hover--lift {
     transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), box-shadow 0.3s cubic-bezier(.4, 0, .2, 1);
     transform: translateZ(0);
@@ -260,7 +260,7 @@
     transform: scale(1.03) translateZ(0);
 }
 
-/* Glass effects */
+
 .glass {
     background: rgb(255 255 255 / .1);
     backdrop-filter: blur(10px) saturate(180%);
@@ -282,7 +282,7 @@
     border: 1px solid rgb(0 188 212 / .2);
 }
 
-/* Particles optimizados */
+
 .particles {
     position: relative;
     overflow: hidden;
@@ -296,7 +296,7 @@
     box-shadow: 0 0 10px rgb(0 188 212 / .5);
 }
 
-/* Efecto magnético optimizado */
+
 .magnetic {
     transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
     transform: translateZ(0);
@@ -306,7 +306,7 @@
     transform: translate(var(--tx, 0), var(--ty, 0)) translateZ(0);
 }
 
-/* Animaciones escalonadas optimizadas */
+
 .stagger-item {
     opacity: 0;
     transform: translateY(20px);
@@ -320,7 +320,7 @@
 .stagger-item:nth-child(5) { animation-delay: 0.25s }
 .stagger-item:nth-child(6) { animation-delay: 0.3s }
 
-/* Scroll reveal optimizado */
+
 .scroll-reveal {
     opacity: 0;
     transform: translateY(30px) scale(.98);
@@ -333,7 +333,7 @@
     transform: translateY(0) scale(1);
 }
 
-/* Media queries para optimización móvil */
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -368,7 +368,6 @@
     }
     
     .gallery__item::before,
-    .shop__item::before,
     .button::before,
     .header__link::before,
     .side-nav__menu-link::before {
@@ -376,7 +375,6 @@
     }
     
     .gallery__item:hover,
-    .shop__item:hover,
     .button:hover {
         transform: none !important;
     }
@@ -403,7 +401,7 @@
 }
 
 @media (max-width: 768px) {
-    /* Reducir animaciones en móviles */
+    
     .animation--spin { animation-duration: 2s; }
     .animation--pulse { animation-duration: 4s; }
     .animation--glow { animation-duration: 4s; }
@@ -412,13 +410,13 @@
     .animation--morph { animation-duration: 15s; }
     .animation--gradient-shift { animation-duration: 15s; }
     
-    /* Reducir partículas en móviles */
+    
     .particle {
         animation-duration: 12s;
-        display: none; /* Ocultar partículas en móviles para mejor rendimiento */
+        display: none; 
     }
     
-    /* Optimizar efectos hover para touch */
+    
     .hover--lift,
     .hover--tilt,
     .hover--scale {
@@ -437,7 +435,7 @@
         transform: scale(0.98);
     }
     
-    /* Reducir blur effects en móviles */
+    
     .bg--glass,
     .bg--glass-dark,
     .glass,
@@ -447,7 +445,7 @@
         -webkit-backdrop-filter: blur(5px);
     }
     
-    /* Optimizar stagger animations */
+    
     .stagger-item {
         animation-duration: 0.3s;
     }
@@ -459,12 +457,11 @@
     .stagger-item:nth-child(5) { animation-delay: 0.1s }
     .stagger-item:nth-child(6) { animation-delay: 0.12s }
     
-    /* Scroll reveal más rápido en móviles */
+    
     .scroll-reveal {
         transition-duration: 0.4s;
     }
     
-    /* Reducir sombras en móviles */
     .shadow--glow,
     .shadow--heavy,
     .shadow--floating {
@@ -571,7 +568,6 @@
     .mobile\:flex { display: flex }
     .mobile\:flex-col { flex-direction: column }
     
-    /* Optimizaciones adicionales para móviles */
     .blur-md { filter: blur(2px) }
     .blur-lg { filter: blur(4px) }
 }

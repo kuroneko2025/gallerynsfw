@@ -24,13 +24,8 @@ const KuronekoApp = (function () {
                 localStorage.setItem('kuroneko-language', currentLanguage);
                 Utils.updateTexts(currentLanguage);
 
-                // Notificar a los módulos del cambio de idioma
                 if (typeof Gallery !== 'undefined' && Gallery.onLanguageChange) {
                     Gallery.onLanguageChange();
-                }
-
-                if (typeof Shop !== 'undefined' && Shop.refresh) {
-                    Shop.refresh();
                 }
 
                 if (typeof Messages !== 'undefined' && Messages.onLanguageChange) {
@@ -186,11 +181,9 @@ const KuronekoApp = (function () {
                 await Modal.init();
             }
 
-
-            await Promise.all([
-                typeof Gallery !== 'undefined' && Gallery.init ? Gallery.init() : Promise.resolve(),
-                typeof Shop !== 'undefined' && Shop.init ? Shop.init() : Promise.resolve()
-            ]);
+            if (typeof Gallery !== 'undefined' && Gallery.init) {
+                await Gallery.init();
+            }
 
             if (typeof Navigation !== 'undefined' && Navigation.init) {
                 Navigation.init();
@@ -275,13 +268,8 @@ const KuronekoApp = (function () {
                     Utils.updateTexts(lang);
                 }
 
-
                 if (typeof Gallery !== 'undefined' && Gallery.refresh) {
                     Gallery.refresh();
-                }
-
-                if (typeof Shop !== 'undefined' && Shop.refresh) {
-                    Shop.refresh();
                 }
 
                 if (typeof Messages !== 'undefined' && Messages.isUserLoggedIn && Messages.isUserLoggedIn() && Messages.onLanguageChange) {
@@ -294,20 +282,15 @@ const KuronekoApp = (function () {
             return currentLanguage;
         },
 
-        getStats: function () {
+        getStats: function() {
             const stats = {
                 ageVerified: typeof AgeVerification !== 'undefined' && AgeVerification.isVerified ? AgeVerification.isVerified() : !1,
                 currentLanguage: currentLanguage,
                 userLoggedIn: !!localStorage.getItem('currentUser')
             };
 
-
             if (typeof Gallery !== 'undefined' && Gallery.getStats) {
                 Object.assign(stats, Gallery.getStats());
-            }
-
-            if (typeof Shop !== 'undefined' && Shop.getStats) {
-                Object.assign(stats, Shop.getStats());
             }
 
             if (typeof Messages !== 'undefined') {
@@ -345,10 +328,7 @@ document.addEventListener('visibilitychange', function () {
 
             KuronekoApp.checkUserSession();
 
-
-            if (currentSection === 'shop' && typeof Shop !== 'undefined' && Shop.refresh) {
-                Shop.refresh();
-            } else if (currentSection === 'gallery' && typeof Gallery !== 'undefined' && Gallery.refresh) {
+            if (currentSection === 'gallery' && typeof Gallery !== 'undefined' && Gallery.refresh) {
                 Gallery.refresh();
             }
 

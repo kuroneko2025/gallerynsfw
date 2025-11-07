@@ -62,11 +62,11 @@
     <meta http-equiv="Content-Language" content="en">
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/base.css?v=5.1">
-    <link rel="stylesheet" href="css/layout.css?v=5.1">
-    <link rel="stylesheet" href="css/modules.css?v=5.2">
-    <link rel="stylesheet" href="css/states.css?v=5.1">
-    <link rel="stylesheet" href="css/themes.css?v=5.1">
+    <link rel="stylesheet" href="css/base.css?v=5.3">
+    <link rel="stylesheet" href="css/layout.css?v=5.3">
+    <link rel="stylesheet" href="css/modules.css?v=5.3">
+    <link rel="stylesheet" href="css/states.css?v=5.3">
+    <link rel="stylesheet" href="css/themes.css?v=5.3">
     <script>
         document.addEventListener('contextmenu', function (e) { e.preventDefault() });
         document.addEventListener('keydown', function (e) {
@@ -147,19 +147,6 @@
                         </a>
                     </li>
                     <li class="side-nav__menu-item">
-                        <a href="#shop" class="side-nav__menu-link" data-section="shop">
-                            <span class="side-nav__menu-icon">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                                    <path
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                            </span>
-                            <span class="side-nav__menu-text" data-lang="nav-shop">Tienda</span>
-                        </a>
-                    </li>
-                    <li class="side-nav__menu-item">
                         <a href="#messages" class="side-nav__menu-link" data-section="messages">
                             <span class="side-nav__menu-icon">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -212,9 +199,6 @@
                                 data-lang="nav-gallery">Galería</a>
                         </li>
                         <li>
-                            <a href="#shop" class="header__link" data-section="shop" data-lang="nav-shop">Tienda</a>
-                        </li>
-                        <li>
                             <a href="#messages" class="header__link" data-section="messages"
                                 data-lang="nav-messages">Mensajes</a>
                         </li>
@@ -254,28 +238,6 @@
                     <button class="button button--ripple" id="loadMoreBtn" data-lang="load-more">Cargar más</button>
                 </div>
             </section>
-
-            <section class="shop section" id="shop">
-                <div class="shop__header">
-                    <h1 class="shop__title" data-lang="shop-title">Tienda くろねこ</h1>
-                    <p class="shop__subtitle" data-lang="shop-subtitle">Obras exclusivas disponibles para coleccionistas
-                    </p>
-                </div>
-
-                <div class="shop__loading" id="shopLoading">
-                    <div class="shop-loading__spinner"></div>
-                    <div class="shop-loading__text" data-lang="loading-products">Cargando productos...</div>
-                </div>
-
-                <div class="shop__grid" id="shopGrid">
-
-                </div>
-
-                <div class="shop__empty" id="shopEmpty">
-                    <p data-lang="shop-empty">No hay productos disponibles en este momento.</p>
-                </div>
-            </section>
-
 
             <section class="messages section" id="messages">
 
@@ -519,14 +481,13 @@
         </div>
     </div>
 
-    <script src="js/utils.js?v=5.1"></script>
-    <script src="js/age-verification.js?v=5.1"></script>
-    <script src="js/modal.js?v=5.1"></script>
-    <script src="js/gallery.js?v=5.2"></script>
-    <script src="js/messages.js?v=5.1"></script>
-    <script src="js/shop.js?v=5.1"></script>
-    <script src="js/navigation.js?v=5.1"></script>
-    <script src="js/app.js?v=5.2"></script>
+    <script src="js/utils.js?v=5.3"></script>
+    <script src="js/age-verification.js?v=5.3"></script>
+    <script src="js/modal.js?v=5.3"></script>
+    <script src="js/gallery.js?v=5.3"></script>
+    <script src="js/messages.js?v=5.3"></script>
+    <script src="js/navigation.js?v=5.3"></script>
+    <script src="js/app.js?v=5.3"></script>
 
     <script>
         const SideNavigation = (function () {
