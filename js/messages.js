@@ -12,7 +12,7 @@ const Messages = (function() {
     let hasMoreMessages = !0;
     
     const BASE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz_qyx41EtXTclnOi7xpFZtJTx36jO8iJwu8Qk5GJnwu4_Pg2BG2O9CxDbhqkeAqrEe/exec';
-    const VENDOR_USERNAME = "vendedor";
+    const VENDOR_USERNAME = "KuroNeko";
     const POLLING_INTERVAL = 30000;
     const BATCH_LOAD_DELAY = 500;
 
@@ -66,6 +66,40 @@ const Messages = (function() {
             url += '?' + urlParams.toString();
         }
         return url;
+    }
+
+    // ========== SISTEMA DE RESPUESTAS CORREGIDO ==========
+    function parseResponse(text) {
+        try {
+            console.log('Respuesta recibida:', text);
+            
+            // Tu Google Script devuelve respuestas como "SUCCESS:data" o "ERROR:message"
+            if (text.startsWith('SUCCESS:')) {
+                const data = text.substring(8); // Remover "SUCCESS:"
+                return {
+                    success: true,
+                    data: data
+                };
+            } else if (text.startsWith('ERROR:')) {
+                const error = text.substring(6); // Remover "ERROR:"
+                return {
+                    success: false,
+                    error: error
+                };
+            }
+            
+            // Si no tiene prefijo, es probablemente datos de mensajes en formato texto
+            return {
+                success: true,
+                data: text
+            };
+        } catch (e) {
+            console.error('Error parseando respuesta:', e);
+            return {
+                success: false,
+                error: 'Invalid response format: ' + text
+            };
+        }
     }
 
     const EventSystem = {
@@ -312,6 +346,7 @@ const Messages = (function() {
         }
     }
 
+    // ========== FUNCIÓN CORREGIDA PARA CARGAR MENSAJES ==========
     async function loadMessagesBatch(conversationId, offset = 0, limit = messageBatchSize) {
         if (!currentUser) return [];
         
@@ -321,25 +356,52 @@ const Messages = (function() {
                 conversationId: conversationId
             });
             
+            console.log('Cargando mensajes desde:', messagesUrl);
             const response = await fetch(messagesUrl);
             const result = await response.text();
-            const parsed = parseResponse(result);
+            console.log('Respuesta de mensajes:', result);
             
-            if (parsed.success) {
-                const allMessages = Array.isArray(parsed.data) ? parsed.data : [];
-                allMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
-                
-                const startIndex = offset;
-                const endIndex = startIndex + limit;
-                const batchMessages = allMessages.slice(startIndex, endIndex);
-                
-                hasMoreMessages = endIndex < allMessages.length;
-                currentMessageOffset = endIndex;
-                batchMessages.sort((a, b) => new Date(a.date) - new Date(b.date));
-                
-                return batchMessages;
+            // Tu Google Script devuelve mensajes en formato texto separado por |
+            if (!result || result.trim() === '') {
+                console.log('No hay mensajes');
+                return [];
             }
-            return [];
+            
+            const lines = result.split('\n').filter(line => line.trim() !== '');
+            const messages = [];
+            
+            lines.forEach(line => {
+                const parts = line.split('|');
+                console.log('Procesando línea:', parts);
+                if (parts.length >= 8) {
+                    const message = {
+                        id: parts[0],
+                        username: parts[1],
+                        message: parts[2],
+                        conversationId: parts[3],
+                        productId: parts[4],
+                        date: parts[5],
+                        sender: parts[6],
+                        receiver: parts[7]
+                    };
+                    messages.push(message);
+                } else if (parts.length > 0) {
+                    console.warn('Formato de mensaje inválido:', parts);
+                }
+            });
+            
+            // Ordenar por fecha (más antiguo primero)
+            messages.sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            const startIndex = offset;
+            const endIndex = startIndex + limit;
+            const batchMessages = messages.slice(startIndex, endIndex);
+            
+            hasMoreMessages = endIndex < messages.length;
+            currentMessageOffset = endIndex;
+            
+            console.log(`Cargados ${batchMessages.length} mensajes, hay más: ${hasMoreMessages}`);
+            return batchMessages;
         } catch (error) {
             console.error('Error loading message batch:', error);
             return [];
@@ -354,8 +416,11 @@ const Messages = (function() {
         
         try {
             loadMoreBtn.disabled = !0;
-            loadMoreBtn.querySelector('.button-loading').style.display = 'inline-block';
-            loadMoreBtn.querySelector('span').textContent = getTranslation('loading');
+            const loadingElement = loadMoreBtn.querySelector('.button-loading');
+            const textElement = loadMoreBtn.querySelector('span');
+            
+            if (loadingElement) loadingElement.style.display = 'inline-block';
+            if (textElement) textElement.textContent = getTranslation('loading');
             
             const newMessages = await loadMessagesBatch(currentConversation.id, currentMessageOffset, messageBatchSize);
             
@@ -382,8 +447,11 @@ const Messages = (function() {
         } finally {
             if (loadMoreBtn) {
                 loadMoreBtn.disabled = !1;
-                loadMoreBtn.querySelector('.button-loading').style.display = 'none';
-                loadMoreBtn.querySelector('span').textContent = getTranslation('load-more-messages');
+                const loadingElement = loadMoreBtn.querySelector('.button-loading');
+                const textElement = loadMoreBtn.querySelector('span');
+                
+                if (loadingElement) loadingElement.style.display = 'none';
+                if (textElement) textElement.textContent = getTranslation('load-more-messages');
             }
             showLoadMoreButton(hasMoreMessages);
         }
@@ -400,31 +468,50 @@ const Messages = (function() {
             
             const response = await fetch(messagesUrl);
             const result = await response.text();
-            const parsed = parseResponse(result);
             
-            if (parsed.success) {
-                const allMessages = Array.isArray(parsed.data) ? parsed.data : [];
-                const currentMessages = Array.from(DOM.messagesContent?.children || [])
-                    .map(el => el.dataset.messageId)
-                    .filter(id => id);
-                
-                const newMessages = allMessages.filter(msg => !currentMessages.includes(msg.id.toString()));
-                
-                if (newMessages.length > 0) {
-                    newMessages.forEach(message => {
-                        const messageElement = createMessageElement(message);
-                        if (DOM.messagesContent && messageElement) {
-                            DOM.messagesContent.appendChild(messageElement);
-                        }
-                    });
-                    autoScrollToNewMessages();
-                    EventSystem.emit('newMessages', {
-                        messages: newMessages,
-                        conversationId: currentConversation.id
-                    });
+            if (!result || result.trim() === '') return;
+            
+            const lines = result.split('\n').filter(line => line.trim() !== '');
+            const currentMessages = Array.from(DOM.messagesContent?.children || [])
+                .map(el => el.dataset.messageId)
+                .filter(id => id);
+            
+            const newMessages = [];
+            
+            lines.forEach(line => {
+                const parts = line.split('|');
+                if (parts.length >= 8) {
+                    const messageId = parts[0];
+                    if (!currentMessages.includes(messageId)) {
+                        const message = {
+                            id: messageId,
+                            username: parts[1],
+                            message: parts[2],
+                            conversationId: parts[3],
+                            productId: parts[4],
+                            date: parts[5],
+                            sender: parts[6],
+                            receiver: parts[7]
+                        };
+                        newMessages.push(message);
+                    }
                 }
-                lastUpdateTime = Date.now();
+            });
+            
+            if (newMessages.length > 0) {
+                newMessages.forEach(message => {
+                    const messageElement = createMessageElement(message);
+                    if (DOM.messagesContent && messageElement) {
+                        DOM.messagesContent.appendChild(messageElement);
+                    }
+                });
+                autoScrollToNewMessages();
+                EventSystem.emit('newMessages', {
+                    messages: newMessages,
+                    conversationId: currentConversation.id
+                });
             }
+            lastUpdateTime = Date.now();
         } catch (error) {
             console.error('Error checking for new messages:', error);
         }
@@ -449,15 +536,6 @@ const Messages = (function() {
             Utils.showNotification(message, type);
         } else {
             alert(`${type.toUpperCase()}: ${message}`);
-        }
-    }
-
-    function parseResponse(text) {
-        try {
-            const data = JSON.parse(text);
-            return data;
-        } catch (e) {
-            return { success: !1, error: 'Invalid JSON response' };
         }
     }
 
@@ -527,6 +605,7 @@ const Messages = (function() {
         }
     }
 
+    // ========== FUNCIÓN DE LOGIN CORREGIDA ==========
     async function handleLogin(e) {
         e.preventDefault();
         const formData = new FormData(DOM.loginForm);
@@ -539,8 +618,10 @@ const Messages = (function() {
         }
         
         try {
-            showAuthLoading(!0);
+            showAuthLoading(true);
             const loginUrl = getScriptUrl('login');
+            console.log('Intentando login:', username);
+            
             const response = await fetch(loginUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -548,10 +629,31 @@ const Messages = (function() {
             });
             
             const result = await response.text();
+            console.log('Respuesta de login:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
-                currentUser = parsed.data;
+                // Tu Google Script devuelve "vendor:username" o "user:username"
+                let userData = {};
+                if (parsed.data.startsWith('vendor:')) {
+                    userData = {
+                        username: parsed.data.substring(7),
+                        isVendor: true
+                    };
+                } else if (parsed.data.startsWith('user:')) {
+                    userData = {
+                        username: parsed.data.substring(5),
+                        isVendor: false
+                    };
+                } else {
+                    // Formato antiguo o sin prefijo
+                    userData = {
+                        username: parsed.data,
+                        isVendor: false
+                    };
+                }
+                
+                currentUser = userData;
                 localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 showMessagesSection();
                 showNotification(getTranslation('login-success'), 'success');
@@ -560,12 +662,14 @@ const Messages = (function() {
                 showError(parsed.error || getTranslation('login-error'));
             }
         } catch (error) {
+            console.error('Error en login:', error);
             showError(getTranslation('error-connection'));
         } finally {
-            showAuthLoading(!1);
+            showAuthLoading(false);
         }
     }
 
+    // ========== FUNCIÓN DE REGISTRO CORREGIDA ==========
     async function handleRegister(e) {
         e.preventDefault();
         const formData = new FormData(DOM.registerForm);
@@ -594,8 +698,10 @@ const Messages = (function() {
         }
         
         try {
-            showAuthLoading(!0);
+            showAuthLoading(true);
             const registerUrl = getScriptUrl('register');
+            console.log('Intentando registro:', username);
+            
             const response = await fetch(registerUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -603,6 +709,7 @@ const Messages = (function() {
             });
             
             const result = await response.text();
+            console.log('Respuesta de registro:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
@@ -614,9 +721,10 @@ const Messages = (function() {
                 showError(parsed.error || getTranslation('register-error'));
             }
         } catch (error) {
+            console.error('Error en registro:', error);
             showError(getTranslation('error-connection'));
         } finally {
-            showAuthLoading(!1);
+            showAuthLoading(false);
         }
     }
 
@@ -680,6 +788,7 @@ const Messages = (function() {
         return messageDiv;
     }
 
+    // ========== FUNCIÓN ENVIAR MENSAJE CORREGIDA ==========
     async function sendMessage() {
         if (!currentUser || !DOM.messageInput) {
             showError(getTranslation('login-required'));
@@ -697,10 +806,12 @@ const Messages = (function() {
         }
         
         try {
-            showMessageSendingLoading(!0);
+            showMessageSendingLoading(true);
             pausePolling();
             
             const saveUrl = getScriptUrl('save_message');
+            console.log('Enviando mensaje:', message);
+            
             const response = await fetch(saveUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -714,11 +825,13 @@ const Messages = (function() {
             });
             
             const result = await response.text();
+            console.log('Respuesta de enviar mensaje:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
                 DOM.messageInput.value = '';
-                await checkForNewMessages();
+                // Recargar mensajes para ver el nuevo
+                await loadConversationMessages(currentConversation.id);
                 EventSystem.emit('messageSent', {
                     conversationId: currentConversation.id,
                     message: message
@@ -727,9 +840,10 @@ const Messages = (function() {
                 showError(parsed.error || getTranslation('message-send-error'));
             }
         } catch (error) {
+            console.error('Error enviando mensaje:', error);
             showError(getTranslation('error-connection'));
         } finally {
-            showMessageSendingLoading(!1);
+            showMessageSendingLoading(false);
         }
     }
 
@@ -740,8 +854,8 @@ const Messages = (function() {
         }
         
         try {
-            showMessagesLoading(!0);
-            showLoadMoreButton(!1);
+            showMessagesLoading(true);
+            showLoadMoreButton(false);
             currentMessageOffset = 0;
             hasMoreMessages = !0;
             
@@ -779,7 +893,7 @@ const Messages = (function() {
             console.error('Error loading conversation messages:', error);
             showError(getTranslation('error-loading-messages'));
         } finally {
-            showMessagesLoading(!1);
+            showMessagesLoading(false);
         }
     }
 
@@ -790,95 +904,108 @@ const Messages = (function() {
         }
         
         try {
-            showMainLoading(!0);
-            showConversationsLoading(!0);
+            showMainLoading(true);
+            showConversationsLoading(true);
             
             const messagesUrl = getScriptUrl('get_messages', { username: currentUser.username });
+            console.log('Cargando mensajes del usuario:', currentUser.username);
+            
             const response = await fetch(messagesUrl);
             const result = await response.text();
-            const parsed = parseResponse(result);
+            console.log('Respuesta de mensajes del usuario:', result);
             
-            if (parsed.success) {
-                const allMessages = Array.isArray(parsed.data) ? parsed.data : [];
-                updateConversationsList(allMessages);
+            if (result && result.trim() !== '') {
+                updateConversationsListFromText(result);
                 showConversationsOnly();
             } else {
-                showError(parsed.error || getTranslation('error-loading-messages'));
                 showNoMessages();
             }
         } catch (error) {
+            console.error('Error loading user messages:', error);
             showError(getTranslation('error-connection'));
             showNoMessages();
         } finally {
-            showMainLoading(!1);
-            showConversationsLoading(!1);
+            showMainLoading(false);
+            showConversationsLoading(false);
         }
     }
 
-    function updateConversationsList(messages) {
+    function updateConversationsListFromText(messagesText) {
         if (!DOM.messagesList) return;
         DOM.messagesList.innerHTML = '';
         
-        if (messages && messages.length > 0) {
+        if (messagesText && messagesText.trim() !== '') {
+            const lines = messagesText.split('\n').filter(line => line.trim() !== '');
             const conversationsMap = {};
             
-            messages.forEach(msg => {
-                if (!msg.conversationId) return;
-                
-                const canAccessMessage = (msg.sender === currentUser.username || msg.receiver === currentUser.username);
-                if (!canAccessMessage) return;
-                
-                if (!conversationsMap[msg.conversationId] || new Date(msg.date) > new Date(conversationsMap[msg.conversationId].lastDate)) {
-                    let contactUser = '';
-                    if (currentUser.username === VENDOR_USERNAME) {
-                        contactUser = (msg.sender === VENDOR_USERNAME) ? msg.receiver : msg.sender;
-                    } else {
-                        contactUser = VENDOR_USERNAME;
-                    }
-                    
-                    conversationsMap[msg.conversationId] = {
-                        id: msg.conversationId,
-                        contact: contactUser,
-                        lastMessage: msg.message,
-                        lastDate: msg.date,
-                        productId: msg.productId
+            lines.forEach(line => {
+                const parts = line.split('|');
+                if (parts.length >= 8) {
+                    const msg = {
+                        id: parts[0],
+                        username: parts[1],
+                        message: parts[2],
+                        conversationId: parts[3],
+                        productId: parts[4],
+                        date: parts[5],
+                        sender: parts[6],
+                        receiver: parts[7]
                     };
+                    
+                    const canAccessMessage = (msg.sender === currentUser.username || msg.receiver === currentUser.username);
+                    if (!canAccessMessage) return;
+                    
+                    if (!conversationsMap[msg.conversationId] || new Date(msg.date) > new Date(conversationsMap[msg.conversationId].lastDate)) {
+                        let contactUser = '';
+                        if (currentUser.username === VENDOR_USERNAME) {
+                            contactUser = (msg.sender === VENDOR_USERNAME) ? msg.receiver : msg.sender;
+                        } else {
+                            contactUser = VENDOR_USERNAME;
+                        }
+                        
+                        conversationsMap[msg.conversationId] = {
+                            id: msg.conversationId,
+                            contact: contactUser,
+                            lastMessage: msg.message,
+                            lastDate: msg.date,
+                            productId: msg.productId
+                        };
+                    }
                 }
             });
             
             const conversations = Object.values(conversationsMap);
             conversations.sort((a, b) => new Date(b.lastDate) - new Date(a.lastDate));
             
-            conversations.forEach(conversation => {
-                const conversationDiv = document.createElement('div');
-                const isActive = currentConversation && currentConversation.id === conversation.id;
-                conversationDiv.className = `messages__conversation ${isActive ? 'messages__conversation--active' : ''}`;
-                
-                const lastMessage = conversation.lastMessage.length > 50 ? 
-                    conversation.lastMessage.substring(0, 50) + '...' : conversation.lastMessage;
-                const time = new Date(conversation.lastDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                conversationDiv.innerHTML = `
-                    <div class="conversation__header">
-                        <div class="conversation__title">${conversation.contact}</div>
-                        <div class="conversation__time">${time}</div>
-                    </div>
-                    <div class="conversation__last-message">${Utils.escapeHtml(lastMessage)}</div>
-                `;
-                
-                conversationDiv.addEventListener('click', () => {
-                    loadConversation(conversation.id);
+            if (conversations.length > 0) {
+                conversations.forEach(conversation => {
+                    const conversationDiv = document.createElement('div');
+                    const isActive = currentConversation && currentConversation.id === conversation.id;
+                    conversationDiv.className = `messages__conversation ${isActive ? 'messages__conversation--active' : ''}`;
+                    
+                    const lastMessage = conversation.lastMessage.length > 50 ? 
+                        conversation.lastMessage.substring(0, 50) + '...' : conversation.lastMessage;
+                    const time = new Date(conversation.lastDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    conversationDiv.innerHTML = `
+                        <div class="conversation__header">
+                            <div class="conversation__title">${conversation.contact}</div>
+                            <div class="conversation__time">${time}</div>
+                        </div>
+                        <div class="conversation__last-message">${Utils.escapeHtml(lastMessage)}</div>
+                    `;
+                    
+                    conversationDiv.addEventListener('click', () => {
+                        loadConversation(conversation.id);
+                    });
+                    
+                    DOM.messagesList.appendChild(conversationDiv);
                 });
-                
-                DOM.messagesList.appendChild(conversationDiv);
-            });
+            } else {
+                showNoMessages();
+            }
         } else {
-            DOM.messagesList.innerHTML = `
-                <div class="messages__empty">
-                    <p>${getTranslation('no-conversations')}</p>
-                    <p>${getTranslation('start-first-conversation')}</p>
-                </div>
-            `;
+            showNoMessages();
         }
     }
 
@@ -988,7 +1115,9 @@ const Messages = (function() {
     function init() {
         if (isInitialized) return;
         
-        showMainLoading(!1);
+        console.log('Inicializando sistema de mensajes...');
+        
+        showMainLoading(false);
         initAuthSystem();
         updateMessagesTexts();
         
@@ -1040,6 +1169,7 @@ const Messages = (function() {
         });
         
         isInitialized = !0;
+        console.log('Sistema de mensajes inicializado correctamente');
         EventSystem.emit('messagesInitialized');
     }
 
@@ -1147,7 +1277,21 @@ const Messages = (function() {
                 hasMoreMessages: hasMoreMessages,
                 currentOffset: currentMessageOffset,
                 currentConversation: currentConversation?.id,
-                lastUpdate: lastUpdateTime
+                lastUpdate: lastUpdateTime,
+                isInitialized: isInitialized,
+                userLoggedIn: !!currentUser
+            };
+        },
+        
+        // Método para debug
+        debugInfo: function() {
+            return {
+                currentUser: currentUser,
+                currentConversation: currentConversation,
+                isPolling: isPolling,
+                isInitialized: isInitialized,
+                messageOffset: currentMessageOffset,
+                hasMoreMessages: hasMoreMessages
             };
         }
     };

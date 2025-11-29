@@ -59,3 +59,243 @@
         transform: none;
     }
 }
+
+/* Home Section Styles */
+.home {
+    padding: 2rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    position: relative;
+}
+
+.home__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.home__counter {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 10;
+}
+
+.counter__card {
+    background: rgb(26 26 26 / .8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgb(255 255 255 / .15);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 10px 30px rgb(0 0 0 / .3);
+    transition: all 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.counter__card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgb(0 0 0 / .4);
+}
+
+.counter__icon {
+    font-size: 2rem;
+    background: linear-gradient(135deg, #00bcd4, #00e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.counter__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.counter__number {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00bcd4, #00e5ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.counter__label {
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.home__content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.home__profile {
+    margin-bottom: 3rem;
+}
+
+.profile__image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #00bcd4;
+    box-shadow: 0 0 30px rgb(0 188 212 / .3);
+    transition: all 0.3s ease;
+}
+
+.profile__image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 50px rgb(0 188 212 / .5);
+}
+
+.profile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.home__title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00bcd4 0%, #00e5ff 50%, #008c9e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgb(0 188 212 / .3);
+}
+
+.language-selector--home {
+    margin: 1rem auto;
+    max-width: 200px;
+}
+
+.home__texts {
+    margin: 3rem 0;
+    position: relative;
+    min-height: 400px;
+}
+
+.home__text {
+    display: none;
+    animation: fadeIn 0.6s ease;
+}
+
+.home__text[data-lang="es"] {
+    display: block;
+}
+
+.home__text h2 {
+    color: #00bcd4;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.text-content {
+    text-align: left;
+    color: #e0e0e0;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+.text-content p {
+    margin-bottom: 1.5rem;
+}
+
+.text-content strong {
+    color: #00bcd4;
+    font-weight: 600;
+}
+
+.home__navigation {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.home__navigation .button {
+    min-width: 180px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home {
+        padding: 1rem;
+    }
+
+    .home__counter {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-bottom: 2rem;
+        justify-content: center;
+    }
+
+    .counter__card {
+        padding: 1rem;
+    }
+
+    .home__title {
+        font-size: 2.2rem;
+    }
+
+    .profile__image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .text-content {
+        font-size: 1rem;
+    }
+
+    .home__navigation {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .home__navigation .button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home__title {
+        font-size: 1.8rem;
+    }
+
+    .home__text h2 {
+        font-size: 1.5rem;
+    }
+
+    .counter__number {
+        font-size: 1.5rem;
+    }
+
+    .counter__icon {
+        font-size: 1.5rem;
+    }
+}
