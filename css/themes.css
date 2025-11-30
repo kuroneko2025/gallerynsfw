@@ -631,3 +631,42 @@
     clip: auto;
     white-space: normal;
 }
+
+/* ===== SLIDESHOW THEMES ===== */
+.slideshow-modal.theme-dark {
+    background: rgba(0, 0, 0, 0.95);
+}
+
+.slideshow-modal.theme-light {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.slideshow-modal.theme-light .slideshow-container {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.slideshow-modal.theme-light .slideshow-header,
+.slideshow-modal.theme-light .slideshow-footer {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: #e0e0e0;
+}
+
+.slideshow-modal.theme-light .slideshow-counter,
+.slideshow-modal.theme-light .slideshow-title {
+    color: #333;
+}
+
+.slideshow-modal.theme-light .slideshow-description {
+    color: #666;
+}
+
+.slideshow-modal.theme-light .slideshow-close,
+.slideshow-modal.theme-light .slideshow-nav {
+    color: #333;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.slideshow-modal.theme-light .slideshow-nav:hover {
+    background: rgba(255, 255, 255, 0.9);
+}

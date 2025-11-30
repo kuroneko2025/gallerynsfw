@@ -62,11 +62,11 @@
     <meta http-equiv="Content-Language" content="en">
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/base.css?v=5.4">
-    <link rel="stylesheet" href="css/layout.css?v=5.4">
-    <link rel="stylesheet" href="css/modules.css?v=5.4">
-    <link rel="stylesheet" href="css/states.css?v=5.4">
-    <link rel="stylesheet" href="css/themes.css?v=5.4">
+    <link rel="stylesheet" href="css/base.css?v=5.5">
+    <link rel="stylesheet" href="css/layout.css?v=5.5">
+    <link rel="stylesheet" href="css/modules.css?v=5.5">
+    <link rel="stylesheet" href="css/states.css?v=5.5">
+    <link rel="stylesheet" href="css/themes.css?v=5.5">
     <script>
         document.addEventListener('contextmenu', function (e) { e.preventDefault() });
         document.addEventListener('keydown', function (e) {
@@ -342,6 +342,50 @@
                     </div>
 
                     <!-- Navegación rápida -->
+                    <!-- Botón Anti-Scam PayPal -->
+                    <div class="home__donation-section">
+                        <div class="donation-warning">
+                            <div class="warning-header">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="warning-icon">
+                                    <path
+                                        d="M12 9V11M12 15H12.01M5.07183 19H18.9282C20.4678 19 21.4301 17.3333 20.6603 16L13.7321 4C12.9623 2.66667 11.0377 2.66667 10.2679 4L3.33975 16C2.56995 17.3333 3.53223 19 5.07183 19Z"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                <h3 class="warning-title" data-lang="donation-warning-title">⚠️ Advertencia Anti-Fraude
+                                </h3>
+                            </div>
+                            <p class="warning-text" data-lang="donation-warning-text">
+                                <strong>¡ALERTA!</strong> Cualquier oferta de "desbloquear contenido" o "acceso premium"
+                                por PayPal es FRAUDE.
+                                No utilizo VPNs, proxies o Tor para recibir pagos. Las donaciones son para mantener la
+                                galería NSFW.
+                            </p>
+                            <div class="donation-info">
+                                <p class="donation-description" data-lang="donation-description">
+                                    Las donaciones <strong>sostienen el sistema de galería NSFW</strong> - hosting,
+                                    almacenamiento y desarrollo.
+                                    Son voluntarias y no pueden ser revertidas una vez procesadas.
+                                </p>
+                                <a href="https://paypal.me/devusui"
+                                    class="button button--primary button--large donation-button" target="_blank"
+                                    rel="noopener noreferrer">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"
+                                        style="margin-right: 8px;">
+                                        <path
+                                            d="M7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2Z" />
+                                        <path
+                                            d="M14 16C12.8954 16 12 16.8954 12 18C12 19.1046 12.8954 20 14 20H20C21.1046 20 22 19.1046 22 18C22 16.8954 21.1046 16 20 16H14Z" />
+                                    </svg>
+                                    <span data-lang="donation-button">Donar por PayPal</span>
+                                </a>
+                                <p class="donation-note" data-lang="donation-note">
+                                    <strong>Las donaciones no son reembolsables</strong> - financian los costos
+                                    operativos de la galería
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="home__navigation">
                         <a href="#gallery" class="button button--primary button--large" data-section="gallery">
                             <span data-lang="view-gallery">Ver Galería</span>
@@ -365,7 +409,7 @@
                 <div class="gallery__grid" id="galleryGrid">
                     <!-- Las imágenes se cargarán aquí dinámicamente -->
                 </div>
-                
+
                 <!-- Controles de paginación -->
                 <div class="gallery__pagination" id="galleryPagination" style="display: none;">
                     <div class="gallery__page-info" id="galleryPageInfo"></div>
@@ -378,7 +422,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="gallery__load-more">
                     <button class="button button--ripple" id="loadMoreBtn" data-lang="load-more">Cargar más</button>
                 </div>
@@ -410,7 +454,8 @@
                             </form>
                             <p class="auth-form__switch">
                                 <span data-lang="login-no-account">¿No tienes cuenta?</span>
-                                <a href="#" class="auth-form__link" id="showRegister" data-lang="login-register-link">Regístrate
+                                <a href="#" class="auth-form__link" id="showRegister"
+                                    data-lang="login-register-link">Regístrate
                                     aquí</a>
                             </p>
                         </div>
@@ -438,7 +483,8 @@
                                 </div>
                                 <div class="auth-form__group">
                                     <input type="password" class="auth-form__input" name="reg_confirm_password" required
-                                        data-lang="register-confirm-password-placeholder" placeholder="Repite la contraseña">
+                                        data-lang="register-confirm-password-placeholder"
+                                        placeholder="Repite la contraseña">
                                     <label class="auth-form__label" data-lang="register-confirm-password">Confirmar
                                         Contraseña</label>
                                     <div class="auth-form__error" id="registerConfirmPasswordError"></div>
@@ -448,7 +494,8 @@
                             </form>
                             <p class="auth-form__switch">
                                 <span data-lang="register-have-account">¿Ya tienes cuenta?</span>
-                                <a href="#" class="auth-form__link" id="showLogin" data-lang="register-login-link">Inicia sesión
+                                <a href="#" class="auth-form__link" id="showLogin"
+                                    data-lang="register-login-link">Inicia sesión
                                     aquí</a>
                             </p>
                         </div>
@@ -480,7 +527,8 @@
                             <div class="messages__new-chat">
                                 <button class="button button--primary button--ripple" id="newMessageBtn"
                                     data-lang="messages-new">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                        style="margin-right: 8px;">
                                         <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" />
                                     </svg>
@@ -567,8 +615,8 @@
                                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                                 <path d="M22 2L11 13" stroke="currentColor" stroke-width="2"
                                                     stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor" stroke-width="2"
-                                                    stroke-linecap="round" stroke-linejoin="round" />
+                                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
                                         </button>
                                     </div>
@@ -629,167 +677,167 @@
     </div>
 
     <!-- ========== SCRIPTS ========== -->
-    <script src="js/utils.js?v=5.4"></script>
-    <script src="js/age-verification.js?v=5.3"></script>
-    <script src="js/modal.js?v=5.3"></script>
-    <script src="js/gallery.js?v=5.3"></script>
-    <script src="js/messages.js?v=5.3"></script>
-    <script src="js/navigation.js?v=5.3"></script>
+    <script src="js/utils.js?v=5.5"></script>
+    <script src="js/age-verification.js?v=5.5"></script>
+    <script src="js/modal.js?v=5.5"></script>
+    <script src="js/gallery.js?v=5.5"></script>
+    <script src="js/messages.js?v=5.5"></script>
+    <script src="js/navigation.js?v=5.5"></script>
     <script src="js/visit-counter.js?v=1.0"></script>
-    <script src="js/app.js?v=5.5"></script>
+    <script src="js/app.js?v=5.6"></script>
 
     <!-- ========== INICIALIZACIÓN ========== -->
     <script>
         const SideNavigation = (function () {
-            'use strict'; 
-            const DOM = { 
-                sideNav: document.getElementById('sideNav'), 
-                hamburgerButton: document.getElementById('hamburgerButton'), 
-                sideNavClose: document.getElementById('sideNavClose'), 
-                menuOverlay: document.getElementById('menuOverlay'), 
-                sideNavLinks: document.querySelectorAll('.side-nav__menu-link[data-section]'), 
-                sideNavUserInfo: document.getElementById('sideNavUserInfo'), 
-                sideNavUsername: document.getElementById('sideNavUsername'), 
-                sideNavLanguageSelector: document.getElementById('sideNavLanguageSelector') 
-            }; 
-            
-            function openSideNav() { 
-                DOM.sideNav.classList.add('side-nav--open'); 
-                DOM.menuOverlay.classList.add('menu-overlay--active'); 
-                document.body.classList.add('body--menu-open'); 
-                document.body.style.overflow = 'hidden' 
+            'use strict';
+            const DOM = {
+                sideNav: document.getElementById('sideNav'),
+                hamburgerButton: document.getElementById('hamburgerButton'),
+                sideNavClose: document.getElementById('sideNavClose'),
+                menuOverlay: document.getElementById('menuOverlay'),
+                sideNavLinks: document.querySelectorAll('.side-nav__menu-link[data-section]'),
+                sideNavUserInfo: document.getElementById('sideNavUserInfo'),
+                sideNavUsername: document.getElementById('sideNavUsername'),
+                sideNavLanguageSelector: document.getElementById('sideNavLanguageSelector')
+            };
+
+            function openSideNav() {
+                DOM.sideNav.classList.add('side-nav--open');
+                DOM.menuOverlay.classList.add('menu-overlay--active');
+                document.body.classList.add('body--menu-open');
+                document.body.style.overflow = 'hidden'
             }
-            
-            function closeSideNav() { 
-                DOM.sideNav.classList.remove('side-nav--open'); 
-                DOM.menuOverlay.classList.remove('menu-overlay--active'); 
-                document.body.classList.remove('body--menu-open'); 
-                document.body.style.overflow = '' 
+
+            function closeSideNav() {
+                DOM.sideNav.classList.remove('side-nav--open');
+                DOM.menuOverlay.classList.remove('menu-overlay--active');
+                document.body.classList.remove('body--menu-open');
+                document.body.style.overflow = ''
             }
-            
+
             function handleSideNavLinkClick(e) {
-                e.preventDefault(); 
-                const section = this.getAttribute('data-section'); 
-                closeSideNav(); 
-                const pageLoadingBar = document.getElementById('pageLoadingBar'); 
-                if (pageLoadingBar) { 
-                    pageLoadingBar.classList.add('loading'); 
-                    setTimeout(() => { 
-                        pageLoadingBar.classList.remove('loading'); 
-                        pageLoadingBar.classList.add('complete'); 
-                        setTimeout(() => { 
-                            pageLoadingBar.classList.remove('complete') 
-                        }, 500) 
-                    }, 400) 
+                e.preventDefault();
+                const section = this.getAttribute('data-section');
+                closeSideNav();
+                const pageLoadingBar = document.getElementById('pageLoadingBar');
+                if (pageLoadingBar) {
+                    pageLoadingBar.classList.add('loading');
+                    setTimeout(() => {
+                        pageLoadingBar.classList.remove('loading');
+                        pageLoadingBar.classList.add('complete');
+                        setTimeout(() => {
+                            pageLoadingBar.classList.remove('complete')
+                        }, 500)
+                    }, 400)
                 }
-                if (typeof Navigation !== 'undefined' && Navigation.switchToSection) { 
-                    Navigation.switchToSection(section) 
-                } else { 
-                    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('section--active')); 
-                    document.getElementById(section).classList.add('section--active'); 
-                    window.history.pushState(null, null, `#${section}`) 
+                if (typeof Navigation !== 'undefined' && Navigation.switchToSection) {
+                    Navigation.switchToSection(section)
+                } else {
+                    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('section--active'));
+                    document.getElementById(section).classList.add('section--active');
+                    window.history.pushState(null, null, `#${section}`)
                 }
             }
-            
-            function updateUserInfo() { 
-                const savedUser = localStorage.getItem('currentUser'); 
-                if (savedUser) { 
-                    try { 
-                        const user = JSON.parse(savedUser); 
-                        DOM.sideNavUsername.textContent = user.username; 
-                        DOM.sideNavUserInfo.style.display = 'block' 
-                    } catch (error) { 
-                        console.error('Error parsing user for side nav:', error); 
-                        DOM.sideNavUserInfo.style.display = 'none' 
-                    } 
-                } else { 
-                    DOM.sideNavUserInfo.style.display = 'none' 
-                } 
+
+            function updateUserInfo() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    try {
+                        const user = JSON.parse(savedUser);
+                        DOM.sideNavUsername.textContent = user.username;
+                        DOM.sideNavUserInfo.style.display = 'block'
+                    } catch (error) {
+                        console.error('Error parsing user for side nav:', error);
+                        DOM.sideNavUserInfo.style.display = 'none'
+                    }
+                } else {
+                    DOM.sideNavUserInfo.style.display = 'none'
+                }
             }
-            
-            function syncLanguageSelectors() { 
-                const mainSelector = document.getElementById('languageSelector'); 
-                if (mainSelector && DOM.sideNavLanguageSelector) { 
-                    DOM.sideNavLanguageSelector.value = mainSelector.value; 
-                    DOM.sideNavLanguageSelector.addEventListener('change', function () { 
-                        mainSelector.value = this.value; 
-                        mainSelector.dispatchEvent(new Event('change')) 
-                    }); 
-                    mainSelector.addEventListener('change', function () { 
-                        DOM.sideNavLanguageSelector.value = this.value 
-                    }) 
-                } 
+
+            function syncLanguageSelectors() {
+                const mainSelector = document.getElementById('languageSelector');
+                if (mainSelector && DOM.sideNavLanguageSelector) {
+                    DOM.sideNavLanguageSelector.value = mainSelector.value;
+                    DOM.sideNavLanguageSelector.addEventListener('change', function () {
+                        mainSelector.value = this.value;
+                        mainSelector.dispatchEvent(new Event('change'))
+                    });
+                    mainSelector.addEventListener('change', function () {
+                        DOM.sideNavLanguageSelector.value = this.value
+                    })
+                }
             }
-            
+
             function init() {
-                if (!DOM.sideNav) { 
-                    console.error('Side Navigation: Elementos del DOM no encontrados'); 
-                    return 
+                if (!DOM.sideNav) {
+                    console.error('Side Navigation: Elementos del DOM no encontrados');
+                    return
                 }
-                DOM.hamburgerButton.addEventListener('click', openSideNav); 
-                DOM.sideNavClose.addEventListener('click', closeSideNav); 
-                DOM.menuOverlay.addEventListener('click', closeSideNav); 
-                DOM.sideNavLinks.forEach(link => { 
-                    link.addEventListener('click', handleSideNavLinkClick) 
-                }); 
-                document.addEventListener('keydown', (e) => { 
-                    if (e.key === 'Escape' && DOM.sideNav.classList.contains('side-nav--open')) { 
-                        closeSideNav() 
-                    } 
-                }); 
-                updateUserInfo(); 
-                syncLanguageSelectors(); 
-                document.addEventListener('userLoggedIn', updateUserInfo); 
+                DOM.hamburgerButton.addEventListener('click', openSideNav);
+                DOM.sideNavClose.addEventListener('click', closeSideNav);
+                DOM.menuOverlay.addEventListener('click', closeSideNav);
+                DOM.sideNavLinks.forEach(link => {
+                    link.addEventListener('click', handleSideNavLinkClick)
+                });
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && DOM.sideNav.classList.contains('side-nav--open')) {
+                        closeSideNav()
+                    }
+                });
+                updateUserInfo();
+                syncLanguageSelectors();
+                document.addEventListener('userLoggedIn', updateUserInfo);
                 document.addEventListener('userLoggedOut', updateUserInfo);
             }
-            
-            return { 
-                init: init, 
-                open: openSideNav, 
-                close: closeSideNav, 
-                updateUserInfo: updateUserInfo 
+
+            return {
+                init: init,
+                open: openSideNav,
+                close: closeSideNav,
+                updateUserInfo: updateUserInfo
             }
-        })(); 
-        
-        document.addEventListener('DOMContentLoaded', function () { 
-            SideNavigation.init(); 
-            const pageLoadingBar = document.getElementById('pageLoadingBar'); 
-            if (pageLoadingBar) { 
-                setTimeout(() => { 
-                    pageLoadingBar.classList.add('loading'); 
-                    setTimeout(() => { 
-                        pageLoadingBar.classList.remove('loading'); 
-                        pageLoadingBar.classList.add('complete'); 
-                        setTimeout(() => { 
-                            pageLoadingBar.classList.remove('complete') 
-                        }, 500) 
-                    }, 1000) 
-                }, 100) 
-            } 
-        }); 
-        
-        function initScrollAnimations() { 
-            const scrollElements = document.querySelectorAll('.scroll-reveal'); 
-            const elementInView = (el, dividend = 1) => { 
-                const elementTop = el.getBoundingClientRect().top; 
-                return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend) 
-            }; 
-            const displayScrollElement = (element) => { 
-                element.classList.add('revealed') 
-            }; 
-            const handleScrollAnimation = () => { 
-                scrollElements.forEach((el) => { 
-                    if (elementInView(el, 1.25)) { 
-                        displayScrollElement(el) 
-                    } 
-                }) 
-            }; 
-            window.addEventListener('scroll', () => { 
-                handleScrollAnimation() 
-            }); 
-            handleScrollAnimation() 
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            SideNavigation.init();
+            const pageLoadingBar = document.getElementById('pageLoadingBar');
+            if (pageLoadingBar) {
+                setTimeout(() => {
+                    pageLoadingBar.classList.add('loading');
+                    setTimeout(() => {
+                        pageLoadingBar.classList.remove('loading');
+                        pageLoadingBar.classList.add('complete');
+                        setTimeout(() => {
+                            pageLoadingBar.classList.remove('complete')
+                        }, 500)
+                    }, 1000)
+                }, 100)
+            }
+        });
+
+        function initScrollAnimations() {
+            const scrollElements = document.querySelectorAll('.scroll-reveal');
+            const elementInView = (el, dividend = 1) => {
+                const elementTop = el.getBoundingClientRect().top;
+                return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend)
+            };
+            const displayScrollElement = (element) => {
+                element.classList.add('revealed')
+            };
+            const handleScrollAnimation = () => {
+                scrollElements.forEach((el) => {
+                    if (elementInView(el, 1.25)) {
+                        displayScrollElement(el)
+                    }
+                })
+            };
+            window.addEventListener('scroll', () => {
+                handleScrollAnimation()
+            });
+            handleScrollAnimation()
         }
-        
+
         window.addEventListener('load', initScrollAnimations);
     </script>
 </body>

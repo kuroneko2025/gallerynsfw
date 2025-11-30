@@ -102,7 +102,16 @@ const Utils = {
             'about-me': 'Sobre Mí',
             'view-gallery': 'Ver Galería',
             'contact-me': 'Contactar',
-            'nav-home': 'Inicio'
+            'nav-home': 'Inicio',
+            'donation-warning-title': 'Advertencia Anti-Fraude',
+            'donation-warning-text': 'ALERTA: Cualquier oferta de "desbloquear contenido" o "acceso premium" por PayPal es FRAUDE. Todos los pagos son verificados con sistemas antifraude avanzados y cualquier intento malicioso será bloqueado y rastreado. Las donaciones son únicamente para mantener la galería NSFW.',
+            'donation-description': 'Las donaciones sostienen el sistema de galería NSFW — hosting, almacenamiento y desarrollo. Son voluntarias y no pueden ser revertidas una vez procesadas.',
+            'donation-button': 'Donar por PayPal',
+            'donation-note': 'Las donaciones no son reembolsables — financian los costos operativos de la galería',
+            'fullscreen': 'Pantalla Completa',
+            'enter-fullscreen': 'Ver en pantalla completa',
+            'exit-fullscreen': 'Salir de pantalla completa',
+            'zoom-disabled-fullscreen': 'El zoom está deshabilitado en modo pantalla completa'
         },
         en: {
             'age-title': 'Age Verification',
@@ -206,7 +215,16 @@ const Utils = {
             'about-me': 'About Me',
             'view-gallery': 'View Gallery',
             'contact-me': 'Contact Me',
-            'nav-home': 'Home'
+            'nav-home': 'Home',
+            'donation-warning-title': 'Anti-Fraud Warning',
+            'donation-warning-text': 'ALERT: Any offer to "unlock content" or "premium access" through PayPal is FRAUD. All payments are verified with advanced anti-fraud systems, and malicious attempts will be blocked and traced. Donations are solely to maintain the NSFW gallery.',
+            'donation-description': 'Donations support the NSFW gallery system — hosting, storage, and development. They are voluntary and cannot be reversed once processed.',
+            'donation-button': 'Donate via PayPal',
+            'donation-note': 'Donations are non-refundable — they fund the gallery\'s operational costs',
+            'fullscreen': 'Fullscreen',
+            'enter-fullscreen': 'Enter fullscreen',
+            'exit-fullscreen': 'Exit fullscreen',
+            'zoom-disabled-fullscreen': 'Zoom is disabled in fullscreen mode'
         },
         ja: {
             'age-title': '年齢確認',
@@ -310,7 +328,16 @@ const Utils = {
             'about-me': '自己紹介',
             'view-gallery': 'ギャラリーを見る',
             'contact-me': '連絡する',
-            'nav-home': 'ホーム'
+            'nav-home': 'ホーム',
+            'donation-warning-title': '詐欺防止警告',
+            'donation-warning-text': '警告: PayPalで「コンテンツのロック解除」や「プレミアムアクセス」を提供するものはすべて詐欺です。すべての支払いは高度な不正防止システムで検証され、不正な試みは即座にブロックされ追跡されます。寄付はNSFWギャラリーの維持のためだけに使用されます。',
+            'donation-description': '寄付はNSFWギャラリーシステムを支えます — ホスティング、ストレージ、開発。寄付は自主的であり、処理後に返金することはできません。',
+            'donation-button': 'PayPalで寄付',
+            'donation-note': '寄付は返金不可 — ギャラリーの運営コストを賄います',
+            'fullscreen': '全画面表示',
+            'enter-fullscreen': '全画面表示にする',
+            'exit-fullscreen': '全画面表示を終了',
+            'zoom-disabled-fullscreen': '全画面表示ではズームは無効です'
         },
         zh: {
             'age-title': '年龄验证',
@@ -414,7 +441,16 @@ const Utils = {
             'about-me': '关于我',
             'view-gallery': '查看画廊',
             'contact-me': '联系我',
-            'nav-home': '首页'
+            'nav-home': '首页',
+            'donation-warning-title': '反欺诈警告',
+            'donation-warning-text': '警报: 任何通过PayPal提供“解锁内容”或“高级访问”的行为都是欺诈。所有付款都会通过先进的反欺诈系统验证，恶意行为将被立即阻止并追踪。捐款仅用于维护NSFW画廊。',
+            'donation-description': '捐款支持NSFW画廊系统 — 托管、存储和开发。捐款是自愿的，一旦处理无法撤销。',
+            'donation-button': '通过PayPal捐赠',
+            'donation-note': '捐款不可退款 — 用于资助画廊的运营成本',
+            'fullscreen': '全屏',
+            'enter-fullscreen': '进入全屏',
+            'exit-fullscreen': '退出全屏',
+            'zoom-disabled-fullscreen': '全屏模式下缩放已禁用'
         },
         zh_tw: {
             'age-title': '年齡驗證',
@@ -518,7 +554,16 @@ const Utils = {
             'about-me': '關於我',
             'view-gallery': '查看畫廊',
             'contact-me': '聯繫我',
-            'nav-home': '首頁'
+            'nav-home': '首頁',
+            'donation-warning-title': '反詐欺警告',
+            'donation-warning-text': '警報: 任何透過PayPal提供「解鎖內容」或「高級存取」的行為都是詐欺。所有付款都會經過先進的反詐欺系統驗證，惡意行為將立即被阻止並追蹤。捐款僅用於維護NSFW畫廊。',
+            'donation-description': '捐款支持NSFW畫廊系統 — 託管、儲存和開發。捐款是自願的，一旦處理無法撤銷。',
+            'donation-button': '透過PayPal捐贈',
+            'donation-note': '捐款不可退款 — 用於資助畫廊的營運成本',
+            'fullscreen': '全螢幕',
+            'enter-fullscreen': '進入全螢幕',
+            'exit-fullscreen': '退出全螢幕',
+            'zoom-disabled-fullscreen': '全螢幕模式下縮放已停用'
         }
     },
     escapeHtml: function (unsafe) {

@@ -73,3 +73,71 @@ body:not(.body--menu-open) .home:not(.home--active) {
     opacity: 0 !important;
     visibility: hidden !important;
 }
+
+/* ===== SLIDESHOW STATES ===== */
+.slideshow-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.slideshow-nav:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.slideshow-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.slideshow-nav:disabled:hover {
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+/* Animaciones del slideshow */
+.slideshow-modal {
+    animation: fadeIn 0.3s ease;
+}
+
+.slideshow-container.fullscreen-mode {
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { 
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Estados de navegación */
+.slideshow-nav.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Ocultar/mostrar controles en fullscreen */
+.slideshow-container.fullscreen-mode .slideshow-header,
+.slideshow-container.fullscreen-mode .slideshow-footer {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.slideshow-container.fullscreen-mode:hover .slideshow-header,
+.slideshow-container.fullscreen-mode:hover .slideshow-footer {
+    opacity: 1;
+}
+
+.slideshow-image-wrapper:hover::before {
+    opacity: 1;
+}
