@@ -20,7 +20,9 @@ const Gallery = (function () {
         isImageZoomed: false,
         zoomScale: 1,
         transform: { x: 0, y: 0, startX: 0, startY: 0, isDragging: false },
-        loadedImages: new Map()
+        loadedImages: new Map(),
+        currentImageSrc: null,
+        currentImageName: null
     };
 
     let imageObserver = null;
@@ -57,6 +59,129 @@ const Gallery = (function () {
         if (typeof Utils !== 'undefined' && Utils.showNotification) {
             Utils.showNotification(msg, type);
         }
+    }
+
+    // ========== FUNCIONES DE DESCARGA MEJORADAS ==========
+
+    function setCurrentDownloadInfo(src, name) {
+        state.currentImageSrc = src;
+        state.currentImageName = name || `kuroneko-image-${Date.now()}`;
+    }
+
+    function showDownloadOptions() {
+        const modal = document.createElement('div');
+        modal.className = 'modal';
+        modal.innerHTML = `
+            <div class="modal__content">
+                <button class="modal__close">&times;</button>
+                <h3 class="modal__title">${getTranslation('download-options')}</h3>
+                <div class="modal__body">
+                    <p class="modal__text">${getTranslation('download-restricted')}</p>
+                    <div class="download-options">
+                        <button class="button button--primary" id="openInTabBtn">
+                            ${getTranslation('open-tab')}
+                        </button>
+                        <button class="button" id="copyLinkBtn">
+                            ${getTranslation('copy-link')}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(modal);
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => modal.classList.add('modal--active'), 10);
+
+        modal.querySelector('.modal__close').onclick = () => {
+            modal.classList.remove('modal--active');
+            setTimeout(() => {
+                if (modal.parentNode) modal.parentNode.removeChild(modal);
+                document.body.style.overflow = '';
+            }, 300);
+        };
+
+        document.getElementById('openInTabBtn').onclick = () => {
+            if (state.currentImageSrc) {
+                window.open(state.currentImageSrc, '_blank');
+            }
+            modal.querySelector('.modal__close').click();
+        };
+
+        document.getElementById('copyLinkBtn').onclick = () => {
+            if (state.currentImageSrc) {
+                navigator.clipboard.writeText(state.currentImageSrc)
+                    .then(() => {
+                        showNotification(getTranslation('copy-success'), 'success');
+                    })
+                    .catch(() => {
+                        showNotification(getTranslation('copy-error'), 'error');
+                    });
+            }
+            modal.querySelector('.modal__close').click();
+        };
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.querySelector('.modal__close').click();
+            }
+        });
+    }
+
+    function showDownloadNotification() {
+        showNotification(getTranslation('download-success'), 'success');
+    }
+
+    function downloadImage() {
+        if (!state.currentImageSrc) return;
+        
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.src = state.currentImageSrc;
+        
+        img.onload = function() {
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                
+                canvas.toBlob(function(blob) {
+                    if (!blob) {
+                        showDownloadOptions();
+                        return;
+                    }
+                    
+                    const fileName = state.currentImageName 
+                        ? state.currentImageName.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.jpg'
+                        : `kuroneko-image-${Date.now()}.jpg`;
+                    
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+                    
+                    showDownloadNotification();
+                }, 'image/jpeg', 0.95);
+                
+            } catch (error) {
+                showDownloadOptions();
+            }
+        };
+        
+        img.onerror = function() {
+            showDownloadOptions();
+        };
     }
 
     function parseImageData(rawData) {
@@ -328,6 +453,9 @@ const Gallery = (function () {
         const currentData = state.imageDatabase[index];
         if (!currentData) return;
 
+        // Configurar info para descarga
+        setCurrentDownloadInfo(currentData.fullSize, currentData.title);
+
         const modal = document.createElement('div');
         modal.className = 'slideshow-modal';
         modal.innerHTML = `
@@ -370,8 +498,10 @@ const Gallery = (function () {
                 </div>
             </div>
         `;
+        
         document.body.appendChild(modal);
         document.body.style.overflow = 'hidden';
+        
         requestAnimationFrame(() => modal.classList.add('active'));
         bindSlideshowEvents(modal);
         loadSlideshowImage(index);
@@ -386,11 +516,28 @@ const Gallery = (function () {
                 container.classList.toggle('ui-hidden');
             }
         });
+        
         modal.querySelector('.slideshow-close').onclick = closeSlideshow;
-        modal.querySelector('.slideshow-prev').onclick = (e) => { e.stopPropagation(); prevImage(); };
-        modal.querySelector('.slideshow-next').onclick = (e) => { e.stopPropagation(); nextImage(); };
-        modal.querySelector('.slideshow-download').onclick = (e) => { e.stopPropagation(); downloadImage(); };
-        modal.querySelector('.slideshow-zoom-toggle').onclick = (e) => { e.stopPropagation(); toggleZoom(); };
+        modal.querySelector('.slideshow-prev').onclick = (e) => { 
+            e.stopPropagation(); 
+            prevImage(); 
+        };
+        modal.querySelector('.slideshow-next').onclick = (e) => { 
+            e.stopPropagation(); 
+            nextImage(); 
+        };
+        
+        // Botón de descarga mejorado
+        modal.querySelector('.slideshow-download').onclick = (e) => { 
+            e.stopPropagation(); 
+            downloadImage(); 
+        };
+        
+        modal.querySelector('.slideshow-zoom-toggle').onclick = (e) => { 
+            e.stopPropagation(); 
+            toggleZoom(); 
+        };
+        
         document.addEventListener('keydown', handleKeyboard);
         const img = modal.querySelector('.slideshow-image');
         setupImageInteractions(img);
@@ -407,20 +554,30 @@ const Gallery = (function () {
         if (state.uiTimeout) clearTimeout(state.uiTimeout);
         state.isSlideshowActive = false;
         resetZoomState();
+        
+        // Limpiar info de descarga
+        state.currentImageSrc = null;
+        state.currentImageName = null;
     }
 
     function loadSlideshowImage(index) {
         const data = state.imageDatabase[index];
         if (!data) return;
+        
+        // Actualizar info para descarga
+        setCurrentDownloadInfo(data.fullSize, data.title);
+        
         resetZoomState();
         const titleEl = document.querySelector('.slideshow-title');
         const descEl = document.querySelector('.slideshow-description');
         const countEl = document.querySelector('.slideshow-counter .current');
         const imgEl = document.querySelector('.slideshow-image');
         const loader = document.querySelector('.slideshow-loading');
+        
         if (titleEl) titleEl.textContent = data.title;
         if (descEl) descEl.textContent = data.description;
         if (countEl) countEl.textContent = index + 1;
+        
         if (imgEl && loader) {
             imgEl.style.opacity = '0';
             loader.style.display = 'block';
@@ -430,13 +587,24 @@ const Gallery = (function () {
                 imgEl.style.opacity = '1';
                 loader.style.display = 'none';
             };
-            tempImg.onerror = () => { loader.textContent = 'Error loading image'; };
+            tempImg.onerror = () => { 
+                loader.textContent = 'Error loading image'; 
+            };
             tempImg.src = data.fullSize;
         }
     }
 
-    function nextImage() { if (state.currentImageIndex < state.imageDatabase.length - 1) loadSlideshowImage(++state.currentImageIndex); }
-    function prevImage() { if (state.currentImageIndex > 0) loadSlideshowImage(--state.currentImageIndex); }
+    function nextImage() { 
+        if (state.currentImageIndex < state.imageDatabase.length - 1) {
+            loadSlideshowImage(++state.currentImageIndex); 
+        }
+    }
+    
+    function prevImage() { 
+        if (state.currentImageIndex > 0) {
+            loadSlideshowImage(--state.currentImageIndex); 
+        }
+    }
 
     function handleKeyboard(e) {
         if (!state.isSlideshowActive) return;
@@ -446,6 +614,8 @@ const Gallery = (function () {
             case 'ArrowLeft': prevImage(); break;
             case 'Escape': closeSlideshow(); break;
             case ' ': toggleZoom(); break;
+            case 'd':
+            case 'D': downloadImage(); break;
         }
         resetIdleTimer();
     }
@@ -455,17 +625,25 @@ const Gallery = (function () {
         state.zoomScale = 1;
         state.transform = { x: 0, y: 0, startX: 0, startY: 0, isDragging: false };
         const img = document.querySelector('.slideshow-image');
-        if (img) { img.style.transform = ''; img.classList.remove('zoomed'); }
+        if (img) { 
+            img.style.transform = ''; 
+            img.classList.remove('zoomed'); 
+        }
         const btn = document.querySelector('.slideshow-zoom-toggle');
         if (btn) btn.innerHTML = getTranslation('zoom');
     }
 
     function toggleZoom() {
-        if (state.isImageZoomed) { resetZoomState(); } else {
+        if (state.isImageZoomed) { 
+            resetZoomState(); 
+        } else {
             state.isImageZoomed = true;
             state.zoomScale = 2;
             const img = document.querySelector('.slideshow-image');
-            if (img) { img.classList.add('zoomed'); img.style.transform = `scale(${state.zoomScale}) translate(0px, 0px)`; }
+            if (img) { 
+                img.classList.add('zoomed'); 
+                img.style.transform = `scale(${state.zoomScale}) translate(0px, 0px)`; 
+            }
             const btn = document.querySelector('.slideshow-zoom-toggle');
             if (btn) btn.innerHTML = getTranslation('zoom-out');
         }
@@ -489,30 +667,16 @@ const Gallery = (function () {
             img.style.transform = `scale(${state.zoomScale}) translate(${state.transform.x}px, ${state.transform.y}px)`;
         });
         window.addEventListener('mouseup', () => {
-            if (state.transform.isDragging) { state.transform.isDragging = false; img.style.cursor = 'grab'; }
+            if (state.transform.isDragging) { 
+                state.transform.isDragging = false; 
+                img.style.cursor = 'grab'; 
+            }
         });
         img.addEventListener('click', (e) => {
             if (state.transform.isDragging) return;
             e.stopPropagation();
             toggleZoom();
         });
-    }
-
-    function downloadImage() {
-        const data = state.imageDatabase[state.currentImageIndex];
-        if (!data) return;
-        if (typeof Utils !== 'undefined' && Utils.showNotification) {
-            const link = document.createElement('a');
-            link.href = data.fullSize;
-            link.download = `kuroneko_gallery_${data.id}.jpg`;
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            showNotification(getTranslation('download-success'), 'success');
-        } else {
-            window.open(data.fullSize, '_blank');
-        }
     }
 
     return {
@@ -540,6 +704,7 @@ const Gallery = (function () {
                 loadSlideshowImage(state.currentImageIndex);
             }
         },
-        openSlideshow: openSlideshow
+        openSlideshow: openSlideshow,
+        downloadImage: downloadImage
     };
 })();
