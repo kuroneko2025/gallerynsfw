@@ -25,7 +25,6 @@ const KuronekoApp = (function () {
                 localStorage.setItem('kuroneko-language', currentLanguage);
                 Utils.updateTexts(currentLanguage);
 
-                // Notificar a Home Manager del cambio de idioma
                 if (homeManager && homeManager.onLanguageChange) {
                     homeManager.onLanguageChange(currentLanguage);
                 }
@@ -54,7 +53,6 @@ const KuronekoApp = (function () {
                     DOM.headerLogout.addEventListener('click', handleUserLogout);
                 }
             } catch (error) {
-                console.error('Error parsing saved user:', error);
                 localStorage.removeItem('currentUser');
             }
         }
@@ -126,7 +124,6 @@ const KuronekoApp = (function () {
                 Messages.startNewMessage(productId, productTitle);
             } else {
                 Utils.showNotification('El sistema de mensajes no está disponible', 'error');
-                console.error('Messages module not available');
             }
         };
 
@@ -215,7 +212,6 @@ const KuronekoApp = (function () {
             });
         }
 
-        // Inicializar
         setupHomeLanguageSelector();
         setupHomeNavigation();
 
@@ -245,51 +241,40 @@ const KuronekoApp = (function () {
                 const user = JSON.parse(savedUser);
                 handleUserLogin(user);
             } catch (error) {
-                console.error('Error checking user session:', error);
                 localStorage.removeItem('currentUser');
             }
         }
     }
 
-    // Función para inicializar el contador de visitas
     async function initializeVisitCounter() {
         try {
             if (typeof VisitCounter !== 'undefined' && VisitCounter.init) {
-                console.log('Inicializando contador de visitas...');
                 await VisitCounter.init();
                 
-                // Obtener el conteo actual para mostrarlo
                 const count = await VisitCounter.getCount();
-                console.log('Contador de visitas inicializado:', count);
                 
-                // Disparar evento para que otros módulos sepan que el contador está listo
                 document.dispatchEvent(new CustomEvent('visitCounterReady', {
                     detail: { count: count }
                 }));
                 
                 return count;
             } else {
-                console.warn('VisitCounter no está disponible');
                 return 0;
             }
         } catch (error) {
-            console.error('Error inicializando contador de visitas:', error);
             return 0;
         }
     }
 
-    // Función para actualizar la UI con el contador de visitas
     function updateVisitCounterDisplay(count) {
-        // Buscar elementos donde mostrar el contador
         const counterElements = document.querySelectorAll('.visit-counter, [data-visit-counter]');
         
         counterElements.forEach(element => {
             if (element.classList.contains('visit-counter') || element.hasAttribute('data-visit-counter')) {
-                // Animación del contador
                 let current = 0;
                 const increment = Math.max(1, Math.ceil(count / 30));
-                const duration = 1000; // 1 segundo
-                const steps = duration / 20; // 50 steps
+                const duration = 1000;
+                const steps = duration / 20;
                 let step = 0;
                 
                 const timer = setInterval(() => {
@@ -306,19 +291,15 @@ const KuronekoApp = (function () {
             }
         });
         
-        // También actualizar en el home si existe un elemento específico
         const homeCounter = document.getElementById('visitCount');
         if (homeCounter) {
             homeCounter.textContent = count.toLocaleString();
         }
     }
 
-    // Configurar eventos para el contador de visitas
     function setupVisitCounterEvents() {
-        // Actualizar contador cuando se cambie a la sección home
         document.addEventListener('sectionChanged', async function(e) {
             if (e.detail.section === 'home') {
-                // Pequeño delay para asegurar que la sección esté visible
                 setTimeout(async () => {
                     if (typeof VisitCounter !== 'undefined' && VisitCounter.getCount) {
                         const count = await VisitCounter.getCount();
@@ -328,7 +309,6 @@ const KuronekoApp = (function () {
             }
         });
 
-        // Escuchar evento de actualización del contador
         document.addEventListener('visitCounterUpdated', function(e) {
             updateVisitCounterDisplay(e.detail.count);
         });
@@ -336,28 +316,18 @@ const KuronekoApp = (function () {
 
     async function initializeModules() {
         try {
-            console.log('🚀 Inicializando módulos de la aplicación...');
-
             if (typeof Utils !== 'undefined' && Utils.simulateLoading) {
                 await Utils.simulateLoading();
             }
 
-            // Inicializar contador de visitas PRIMERO (es crítico)
             const initialVisitCount = await initializeVisitCounter();
-            console.log('Contador de visitas cargado:', initialVisitCount);
             
-            // Configurar eventos del contador
             setupVisitCounterEvents();
 
-            // Inicializar Home Manager
             homeManager = setupHomeManager();
 
             if (typeof AgeVerification !== 'undefined' && AgeVerification.init) {
                 await AgeVerification.init();
-            }
-
-            if (typeof Modal !== 'undefined' && Modal.init) {
-                await Modal.init();
             }
 
             if (typeof Gallery !== 'undefined' && Gallery.init) {
@@ -371,73 +341,55 @@ const KuronekoApp = (function () {
             if (typeof Messages !== 'undefined' && Messages.init) {
                 Messages.init();
                 setupMessagesIntegration();
-            } else {
-                console.warn('Módulo de mensajes no disponible');
             }
 
             setupUserInterface();
 
-            // Actualizar display del contador después de que todo esté cargado
             updateVisitCounterDisplay(initialVisitCount);
 
-            // ========== CORRECCIÓN CLAVE: ACTIVAR HOME AL FINALIZAR CARGA ==========
-            console.log('✅ Todos los módulos inicializados, activando Home...');
-            
-            // Ocultar pantalla de carga
+            // ========== CORRECCIÓN: HOME SIEMPRE ACTIVO AL INICIO ==========
             if (DOM.loadingScreen) {
                 DOM.loadingScreen.classList.add('loading--hidden');
-                console.log('📱 Pantalla de carga ocultada');
             }
 
-            // GARANTIZAR QUE HOME SEA LA SECCIÓN ACTIVA
             setTimeout(() => {
-                const currentSection = typeof Navigation !== 'undefined' ? Navigation.getCurrentSection() : null;
-                console.log('🔍 Sección actual detectada:', currentSection);
+                const currentHash = window.location.hash.substring(1);
                 
-                if (currentSection !== 'home') {
-                    console.log('🔄 Forzando activación del Home...');
+                // Solo activar home si no hay otro hash específico
+                if (!currentHash || currentHash === 'home') {
+                    const homeSection = document.getElementById('home');
+                    const otherSections = document.querySelectorAll('.section');
                     
-                    if (typeof Navigation !== 'undefined' && Navigation.switchToSection) {
-                        Navigation.switchToSection('home');
-                    } else {
-                        // Fallback manual si Navigation no está disponible
-                        console.log('⚠️ Usando fallback manual para activar Home');
-                        const homeSection = document.getElementById('home');
-                        const otherSections = document.querySelectorAll('.section');
+                    otherSections.forEach(section => {
+                        section.classList.remove('section--active');
+                        section.style.display = 'none';
+                        section.style.opacity = '0';
+                        section.style.visibility = 'hidden';
+                    });
+                    
+                    if (homeSection) {
+                        homeSection.classList.add('home--active');
+                        homeSection.style.display = 'flex';
                         
-                        if (homeSection) {
-                            // Ocultar todas las otras secciones
-                            otherSections.forEach(section => {
-                                section.classList.remove('section--active');
-                                section.style.display = 'none';
-                            });
-                            
-                            // Mostrar home
-                            homeSection.classList.add('home--active');
-                            homeSection.style.display = 'flex';
-                            
-                            // Actualizar URL
+                        setTimeout(() => {
+                            homeSection.style.opacity = '1';
+                            homeSection.style.visibility = 'visible';
+                            homeSection.style.transform = 'translateY(0) scale(1)';
+                        }, 50);
+                        
+                        if (!window.location.hash) {
                             window.history.replaceState(null, null, '#home');
-                            
-                            console.log('✅ Home activado manualmente');
                         }
                     }
-                } else {
-                    console.log('✅ Home ya está activo');
                 }
             }, 300);
 
             isInitialized = !0;
             document.dispatchEvent(new CustomEvent('appInitialized'));
-            console.log('🎉 Aplicación completamente inicializada');
 
         } catch (error) {
-            console.error('❌ Error initializing app:', error);
-            
-            // FALLBACK DE EMERGENCIA: ACTIVAR HOME SI HAY ERROR
             const homeSection = document.getElementById('home');
             if (homeSection) {
-                console.log('🚨 Activando Home por fallback de error');
                 homeSection.classList.add('home--active');
                 homeSection.style.display = 'flex';
             }
@@ -450,22 +402,17 @@ const KuronekoApp = (function () {
 
     async function init() {
         if (isInitialized) {
-            console.log('⚠️ App ya estaba inicializada');
             return;
         }
 
         try {
-            console.log('🎬 Iniciando aplicación Kuroneko...');
             setupLanguageSelector();
             await initializeModules();
 
             if (typeof Utils !== 'undefined' && Utils.handleSmoothScrolling) {
                 Utils.handleSmoothScrolling();
             }
-            
-            console.log('✨ Aplicación iniciada exitosamente');
         } catch (error) {
-            console.error('💥 Error in app initialization:', error);
             if (typeof Utils !== 'undefined' && Utils.showNotification) {
                 Utils.showNotification('Error crítico en la aplicación', 'error');
             }
@@ -491,7 +438,6 @@ const KuronekoApp = (function () {
                     Utils.updateTexts(lang);
                 }
 
-                // Notificar a Home Manager
                 if (homeManager && homeManager.onLanguageChange) {
                     homeManager.onLanguageChange(lang);
                 }
@@ -514,12 +460,10 @@ const KuronekoApp = (function () {
                 isInitialized: isInitialized
             };
 
-            // Agregar estadísticas del contador de visitas
             if (typeof VisitCounter !== 'undefined' && VisitCounter.getCount) {
                 VisitCounter.getCount().then(count => {
                     stats.visitCount = count;
                 }).catch(error => {
-                    console.error('Error getting visit count:', error);
                     stats.visitCount = 0;
                 });
             } else {
@@ -544,7 +488,6 @@ const KuronekoApp = (function () {
         },
         checkUserSession: checkUserSession,
         logoutUser: handleUserLogout,
-        // Métodos públicos para el contador de visitas
         getVisitCount: function() {
             if (typeof VisitCounter !== 'undefined' && VisitCounter.getCount) {
                 return VisitCounter.getCount();
@@ -560,7 +503,6 @@ const KuronekoApp = (function () {
             }
             return Promise.resolve(0);
         },
-        // Método para debug
         debugInfo: function() {
             return {
                 currentLanguage: currentLanguage,
@@ -581,18 +523,15 @@ const KuronekoApp = (function () {
 })();
 
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('📄 DOM completamente cargado, iniciando app...');
     KuronekoApp.init();
 });
 
 document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
-        console.log('👻 Página oculta');
         if (typeof Messages !== 'undefined' && Messages.onPageHidden) {
             Messages.onPageHidden();
         }
     } else {
-        console.log('👀 Página visible');
         if (KuronekoApp.isInitialized && KuronekoApp.isInitialized()) {
             const currentSection = typeof Navigation !== 'undefined' && Navigation.getCurrentSection ? Navigation.getCurrentSection() : '';
 
@@ -602,7 +541,6 @@ document.addEventListener('visibilitychange', function () {
                 Gallery.refresh();
             }
 
-            // Actualizar contador de visitas cuando la página vuelve a ser visible
             if (currentSection === 'home') {
                 setTimeout(() => {
                     if (typeof KuronekoApp.refreshVisitCounter === 'function') {
@@ -619,21 +557,17 @@ document.addEventListener('visibilitychange', function () {
 });
 
 window.addEventListener('load', function () {
-    console.log('🖼️ Ventana completamente cargada');
     if (KuronekoApp.checkUserSession) {
         KuronekoApp.checkUserSession();
     }
 });
 
 window.addEventListener('error', function (e) {
-    console.error('💥 Unhandled error:', e.error);
 });
 
 window.addEventListener('unhandledrejection', function (e) {
-    console.error('💥 Unhandled promise rejection:', e.reason);
 });
 
-// Exportar para uso global si es necesario
 if (typeof window !== 'undefined') {
     window.KuronekoApp = KuronekoApp;
 }

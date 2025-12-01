@@ -71,7 +71,6 @@ const Messages = (function() {
     // ========== SISTEMA DE RESPUESTAS CORREGIDO ==========
     function parseResponse(text) {
         try {
-            console.log('Respuesta recibida:', text);
             
             // Tu Google Script devuelve respuestas como "SUCCESS:data" o "ERROR:message"
             if (text.startsWith('SUCCESS:')) {
@@ -356,14 +355,11 @@ const Messages = (function() {
                 conversationId: conversationId
             });
             
-            console.log('Cargando mensajes desde:', messagesUrl);
             const response = await fetch(messagesUrl);
             const result = await response.text();
-            console.log('Respuesta de mensajes:', result);
             
             // Tu Google Script devuelve mensajes en formato texto separado por |
             if (!result || result.trim() === '') {
-                console.log('No hay mensajes');
                 return [];
             }
             
@@ -372,7 +368,6 @@ const Messages = (function() {
             
             lines.forEach(line => {
                 const parts = line.split('|');
-                console.log('Procesando línea:', parts);
                 if (parts.length >= 8) {
                     const message = {
                         id: parts[0],
@@ -400,7 +395,6 @@ const Messages = (function() {
             hasMoreMessages = endIndex < messages.length;
             currentMessageOffset = endIndex;
             
-            console.log(`Cargados ${batchMessages.length} mensajes, hay más: ${hasMoreMessages}`);
             return batchMessages;
         } catch (error) {
             console.error('Error loading message batch:', error);
@@ -620,7 +614,6 @@ const Messages = (function() {
         try {
             showAuthLoading(true);
             const loginUrl = getScriptUrl('login');
-            console.log('Intentando login:', username);
             
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -629,7 +622,6 @@ const Messages = (function() {
             });
             
             const result = await response.text();
-            console.log('Respuesta de login:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
@@ -700,7 +692,6 @@ const Messages = (function() {
         try {
             showAuthLoading(true);
             const registerUrl = getScriptUrl('register');
-            console.log('Intentando registro:', username);
             
             const response = await fetch(registerUrl, {
                 method: 'POST',
@@ -709,7 +700,6 @@ const Messages = (function() {
             });
             
             const result = await response.text();
-            console.log('Respuesta de registro:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
@@ -810,7 +800,6 @@ const Messages = (function() {
             pausePolling();
             
             const saveUrl = getScriptUrl('save_message');
-            console.log('Enviando mensaje:', message);
             
             const response = await fetch(saveUrl, {
                 method: 'POST',
@@ -825,7 +814,6 @@ const Messages = (function() {
             });
             
             const result = await response.text();
-            console.log('Respuesta de enviar mensaje:', result);
             const parsed = parseResponse(result);
             
             if (parsed.success) {
@@ -908,11 +896,9 @@ const Messages = (function() {
             showConversationsLoading(true);
             
             const messagesUrl = getScriptUrl('get_messages', { username: currentUser.username });
-            console.log('Cargando mensajes del usuario:', currentUser.username);
             
             const response = await fetch(messagesUrl);
             const result = await response.text();
-            console.log('Respuesta de mensajes del usuario:', result);
             
             if (result && result.trim() !== '') {
                 updateConversationsListFromText(result);
@@ -1115,8 +1101,6 @@ const Messages = (function() {
     function init() {
         if (isInitialized) return;
         
-        console.log('Inicializando sistema de mensajes...');
-        
         showMainLoading(false);
         initAuthSystem();
         updateMessagesTexts();
@@ -1169,7 +1153,6 @@ const Messages = (function() {
         });
         
         isInitialized = !0;
-        console.log('Sistema de mensajes inicializado correctamente');
         EventSystem.emit('messagesInitialized');
     }
 

@@ -24,7 +24,6 @@ const Navigation = (function () {
 
     function setupMobileMenu() {
         if (!DOM.hamburgerButton || !DOM.headerMenu) {
-            console.error('Elementos del menú móvil no encontrados');
             return
         }
         const overlay = createMenuOverlay();
@@ -82,9 +81,6 @@ const Navigation = (function () {
     function switchSection(sectionId) {
         if (currentSection === sectionId) return;
 
-        console.log('🔀 Cambiando a sección:', sectionId, 'desde:', currentSection);
-
-        // Actualizar navegación
         DOM.navLinks.forEach(link => {
             link.classList.remove('header__link--active');
             if (link.getAttribute('data-section') === sectionId) {
@@ -99,26 +95,15 @@ const Navigation = (function () {
             }
         });
 
-        // Ocultar todas las secciones de manera más efectiva
         DOM.sections.forEach(section => {
             section.classList.remove('section--active', 'home--active');
-            // Forzar el ocultamiento completo
             section.style.display = 'none';
             section.style.opacity = '0';
             section.style.visibility = 'hidden';
-            section.style.position = 'absolute';
-            section.style.left = '-9999px';
-            section.style.minHeight = '0';
-            section.style.height = '0';
-            section.style.overflow = 'hidden';
         });
 
-        // Mostrar sección objetivo
         const targetSection = document.getElementById(sectionId);
         if (targetSection) {
-            console.log('🎯 Mostrando sección:', sectionId);
-
-            // Restaurar estilos para la sección activa
             targetSection.style.display = '';
             targetSection.style.opacity = '';
             targetSection.style.visibility = '';
@@ -131,26 +116,21 @@ const Navigation = (function () {
             if (sectionId === 'home') {
                 targetSection.classList.add('home--active');
                 targetSection.style.display = 'flex';
-
-                // ========== CORRECCIÓN CLAVE: FORZAR VISIBILIDAD DEL HOME ==========
+                
                 setTimeout(() => {
                     targetSection.style.opacity = '1';
                     targetSection.style.visibility = 'visible';
                     targetSection.style.transform = 'translateY(0) scale(1)';
-
-                    // Forzar reflow y animación
-                    targetSection.offsetHeight; // Trigger reflow
-
-                    console.log('✅ Home completamente activado y visible');
-
-                    // Disparar evento específico para el Home
-                    document.dispatchEvent(new CustomEvent('homeActivated'));
-
                 }, 50);
 
             } else {
                 targetSection.classList.add('section--active');
                 targetSection.style.display = 'block';
+                
+                setTimeout(() => {
+                    targetSection.style.opacity = '1';
+                    targetSection.style.visibility = 'visible';
+                }, 50);
             }
 
             currentSection = sectionId;
@@ -163,31 +143,22 @@ const Navigation = (function () {
             SideNavigation.close();
         }
 
-        // Scroll suave al top
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
 
-        // Disparar evento de cambio de sección
         document.dispatchEvent(new CustomEvent('sectionChanged', {
             detail: {
                 section: sectionId,
                 previousSection: currentSection
             }
         }));
-
-        console.log('✅ Sección cambiada exitosamente a:', sectionId);
     }
 
     function loadSectionContent(sectionId) {
-        console.log('Cargando contenido para sección:', sectionId);
-
         switch (sectionId) {
             case 'home':
-                // El home se inicializa automáticamente a través de app.js
-                console.log('Inicializando Home...');
-                // Forzar redimensionamiento si es necesario
                 setTimeout(() => {
                     window.dispatchEvent(new Event('resize'));
                 }, 100);
@@ -195,7 +166,6 @@ const Navigation = (function () {
 
             case 'messages':
                 if (typeof Messages !== 'undefined') {
-                    console.log('Inicializando Messages...');
                     setTimeout(() => {
                         if (Messages.init && !Messages.isInitialized) {
                             Messages.init();
@@ -208,7 +178,6 @@ const Navigation = (function () {
 
             case 'gallery':
                 if (typeof Gallery !== 'undefined') {
-                    console.log('Inicializando Gallery...');
                     setTimeout(() => {
                         if (Gallery.refresh) {
                             Gallery.refresh();
@@ -218,66 +187,52 @@ const Navigation = (function () {
                     }, 100);
                 }
                 break;
-
-            default:
-                console.log('Sección no reconocida:', sectionId);
         }
     }
 
     function handleNavigation() {
-        // Navegación principal
         DOM.navLinks.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const section = this.getAttribute('data-section');
                 if (section) {
-                    console.log('Navegación click - Sección:', section);
                     switchSection(section)
                 }
             })
         });
 
-        // Navegación side nav
         DOM.sideNavLinks.forEach(link => {
             link.addEventListener('click', function (e) {
                 e.preventDefault();
                 const section = this.getAttribute('data-section');
                 if (section) {
-                    console.log('Side nav click - Sección:', section);
                     switchSection(section)
                 }
             })
         });
 
-        // Manejar cambios de hash en la URL
         window.addEventListener('hashchange', function () {
             const hash = window.location.hash.substring(1);
-            console.log('Hash change detectado:', hash);
             if (hash && document.getElementById(hash)) {
                 switchSection(hash)
             }
         });
 
-        // Manejar navegación con botones de atrás/adelante
         window.addEventListener('popstate', function () {
             const hash = window.location.hash.substring(1);
-            console.log('Popstate detectado:', hash);
             if (hash && document.getElementById(hash)) {
                 switchSection(hash)
             } else {
-                // Si no hay hash, ir al home
                 switchSection('home');
             }
         });
 
-        // Manejar navegación desde botones internos
         document.addEventListener('click', function (e) {
             const button = e.target.closest('[data-section]');
             if (button && button.hasAttribute('data-section')) {
                 e.preventDefault();
                 const section = button.getAttribute('data-section');
                 if (section) {
-                    console.log('Botón interno click - Sección:', section);
                     switchSection(section);
                 }
             }
@@ -286,31 +241,44 @@ const Navigation = (function () {
 
     function initCurrentSection() {
         const initialHash = window.location.hash.substring(1);
-        if (initialHash && document.getElementById(initialHash)) {
-            console.log('Inicializando con hash:', initialHash);
-            switchSection(initialHash);
-        } else {
-            console.log('Inicializando con sección por defecto: home');
-            switchSection('home');
-
-            // Asegurar que la URL refleje la sección actual
-            if (!window.location.hash) {
-                window.history.replaceState(null, null, '#home');
+        
+        // ========== CORRECCIÓN: HOME SIEMPRE AL INICIO ==========
+        if (!initialHash || initialHash === 'home') {
+            const homeSection = document.getElementById('home');
+            const otherSections = document.querySelectorAll('.section');
+            
+            otherSections.forEach(section => {
+                section.classList.remove('section--active', 'home--active');
+                section.style.display = 'none';
+                section.style.opacity = '0';
+                section.style.visibility = 'hidden';
+            });
+            
+            if (homeSection) {
+                homeSection.classList.add('home--active');
+                homeSection.style.display = 'flex';
+                homeSection.style.opacity = '1';
+                homeSection.style.visibility = 'visible';
+                homeSection.style.transform = 'none';
+                
+                if (!window.location.hash) {
+                    window.history.replaceState(null, null, '#home');
+                }
             }
+            
+            currentSection = 'home';
+        } else if (initialHash && document.getElementById(initialHash)) {
+            switchSection(initialHash);
         }
     }
 
     function handlePageLoad() {
-        // Esperar a que el DOM esté completamente cargado
         setTimeout(() => {
-            console.log('Página cargada, inicializando navegación...');
             initCurrentSection();
 
-            // Forzar una verificación adicional después de la carga completa
             setTimeout(() => {
                 const activeSection = document.querySelector('.section--active, .home--active');
                 if (!activeSection) {
-                    console.warn('No se detectó sección activa, forzando home...');
                     switchSection('home');
                 }
             }, 500);
@@ -330,7 +298,6 @@ const Navigation = (function () {
     }
 
     function refreshCurrentSection() {
-        console.log('Refrescando sección actual:', currentSection);
         if (currentSection) {
             loadSectionContent(currentSection);
         }
@@ -339,16 +306,12 @@ const Navigation = (function () {
     return {
         init: function () {
             if (isInitialized) {
-                console.log('Navegación ya inicializada');
                 return;
             }
-
-            console.log('Inicializando sistema de navegación...');
 
             handleNavigation();
             setupMobileMenu();
 
-            // Inicializar después de que todo esté listo
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', handlePageLoad);
             } else {
@@ -356,7 +319,6 @@ const Navigation = (function () {
             }
 
             isInitialized = !0;
-            console.log('Sistema de navegación inicializado correctamente');
         },
 
         getCurrentSection: function () {
@@ -364,14 +326,11 @@ const Navigation = (function () {
         },
 
         switchToSection: function (sectionId) {
-            console.log('SwitchToSection llamado:', sectionId);
             if (!sectionId) {
-                console.error('Sección no especificada');
                 return;
             }
 
             if (!document.getElementById(sectionId)) {
-                console.error('Sección no encontrada:', sectionId);
                 return;
             }
 
@@ -392,25 +351,10 @@ const Navigation = (function () {
 
         isInitialized: function () {
             return isInitialized;
-        },
-
-        // Método para debug
-        debugInfo: function () {
-            return {
-                currentSection: currentSection,
-                isInitialized: isInitialized,
-                mobileMenuOpen: this.isMobileMenuOpen(),
-                sections: Array.from(DOM.sections).map(section => ({
-                    id: section.id,
-                    isActive: section.classList.contains('section--active') || section.classList.contains('home--active'),
-                    isVisible: section.style.display !== 'none' && section.style.visibility !== 'hidden'
-                }))
-            };
         }
     };
 })();
 
-// Inicialización automática cuando el DOM esté listo
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
         setTimeout(() => {
@@ -423,7 +367,6 @@ if (document.readyState === 'loading') {
     }, 100);
 }
 
-// Exportar para uso global si es necesario
 if (typeof window !== 'undefined') {
     window.Navigation = Navigation;
 }

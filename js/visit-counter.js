@@ -11,7 +11,6 @@ const VisitCounter = (function() {
             const text = await response.text();
             return parseInt(text) || 0;
         } catch (error) {
-            console.log('Error getting count, using local storage');
             return getStoredCount();
         }
     }
@@ -34,7 +33,6 @@ const VisitCounter = (function() {
             return newCount;
             
         } catch (error) {
-            console.log('Error incrementing, using local count');
             const stored = getStoredCount();
             const newCount = stored + 1;
             localStorage.setItem(STORAGE_KEY, newCount.toString());
