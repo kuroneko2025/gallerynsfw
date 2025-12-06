@@ -62,11 +62,11 @@
     <meta http-equiv="Content-Language" content="en">
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/base.css?v=5.6">
-    <link rel="stylesheet" href="css/layout.css?v=5.6">
-    <link rel="stylesheet" href="css/modules.css?v=5.6">
-    <link rel="stylesheet" href="css/states.css?v=5.6">
-    <link rel="stylesheet" href="css/themes.css?v=5.6">
+    <link rel="stylesheet" href="css/base.css?v=6.1">
+    <link rel="stylesheet" href="css/layout.css?v=6.1">
+    <link rel="stylesheet" href="css/modules.css?v=6.1">
+    <link rel="stylesheet" href="css/states.css?v=6.1">
+    <link rel="stylesheet" href="css/themes.css?v=6.1">
     <script>
         document.addEventListener('contextmenu', function (e) { e.preventDefault() });
         document.addEventListener('keydown', function (e) {
@@ -238,10 +238,10 @@
         </header>
 
         <main class="l-main">
-            <!-- ========== SECCIÓN HOME CORREGIDA ========== -->
+            
             <section class="home home--active" id="home">
                 <div class="home__container container">
-                    <!-- Contador de visitas -->
+                    
                     <div class="home__counter">
                         <div class="counter__card">
                             <div class="counter__icon">👁️</div>
@@ -252,7 +252,7 @@
                         </div>
                     </div>
 
-                    <!-- Presentación personal -->
+                    
                     <div class="home__content">
                         <div class="home__profile">
                             <div class="profile__image">
@@ -272,7 +272,7 @@
                             </div>
                         </div>
 
-                        <!-- Textos en diferentes idiomas -->
+                        
                         <div class="home__texts">
                             <div class="home__text" data-lang="es">
                                 <h2>Sobre Mí</h2>
@@ -341,8 +341,8 @@
                         </div>
                     </div>
 
-                    <!-- Navegación rápida -->
-                    <!-- Botón Anti-Scam PayPal -->
+                    
+                    
                     <div class="home__donation-section">
                         <div class="donation-warning">
                             <div class="warning-header">
@@ -397,7 +397,7 @@
                 </div>
             </section>
 
-            <!-- ========== SECCIÓN GALERÍA ========== -->
+            
             <section class="gallery section" id="gallery">
                 <h1 class="gallery__title" data-lang="gallery-title">Galería 𓆩♛𓆪 クロネコ 𓆩♛𓆪</h1>
 
@@ -407,10 +407,10 @@
                 </div>
 
                 <div class="gallery__grid" id="galleryGrid">
-                    <!-- Las imágenes se cargarán aquí dinámicamente -->
+                    
                 </div>
 
-                <!-- Controles de paginación -->
+                
                 <div class="gallery__pagination" id="galleryPagination" style="display: none;">
                     <div class="gallery__page-info" id="galleryPageInfo"></div>
                     <div class="gallery__pagination-controls">
@@ -424,12 +424,12 @@
                 </div>
             </section>
 
-            <!-- ========== SECCIÓN MENSAJES ========== -->
+            
             <section class="messages section" id="messages">
-                <!-- Sección de autenticación -->
+                
                 <div class="auth-section" id="authSection">
                     <div class="auth-container">
-                        <!-- Formulario de Login -->
+                        
                         <div class="auth-form auth-form--active" id="loginSection">
                             <h2 class="auth-form__title" data-lang="login-title">Iniciar Sesión</h2>
                             <form class="auth-form__form" id="loginForm">
@@ -456,7 +456,7 @@
                             </p>
                         </div>
 
-                        <!-- Formulario de Registro -->
+                        
                         <div class="auth-form" id="registerSection">
                             <h2 class="auth-form__title" data-lang="register-title">Crear Cuenta</h2>
                             <form class="auth-form__form" id="registerForm">
@@ -498,7 +498,7 @@
                     </div>
                 </div>
 
-                <!-- Sección de mensajes (solo visible cuando el usuario está logueado) -->
+                
                 <div class="messages-section" id="messagesSection" style="display: none;">
                     <div class="messages__header">
                         <h1 class="messages__title" data-lang="messages-title">Mensajes Privados</h1>
@@ -592,14 +592,14 @@
                                 </div>
 
                                 <div class="messages__messages" id="messagesContent">
-                                    <!-- Los mensajes se cargarán aquí dinámicamente -->
+                                    
                                     <div class="loading-container" id="chatLoading">
                                         <div class="loading-spinner"></div>
                                         <div class="loading-text">Cargando mensajes...</div>
                                     </div>
                                 </div>
 
-                                <!-- Botón para cargar más mensajes -->
+                                
                                 <div class="messages__load-more" id="loadMoreMessages" style="display: none;"></div>
 
                                 <div class="messages__input-container">
@@ -629,7 +629,7 @@
         </main>
     </div>
 
-    <!-- ========== MODAL DE INFORMACIÓN DEL CHAT ========== -->
+    
     <div class="modal" id="chatInfoModal">
         <div class="modal__content">
             <button class="modal__close" id="chatInfoClose">&times;</button>
@@ -660,169 +660,17 @@
         </div>
     </div>
 
-    <!-- ========== SCRIPTS ========== -->
-    <script src="js/utils.js?v=5.7"></script>
-    <script src="js/age-verification.js?v=5.7"></script>
-    <script src="js/gallery.js?v=5.8"></script>
-    <script src="js/messages.js?v=5.7"></script>
-    <script src="js/navigation.js?v=5.7"></script>
-    <script src="js/visit-counter.js?v=1.0"></script>
-    <script src="js/app.js?v=5.7"></script>
+    
+    <script src="js/utils.js?v=6.1"></script>
+    <script src="js/age-verification.js?v=6.1"></script>
+    <script src="js/gallery.js?v=6.1"></script>
+    <script src="js/messages.js?v=6.1"></script>
+    <script src="js/navigation.js?v=6.1"></script>
+    <script src="js/visit-counter.js?v=6.1"></script>
+    <script src="js/app.js?v=6.1"></script>
 
-    <!-- ========== INICIALIZACIÓN ========== -->
-    <script>
-        const SideNavigation = (function () {
-            'use strict';
-            const DOM = {
-                sideNav: document.getElementById('sideNav'),
-                hamburgerButton: document.getElementById('hamburgerButton'),
-                sideNavClose: document.getElementById('sideNavClose'),
-                menuOverlay: document.getElementById('menuOverlay'),
-                sideNavLinks: document.querySelectorAll('.side-nav__menu-link[data-section]'),
-                sideNavUserInfo: document.getElementById('sideNavUserInfo'),
-                sideNavUsername: document.getElementById('sideNavUsername'),
-                sideNavLanguageSelector: document.getElementById('sideNavLanguageSelector')
-            };
-
-            function openSideNav() {
-                DOM.sideNav.classList.add('side-nav--open');
-                DOM.menuOverlay.classList.add('menu-overlay--active');
-                document.body.classList.add('body--menu-open');
-                document.body.style.overflow = 'hidden'
-            }
-
-            function closeSideNav() {
-                DOM.sideNav.classList.remove('side-nav--open');
-                DOM.menuOverlay.classList.remove('menu-overlay--active');
-                document.body.classList.remove('body--menu-open');
-                document.body.style.overflow = ''
-            }
-
-            function handleSideNavLinkClick(e) {
-                e.preventDefault();
-                const section = this.getAttribute('data-section');
-                closeSideNav();
-                const pageLoadingBar = document.getElementById('pageLoadingBar');
-                if (pageLoadingBar) {
-                    pageLoadingBar.classList.add('loading');
-                    setTimeout(() => {
-                        pageLoadingBar.classList.remove('loading');
-                        pageLoadingBar.classList.add('complete');
-                        setTimeout(() => {
-                            pageLoadingBar.classList.remove('complete')
-                        }, 500)
-                    }, 400)
-                }
-                if (typeof Navigation !== 'undefined' && Navigation.switchToSection) {
-                    Navigation.switchToSection(section)
-                } else {
-                    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('section--active'));
-                    document.getElementById(section).classList.add('section--active');
-                    window.history.pushState(null, null, `#${section}`)
-                }
-            }
-
-            function updateUserInfo() {
-                const savedUser = localStorage.getItem('currentUser');
-                if (savedUser) {
-                    try {
-                        const user = JSON.parse(savedUser);
-                        DOM.sideNavUsername.textContent = user.username;
-                        DOM.sideNavUserInfo.style.display = 'block'
-                    } catch (error) {
-                        console.error('Error parsing user for side nav:', error);
-                        DOM.sideNavUserInfo.style.display = 'none'
-                    }
-                } else {
-                    DOM.sideNavUserInfo.style.display = 'none'
-                }
-            }
-
-            function syncLanguageSelectors() {
-                const mainSelector = document.getElementById('languageSelector');
-                if (mainSelector && DOM.sideNavLanguageSelector) {
-                    DOM.sideNavLanguageSelector.value = mainSelector.value;
-                    DOM.sideNavLanguageSelector.addEventListener('change', function () {
-                        mainSelector.value = this.value;
-                        mainSelector.dispatchEvent(new Event('change'))
-                    });
-                    mainSelector.addEventListener('change', function () {
-                        DOM.sideNavLanguageSelector.value = this.value
-                    })
-                }
-            }
-
-            function init() {
-                if (!DOM.sideNav) {
-                    console.error('Side Navigation: Elementos del DOM no encontrados');
-                    return
-                }
-                DOM.hamburgerButton.addEventListener('click', openSideNav);
-                DOM.sideNavClose.addEventListener('click', closeSideNav);
-                DOM.menuOverlay.addEventListener('click', closeSideNav);
-                DOM.sideNavLinks.forEach(link => {
-                    link.addEventListener('click', handleSideNavLinkClick)
-                });
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && DOM.sideNav.classList.contains('side-nav--open')) {
-                        closeSideNav()
-                    }
-                });
-                updateUserInfo();
-                syncLanguageSelectors();
-                document.addEventListener('userLoggedIn', updateUserInfo);
-                document.addEventListener('userLoggedOut', updateUserInfo);
-            }
-
-            return {
-                init: init,
-                open: openSideNav,
-                close: closeSideNav,
-                updateUserInfo: updateUserInfo
-            }
-        })();
-
-        document.addEventListener('DOMContentLoaded', function () {
-            SideNavigation.init();
-            const pageLoadingBar = document.getElementById('pageLoadingBar');
-            if (pageLoadingBar) {
-                setTimeout(() => {
-                    pageLoadingBar.classList.add('loading');
-                    setTimeout(() => {
-                        pageLoadingBar.classList.remove('loading');
-                        pageLoadingBar.classList.add('complete');
-                        setTimeout(() => {
-                            pageLoadingBar.classList.remove('complete')
-                        }, 500)
-                    }, 1000)
-                }, 100)
-            }
-        });
-
-        function initScrollAnimations() {
-            const scrollElements = document.querySelectorAll('.scroll-reveal');
-            const elementInView = (el, dividend = 1) => {
-                const elementTop = el.getBoundingClientRect().top;
-                return (elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend)
-            };
-            const displayScrollElement = (element) => {
-                element.classList.add('revealed')
-            };
-            const handleScrollAnimation = () => {
-                scrollElements.forEach((el) => {
-                    if (elementInView(el, 1.25)) {
-                        displayScrollElement(el)
-                    }
-                })
-            };
-            window.addEventListener('scroll', () => {
-                handleScrollAnimation()
-            });
-            handleScrollAnimation()
-        }
-
-        window.addEventListener('load', initScrollAnimations);
-    </script>
+    
+    <script>"use strict";const animateLoader=()=>{const e=document.getElementById("pageLoadingBar");e&&(e.className="page-loading-bar loading",setTimeout((()=>{e.classList.remove("loading"),e.classList.add("complete"),setTimeout((()=>e.classList.remove("complete")),200)}),300))},SideNavigation=(()=>{const e={sideNav:document.getElementById("sideNav"),hamburger:document.getElementById("hamburgerButton"),closeBtn:document.getElementById("sideNavClose"),overlay:document.getElementById("menuOverlay"),links:document.querySelectorAll(".side-nav__menu-link[data-section]"),username:document.getElementById("sideNavUsername"),userInfo:document.getElementById("sideNavUserInfo"),navLang:document.getElementById("sideNavLanguageSelector"),mainLang:document.getElementById("languageSelector")};if(!e.sideNav)return{init:()=>{},close:()=>{},open:()=>{}};const n=n=>{const t=n?"add":"remove";e.sideNav.classList[t]("side-nav--open"),e.overlay?.classList[t]("menu-overlay--active"),document.body.classList[t]("body--menu-open"),document.body.style.overflow=n?"hidden":"",n?e.hamburger?.classList.add("header__hamburger--active"):e.hamburger?.classList.remove("header__hamburger--active")},t=e=>{n(!1),animateLoader()},a=()=>{try{const n=localStorage.getItem("currentUser");if(n&&e.userInfo){const t=JSON.parse(n);e.username.textContent=t.username,e.userInfo.style.display="block"}else e.userInfo&&(e.userInfo.style.display="none")}catch(e){console.error("Error parsing user:",e)}};return{init:()=>{e.hamburger?.addEventListener("click",(e=>{e.stopPropagation(),n(!0)})),e.closeBtn?.addEventListener("click",(()=>n(!1))),e.overlay?.addEventListener("click",(()=>n(!1))),e.links.forEach((e=>e.addEventListener("click",t))),document.addEventListener("keydown",(e=>{"Escape"===e.key&&n(!1)})),document.addEventListener("userLoggedIn",a),document.addEventListener("userLoggedOut",a),a(),(()=>{if(!e.mainLang||!e.navLang)return;const n=(e,n)=>{e.addEventListener("change",(()=>{n.value!==e.value&&(n.value=e.value,n.dispatchEvent(new Event("change",{bubbles:!0})))}))};e.navLang.value=e.mainLang.value,n(e.navLang,e.mainLang),n(e.mainLang,e.navLang)})()},open:()=>n(!0),close:()=>n(!1),updateUserInfo:a}})();document.addEventListener("DOMContentLoaded",(()=>{SideNavigation.init(),setTimeout(animateLoader,100);const e=new IntersectionObserver((n=>{n.forEach((n=>{n.isIntersecting&&(n.target.classList.add("revealed"),e.unobserve(n.target))}))}),{threshold:.15});document.querySelectorAll(".scroll-reveal").forEach((n=>e.observe(n)))}));</script>
 </body>
 
 </html>
