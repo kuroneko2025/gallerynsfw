@@ -61,7 +61,8 @@
     <meta name="language" content="English">
     <meta http-equiv="Content-Language" content="en">
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=visibility" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=visibility" />
 
     <link rel="shortcut icon" href="assets/icon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/base.css?v=6.3">
@@ -70,12 +71,18 @@
     <link rel="stylesheet" href="css/states.css?v=6.3">
     <link rel="stylesheet" href="css/themes.css?v=6.3">
     <script>
-        document.addEventListener('contextmenu', function (e) { e.preventDefault() });
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'F12') { e.preventDefault() }
-            if (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key.toUpperCase())) { e.preventDefault() }
-            if (e.ctrlKey && e.key.toUpperCase() === 'U') { e.preventDefault() }
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12') e.preventDefault();
+            if (e.ctrlKey && e.shiftKey && ['I', 'J'].includes(e.key.toUpperCase())) e.preventDefault();
+            if (e.ctrlKey && e.key.toUpperCase() === 'U') e.preventDefault();
         });
+
+        const currentVersion = "6";
+        if (localStorage.getItem("siteVersion") !== currentVersion) {
+            localStorage.setItem("siteVersion", currentVersion);
+            location.reload();
+        }
     </script>
 </head>
 
@@ -240,10 +247,10 @@
         </header>
 
         <main class="l-main">
-            
+
             <section class="home home--active" id="home">
                 <div class="home__container container">
-                    
+
                     <div class="home__counter">
                         <div class="counter__card">
                             <div class="counter__icon">
@@ -256,7 +263,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="home__content">
                         <div class="home__profile">
                             <div class="profile__image">
@@ -350,71 +357,71 @@
                     </div>
 
                     <script>
-                    const aiArtists = [
-                        {
-                            username: "s011565187950",
-                            xUrl: "https://x.com/s011565187950",
-                            profileImage: "https://lh3.googleusercontent.com/rd-d/ALs6j_H8qD3walSJs5e3Vm6lJz7be49WlS_uZH--EB9ULdvbI-qHhTviAJXmEhG6r_KiQWODxROJxwTCei4jDVX8c95VJu-xzQwZNKe_VpR7Cnplokq6sESYHTiMHHgDMVoC6Hj_TxZp8fQp7lxrzLt5hDsUhCRFi7pRo_w8U7cn3HshHrB4Ac9HGs5q8NhE_V5Bt1bJ_xMf-IdB4AZoZA3oP0pIBGBGypJsALbOCugCPdKdsJojhDxPsdocJrhCj6sYKcn8QkIIBM-ZERQG7jFnW6y_kOGZXqwrLAIWHhTcAvgdw8JB9H3LW0Kk-r6jzggf7KObBiL9qSsYWEt8KDDvFQtEcH0kOEnEl6snMpegFwgCYLQESKoJ6b4wU3zL4oDvSuSHLb4kec4HUrkz6Vb8EtRkcxjmHqcJgwbzmz3ENSqzp8lsb7LMyL0mBItMVkJA4Pn5WQpOq7b0TTfqkTfXqkhIWubkuhyNG5hOtHufKBuGwCIcoqvWn4YB1INu1NZYUNRh7h-2pwrqiBfmnpr3A9PyXaP2dpaEUSn_Thz7iC_7CLe98620g3WzTtfKjegm0PmXIH4wzmA_x2YqcEOdIOWf3GMVrOsvT-DD-Xw9LaKEGlqEzEslCrljVbqdZ53lxFgRb008t8IytHY4sAmibb7C4y1vZwvy6eZP1l_Gb7JoGrJcnXiojL8mbK9Bk40MZ2czlHv6kDH3NK-324PTj4M4xGsoIhgHnGRhM8kYz-ZqRh7YC1nAiJl85pRkMlTIJS6wML4HSvJMw1cEndziqdL-5OHb_kjrH3XRv6yAI0ObgX_3mXKZVLZzOikOFg29GCVn5Vk0K8qwFTjlZdG2PvtIcmu7HGzPzvmgucXJRL4hJ4b_8RA9DbeFuT-Gg7Grc432rhSEWslRDEoKItzt17ehKGuUmaPxUaOg8cKiXMzoaTeeWTn_iyhQgGjtc-ghqsH87nO0kNQry7CjoKW5r0AFJFaL-r8jLXdfy-I4ti4nVNFXq-hHetkWmUdxNPJsJeAM_WaiRu_7VpwM0NP117TlQtO2z5NA__QQHxpQLCU2Hx0Py9b_FQ1HATu__3WmWBz3OXfiO_UJywCK9cA=w1910-h915?auditContext=prefetch",
-                            displayName: "•⩊• Lenre・Alchemy （れんれ・あるけみぃ）•⩊•",
-                            gradientStart: "#667eea",
-                            gradientEnd: "#764ba2",
-                            initials: "A1"
-                        },
-                        {
-                            username: "bluecatillust",
-                            xUrl: "https://x.com/bluecatillust",
-                            profileImage: "https://lh3.googleusercontent.com/rd-d/ALs6j_GP0k3m_d98H6cRSDN6A0oz82MO5jPSTuKpdkHY7hvUwpwGdATfIxYYEgildQgxBZJOqfu3bW0c8WCi48HIj8pT4-0cXME1FQQo0psnNTwSViFISDcXZr7vmaYM4goCsAMg04o8d_kLNlm3JLi8874Yb1oa8nDR9i1_G-mj5oeyAr-5pMGFVaygSBVozwB8E76J6WremgBmhzzos7gLRYnay8hFyPIc0M5yazlZh6aF9-OipWtEBjeBmEvHyruONSO30i1h9JrmAD-bNre_xim2xY2ReI6kwEN1YBuGtjpel_uGShOkicwZIu_KY_qxQVbYeJNrX5pXJxhXbE9wL8DeEFM20LSSpoTaKwTw86rfeMXjo2745rUv3Y3jsUJjXmy6DiZ2bLSVGYz9hqeBgJx2SbEQbJEJq-fMT_-Re35-1ZdR5PeFsqV1M6wSr6MLeOimpCMclM3rDISoecf9CUCm9LElpR3VicivsITprRWqCiMX_UeBZRgodgW_kt0ToIZwzOqqDc2js1M9rcItaQBE393MU0QXMR3I-sgOqmXTC_yuCKKovDz9lXCXcRXb5yzLsZk2WWotx935eJnmKy-yHjZl1vblNHYq1vMhHJDx8LA9bUrzgvbaITICcq0GThOEut8smy9btjT97zTpydGyB8UnCraIfwuMAG8SuNhYme8Ks-bEVzhYPw0gwU3GQIdlbjk9hMtRamNmj5jgIrgb9DdAa6f-09YXogSojRujjXDXJXVhCOHyndjkOh2idC7kE0URffn5wrAxn9qrI2S-i5cSjF-BdlbKhpNe2MwDPrpg8PndDpBYC43yMWGbo1yKzPc5r1nZhsc7L6KcZJiQFum-OJNzU1DCuNO08TARzY9gHa8DEgQrzyrEvbBYcUIOLU97Mn1NZjweAd5EGrq5EmrvxkRUSa7ZgFo6CQEG3CCG9Jo3bht82Lso8fyz7rNfi76hx0AkxRjdwxz3oZF8rvwfI-jLBy7oYpQKwE-M9mStg4t7mwbD33BMRGYdldUGSD6rOkCjfX6NJP90mGUXNF-8oEGP5nXnPsOP_UkLZY7LnMyiEfIchSaDe08J5ebp-H4KyXt5yhw-TGY=w1910-h915?auditContext=prefetch",
-                            displayName: "◕⩊◕　あおねこ　◕⩊◕",
-                            gradientStart: "#4facfe",
-                            gradientEnd: "#00f2fe",
-                            initials: "A3"
-                        }
-                    ];
-
-                    const buttonTexts = {
-                        es: "Ver Perfil",
-                        en: "View Profile",
-                        ja: "プロフィールを見る",
-                        zh: "查看资料",
-                        zh_tw: "查看個人資料"
-                    };
-
-                    function generateGradient(username) {
-                        const colors = [
-                            ["#667eea", "#764ba2"],
-                            ["#f093fb", "#f5576c"],
-                            ["#4facfe", "#00f2fe"],
-                            ["#43e97b", "#38f9d7"],
-                            ["#fa709a", "#fee140"],
-                            ["#30cfd0", "#330867"]
+                        const aiArtists = [
+                            {
+                                username: "s011565187950",
+                                xUrl: "https://x.com/s011565187950",
+                                profileImage: "https://lh3.googleusercontent.com/rd-d/ALs6j_H8qD3walSJs5e3Vm6lJz7be49WlS_uZH--EB9ULdvbI-qHhTviAJXmEhG6r_KiQWODxROJxwTCei4jDVX8c95VJu-xzQwZNKe_VpR7Cnplokq6sESYHTiMHHgDMVoC6Hj_TxZp8fQp7lxrzLt5hDsUhCRFi7pRo_w8U7cn3HshHrB4Ac9HGs5q8NhE_V5Bt1bJ_xMf-IdB4AZoZA3oP0pIBGBGypJsALbOCugCPdKdsJojhDxPsdocJrhCj6sYKcn8QkIIBM-ZERQG7jFnW6y_kOGZXqwrLAIWHhTcAvgdw8JB9H3LW0Kk-r6jzggf7KObBiL9qSsYWEt8KDDvFQtEcH0kOEnEl6snMpegFwgCYLQESKoJ6b4wU3zL4oDvSuSHLb4kec4HUrkz6Vb8EtRkcxjmHqcJgwbzmz3ENSqzp8lsb7LMyL0mBItMVkJA4Pn5WQpOq7b0TTfqkTfXqkhIWubkuhyNG5hOtHufKBuGwCIcoqvWn4YB1INu1NZYUNRh7h-2pwrqiBfmnpr3A9PyXaP2dpaEUSn_Thz7iC_7CLe98620g3WzTtfKjegm0PmXIH4wzmA_x2YqcEOdIOWf3GMVrOsvT-DD-Xw9LaKEGlqEzEslCrljVbqdZ53lxFgRb008t8IytHY4sAmibb7C4y1vZwvy6eZP1l_Gb7JoGrJcnXiojL8mbK9Bk40MZ2czlHv6kDH3NK-324PTj4M4xGsoIhgHnGRhM8kYz-ZqRh7YC1nAiJl85pRkMlTIJS6wML4HSvJMw1cEndziqdL-5OHb_kjrH3XRv6yAI0ObgX_3mXKZVLZzOikOFg29GCVn5Vk0K8qwFTjlZdG2PvtIcmu7HGzPzvmgucXJRL4hJ4b_8RA9DbeFuT-Gg7Grc432rhSEWslRDEoKItzt17ehKGuUmaPxUaOg8cKiXMzoaTeeWTn_iyhQgGjtc-ghqsH87nO0kNQry7CjoKW5r0AFJFaL-r8jLXdfy-I4ti4nVNFXq-hHetkWmUdxNPJsJeAM_WaiRu_7VpwM0NP117TlQtO2z5NA__QQHxpQLCU2Hx0Py9b_FQ1HATu__3WmWBz3OXfiO_UJywCK9cA=w1910-h915?auditContext=prefetch",
+                                displayName: "•⩊• Lenre・Alchemy （れんれ・あるけみぃ）•⩊•",
+                                gradientStart: "#667eea",
+                                gradientEnd: "#764ba2",
+                                initials: "A1"
+                            },
+                            {
+                                username: "bluecatillust",
+                                xUrl: "https://x.com/bluecatillust",
+                                profileImage: "https://lh3.googleusercontent.com/rd-d/ALs6j_GP0k3m_d98H6cRSDN6A0oz82MO5jPSTuKpdkHY7hvUwpwGdATfIxYYEgildQgxBZJOqfu3bW0c8WCi48HIj8pT4-0cXME1FQQo0psnNTwSViFISDcXZr7vmaYM4goCsAMg04o8d_kLNlm3JLi8874Yb1oa8nDR9i1_G-mj5oeyAr-5pMGFVaygSBVozwB8E76J6WremgBmhzzos7gLRYnay8hFyPIc0M5yazlZh6aF9-OipWtEBjeBmEvHyruONSO30i1h9JrmAD-bNre_xim2xY2ReI6kwEN1YBuGtjpel_uGShOkicwZIu_KY_qxQVbYeJNrX5pXJxhXbE9wL8DeEFM20LSSpoTaKwTw86rfeMXjo2745rUv3Y3jsUJjXmy6DiZ2bLSVGYz9hqeBgJx2SbEQbJEJq-fMT_-Re35-1ZdR5PeFsqV1M6wSr6MLeOimpCMclM3rDISoecf9CUCm9LElpR3VicivsITprRWqCiMX_UeBZRgodgW_kt0ToIZwzOqqDc2js1M9rcItaQBE393MU0QXMR3I-sgOqmXTC_yuCKKovDz9lXCXcRXb5yzLsZk2WWotx935eJnmKy-yHjZl1vblNHYq1vMhHJDx8LA9bUrzgvbaITICcq0GThOEut8smy9btjT97zTpydGyB8UnCraIfwuMAG8SuNhYme8Ks-bEVzhYPw0gwU3GQIdlbjk9hMtRamNmj5jgIrgb9DdAa6f-09YXogSojRujjXDXJXVhCOHyndjkOh2idC7kE0URffn5wrAxn9qrI2S-i5cSjF-BdlbKhpNe2MwDPrpg8PndDpBYC43yMWGbo1yKzPc5r1nZhsc7L6KcZJiQFum-OJNzU1DCuNO08TARzY9gHa8DEgQrzyrEvbBYcUIOLU97Mn1NZjweAd5EGrq5EmrvxkRUSa7ZgFo6CQEG3CCG9Jo3bht82Lso8fyz7rNfi76hx0AkxRjdwxz3oZF8rvwfI-jLBy7oYpQKwE-M9mStg4t7mwbD33BMRGYdldUGSD6rOkCjfX6NJP90mGUXNF-8oEGP5nXnPsOP_UkLZY7LnMyiEfIchSaDe08J5ebp-H4KyXt5yhw-TGY=w1910-h915?auditContext=prefetch",
+                                displayName: "◕⩊◕　あおねこ　◕⩊◕",
+                                gradientStart: "#4facfe",
+                                gradientEnd: "#00f2fe",
+                                initials: "A3"
+                            }
                         ];
-                        
-                        let hash = 0;
-                        for (let i = 0; i < username.length; i++) {
-                            hash = username.charCodeAt(i) + ((hash << 5) - hash);
+
+                        const buttonTexts = {
+                            es: "Ver Perfil",
+                            en: "View Profile",
+                            ja: "プロフィールを見る",
+                            zh: "查看资料",
+                            zh_tw: "查看個人資料"
+                        };
+
+                        function generateGradient(username) {
+                            const colors = [
+                                ["#667eea", "#764ba2"],
+                                ["#f093fb", "#f5576c"],
+                                ["#4facfe", "#00f2fe"],
+                                ["#43e97b", "#38f9d7"],
+                                ["#fa709a", "#fee140"],
+                                ["#30cfd0", "#330867"]
+                            ];
+
+                            let hash = 0;
+                            for (let i = 0; i < username.length; i++) {
+                                hash = username.charCodeAt(i) + ((hash << 5) - hash);
+                            }
+
+                            const index = Math.abs(hash) % colors.length;
+                            return colors[index];
                         }
-                        
-                        const index = Math.abs(hash) % colors.length;
-                        return colors[index];
-                    }
 
-                    function getInitials(name) {
-                        return name
-                            .split(' ')
-                            .map(word => word[0])
-                            .join('')
-                            .toUpperCase()
-                            .substring(0, 2);
-                    }
+                        function getInitials(name) {
+                            return name
+                                .split(' ')
+                                .map(word => word[0])
+                                .join('')
+                                .toUpperCase()
+                                .substring(0, 2);
+                        }
 
-                    function createArtistCard(artist, currentLang) {
-                        const [gradStart, gradEnd] = artist.gradientStart && artist.gradientEnd 
-                            ? [artist.gradientStart, artist.gradientEnd] 
-                            : generateGradient(artist.username);
-                        
-                        const initials = artist.initials || getInitials(artist.displayName || artist.username);
-                        
-                        return `
+                        function createArtistCard(artist, currentLang) {
+                            const [gradStart, gradEnd] = artist.gradientStart && artist.gradientEnd
+                                ? [artist.gradientStart, artist.gradientEnd]
+                                : generateGradient(artist.username);
+
+                            const initials = artist.initials || getInitials(artist.displayName || artist.username);
+
+                            return `
                             <div class="artist-card" style="
                                 background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
                                 border-radius: 16px;
@@ -436,9 +443,9 @@
                                         overflow: hidden;
                                         flex-shrink: 0;
                                     ">
-                                        ${artist.profileImage ? 
-                                            `<img src="${artist.profileImage}" alt="${artist.displayName}" style="width: 100%; height: 100%; object-fit: cover;">` :
-                                            `<div style="
+                                        ${artist.profileImage ?
+                                    `<img src="${artist.profileImage}" alt="${artist.displayName}" style="width: 100%; height: 100%; object-fit: cover;">` :
+                                    `<div style="
                                                 width: 64px;
                                                 height: 64px;
                                                 border-radius: 50%;
@@ -450,7 +457,7 @@
                                                 color: white;
                                                 font-weight: bold;
                                             ">${initials}</div>`
-                                        }
+                                }
                                     </div>
                                     <div style="flex: 1; min-width: 0;">
                                         <h3 style="margin: 0 0 5px 0; color: #fff; font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -487,32 +494,32 @@
                                 </a>
                             </div>
                         `;
-                    }
+                        }
 
-                    function loadArtists() {
-                        const currentLang = document.getElementById('homeLanguageSelector').value;
-                        const containers = document.querySelectorAll('.artists-container');
-                        
-                        containers.forEach(container => {
-                            container.innerHTML = '';
-                            aiArtists.forEach(artist => {
-                                container.innerHTML += createArtistCard(artist, currentLang);
+                        function loadArtists() {
+                            const currentLang = document.getElementById('homeLanguageSelector').value;
+                            const containers = document.querySelectorAll('.artists-container');
+
+                            containers.forEach(container => {
+                                container.innerHTML = '';
+                                aiArtists.forEach(artist => {
+                                    container.innerHTML += createArtistCard(artist, currentLang);
+                                });
                             });
-                        });
-                    }
+                        }
 
-                    document.getElementById('homeLanguageSelector').addEventListener('change', loadArtists);
+                        document.getElementById('homeLanguageSelector').addEventListener('change', loadArtists);
 
-                    document.addEventListener('DOMContentLoaded', loadArtists);
+                        document.addEventListener('DOMContentLoaded', loadArtists);
 
-                    function addArtist(newArtist) {
-                        aiArtists.push(newArtist);
-                        loadArtists();
-                    }
+                        function addArtist(newArtist) {
+                            aiArtists.push(newArtist);
+                            loadArtists();
+                        }
                     </script>
 
-                    
-                    
+
+
                     <div class="home__donation-section">
                         <div class="donation-warning">
                             <div class="warning-header">
@@ -567,7 +574,7 @@
                 </div>
             </section>
 
-            
+
             <section class="gallery section" id="gallery">
                 <h1 class="gallery__title" data-lang="gallery-title">Galería 𓆩♛𓆪 クロネコ 𓆩♛𓆪</h1>
 
@@ -577,10 +584,10 @@
                 </div>
 
                 <div class="gallery__grid" id="galleryGrid">
-                    
+
                 </div>
 
-                
+
                 <div class="gallery__pagination" id="galleryPagination" style="display: none;">
                     <div class="gallery__page-info" id="galleryPageInfo"></div>
                     <div class="gallery__pagination-controls">
@@ -594,12 +601,12 @@
                 </div>
             </section>
 
-            
+
             <section class="messages section" id="messages">
-                
+
                 <div class="auth-section" id="authSection">
                     <div class="auth-container">
-                        
+
                         <div class="auth-form auth-form--active" id="loginSection">
                             <h2 class="auth-form__title" data-lang="login-title">Iniciar Sesión</h2>
                             <form class="auth-form__form" id="loginForm">
@@ -626,7 +633,7 @@
                             </p>
                         </div>
 
-                        
+
                         <div class="auth-form" id="registerSection">
                             <h2 class="auth-form__title" data-lang="register-title">Crear Cuenta</h2>
                             <form class="auth-form__form" id="registerForm">
@@ -668,7 +675,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="messages-section" id="messagesSection" style="display: none;">
                     <div class="messages__header">
                         <h1 class="messages__title" data-lang="messages-title">Mensajes Privados</h1>
@@ -762,14 +769,14 @@
                                 </div>
 
                                 <div class="messages__messages" id="messagesContent">
-                                    
+
                                     <div class="loading-container" id="chatLoading">
                                         <div class="loading-spinner"></div>
                                         <div class="loading-text">Cargando mensajes...</div>
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="messages__load-more" id="loadMoreMessages" style="display: none;"></div>
 
                                 <div class="messages__input-container">
@@ -799,7 +806,7 @@
         </main>
     </div>
 
-    
+
     <div class="modal" id="chatInfoModal">
         <div class="modal__content">
             <button class="modal__close" id="chatInfoClose">&times;</button>
@@ -830,7 +837,7 @@
         </div>
     </div>
 
-    
+
     <script src="js/utils.js?v=6.3"></script>
     <script src="js/age-verification.js?v=6.3"></script>
     <script src="js/gallery.js?v=6.3"></script>
@@ -839,8 +846,8 @@
     <script src="js/visit-counter.js?v=6.3"></script>
     <script src="js/app.js?v=6.3"></script>
 
-    
-    <script>"use strict";const animateLoader=()=>{const e=document.getElementById("pageLoadingBar");e&&(e.className="page-loading-bar loading",setTimeout((()=>{e.classList.remove("loading"),e.classList.add("complete"),setTimeout((()=>e.classList.remove("complete")),200)}),300))},SideNavigation=(()=>{const e={sideNav:document.getElementById("sideNav"),hamburger:document.getElementById("hamburgerButton"),closeBtn:document.getElementById("sideNavClose"),overlay:document.getElementById("menuOverlay"),links:document.querySelectorAll(".side-nav__menu-link[data-section]"),username:document.getElementById("sideNavUsername"),userInfo:document.getElementById("sideNavUserInfo"),navLang:document.getElementById("sideNavLanguageSelector"),mainLang:document.getElementById("languageSelector")};if(!e.sideNav)return{init:()=>{},close:()=>{},open:()=>{}};const n=n=>{const t=n?"add":"remove";e.sideNav.classList[t]("side-nav--open"),e.overlay?.classList[t]("menu-overlay--active"),document.body.classList[t]("body--menu-open"),document.body.style.overflow=n?"hidden":"",n?e.hamburger?.classList.add("header__hamburger--active"):e.hamburger?.classList.remove("header__hamburger--active")},t=e=>{n(!1),animateLoader()},a=()=>{try{const n=localStorage.getItem("currentUser");if(n&&e.userInfo){const t=JSON.parse(n);e.username.textContent=t.username,e.userInfo.style.display="block"}else e.userInfo&&(e.userInfo.style.display="none")}catch(e){console.error("Error parsing user:",e)}};return{init:()=>{e.hamburger?.addEventListener("click",(e=>{e.stopPropagation(),n(!0)})),e.closeBtn?.addEventListener("click",(()=>n(!1))),e.overlay?.addEventListener("click",(()=>n(!1))),e.links.forEach((e=>e.addEventListener("click",t))),document.addEventListener("keydown",(e=>{"Escape"===e.key&&n(!1)})),document.addEventListener("userLoggedIn",a),document.addEventListener("userLoggedOut",a),a(),(()=>{if(!e.mainLang||!e.navLang)return;const n=(e,n)=>{e.addEventListener("change",(()=>{n.value!==e.value&&(n.value=e.value,n.dispatchEvent(new Event("change",{bubbles:!0})))}))};e.navLang.value=e.mainLang.value,n(e.navLang,e.mainLang),n(e.mainLang,e.navLang)})()},open:()=>n(!0),close:()=>n(!1),updateUserInfo:a}})();document.addEventListener("DOMContentLoaded",(()=>{SideNavigation.init(),setTimeout(animateLoader,100);const e=new IntersectionObserver((n=>{n.forEach((n=>{n.isIntersecting&&(n.target.classList.add("revealed"),e.unobserve(n.target))}))}),{threshold:.15});document.querySelectorAll(".scroll-reveal").forEach((n=>e.observe(n)))}));</script>
+
+    <script>"use strict"; const animateLoader = () => { const e = document.getElementById("pageLoadingBar"); e && (e.className = "page-loading-bar loading", setTimeout((() => { e.classList.remove("loading"), e.classList.add("complete"), setTimeout((() => e.classList.remove("complete")), 200) }), 300)) }, SideNavigation = (() => { const e = { sideNav: document.getElementById("sideNav"), hamburger: document.getElementById("hamburgerButton"), closeBtn: document.getElementById("sideNavClose"), overlay: document.getElementById("menuOverlay"), links: document.querySelectorAll(".side-nav__menu-link[data-section]"), username: document.getElementById("sideNavUsername"), userInfo: document.getElementById("sideNavUserInfo"), navLang: document.getElementById("sideNavLanguageSelector"), mainLang: document.getElementById("languageSelector") }; if (!e.sideNav) return { init: () => { }, close: () => { }, open: () => { } }; const n = n => { const t = n ? "add" : "remove"; e.sideNav.classList[t]("side-nav--open"), e.overlay?.classList[t]("menu-overlay--active"), document.body.classList[t]("body--menu-open"), document.body.style.overflow = n ? "hidden" : "", n ? e.hamburger?.classList.add("header__hamburger--active") : e.hamburger?.classList.remove("header__hamburger--active") }, t = e => { n(!1), animateLoader() }, a = () => { try { const n = localStorage.getItem("currentUser"); if (n && e.userInfo) { const t = JSON.parse(n); e.username.textContent = t.username, e.userInfo.style.display = "block" } else e.userInfo && (e.userInfo.style.display = "none") } catch (e) { console.error("Error parsing user:", e) } }; return { init: () => { e.hamburger?.addEventListener("click", (e => { e.stopPropagation(), n(!0) })), e.closeBtn?.addEventListener("click", (() => n(!1))), e.overlay?.addEventListener("click", (() => n(!1))), e.links.forEach((e => e.addEventListener("click", t))), document.addEventListener("keydown", (e => { "Escape" === e.key && n(!1) })), document.addEventListener("userLoggedIn", a), document.addEventListener("userLoggedOut", a), a(), (() => { if (!e.mainLang || !e.navLang) return; const n = (e, n) => { e.addEventListener("change", (() => { n.value !== e.value && (n.value = e.value, n.dispatchEvent(new Event("change", { bubbles: !0 }))) })) }; e.navLang.value = e.mainLang.value, n(e.navLang, e.mainLang), n(e.mainLang, e.navLang) })() }, open: () => n(!0), close: () => n(!1), updateUserInfo: a } })(); document.addEventListener("DOMContentLoaded", (() => { SideNavigation.init(), setTimeout(animateLoader, 100); const e = new IntersectionObserver((n => { n.forEach((n => { n.isIntersecting && (n.target.classList.add("revealed"), e.unobserve(n.target)) })) }), { threshold: .15 }); document.querySelectorAll(".scroll-reveal").forEach((n => e.observe(n))) }));</script>
 </body>
 
 </html>
