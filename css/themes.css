@@ -1,1 +1,85 @@
 :root{--transition-smooth:linear;--color-primary:#FE70FE;--color-primary-light:#d32f2f;--color-primary-dark:#9a1b1b;--color-danger:#f44336;--color-success:#1c641c;--color-warning:#ff9800;--color-info:#2196f3;--color-background:#000000;--color-surface:#1c1c1c;--color-text:#e0e0e0;--color-text-muted:#888;--color-border:hsla(0,0%,100%,0.1)}@keyframes pulse{0%,to{opacity:1}50%{opacity:.7}}@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}@keyframes modalAppear{0%{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}@keyframes spin-border{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes spin-border-reverse{0%{transform:rotate(1turn)}to{transform:rotate(0deg)}}@keyframes shimmer{0%,to{opacity:1}50%{opacity:.8}}@keyframes pulse-gentle{0%,to{opacity:.6}50%{opacity:1}}@keyframes glow{0%,to{opacity:1}50%{opacity:.8}}@keyframes text-glow{0%,to{opacity:1}50%{opacity:.9}}@keyframes float{0%,to{transform:translateY(0)}50%{transform:translateY(-3px)}}@keyframes morph{0%,to{transform:scale(1)}50%{transform:scale(.98)}}@keyframes gradient-shift{0%{opacity:.9}50%{opacity:1}to{opacity:.9}}@keyframes particle-float{0%{transform:translateY(0);opacity:0}50%{opacity:.5}to{transform:translateY(-20px);opacity:0}}@keyframes ripple{0%{transform:scale(1);opacity:.4}to{transform:scale(1.5);opacity:0}}@keyframes background-pulse{0%,to{opacity:1}50%{opacity:.9}}.fade-in{animation:fadeIn .3s linear forwards;will-change:opacity}.text--primary{color:var(--color-primary)}.text--muted{color:var(--color-text-muted)}.text--gradient{color:var(--color-primary);background:none;-webkit-text-fill-color:initial}.bg--dark{background:var(--color-surface)}.bg--darker{background:var(--color-background)}.bg--glass{background:rgba(30,45,30,.95)}.bg--glass,.bg--glass-dark{border:1px solid var(--color-border)}.bg--glass-dark{background:rgba(0,0,0,.95)}.border--light{border:1px solid #333}.border--glow,.border--primary{border:1px solid var(--color-primary)}.gradient--dark{background:#111}.gradient--primary{background:var(--color-primary-dark)}.gradient--cyan{background:var(--color-primary)}.gradient--shift{background:#1c641c}.animation--spin{animation:spin 2s linear infinite}.animation--pulse{animation:pulse 2s infinite}.animation--fade-in{animation:fadeIn .3s forwards}.animation--float{animation:float 5s ease-in-out infinite}.hover--lift{transition:none}.hover--lift:hover{transform:none;background:#333}.glass{background:#222;border:1px solid #444;-webkit-backdrop-filter:none}.glass,.glass--dark{backdrop-filter:none}.glass--dark{background:#111;border:1px solid #333}.glass--primary{background:#9a1b1b;border:1px solid var(--color-primary);backdrop-filter:none}.optimize-performance{transform:translateZ(0);backface-visibility:hidden;will-change:opacity}.skeleton{background:#333;animation:pulse 1.5s infinite}.slideshow-modal.theme-dark{background:#000}.slideshow-modal.theme-light{background:#fff}.slideshow-modal.theme-light .slideshow-container{background:#fff;border:1px solid #ccc}
+
+
+@keyframes goldGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.3),
+                   0 0 30px rgba(218, 165, 32, 0.2),
+                   0 0 45px rgba(184, 134, 11, 0.1),
+                   inset 0 0 20px rgba(255, 215, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.5),
+                   0 0 40px rgba(218, 165, 32, 0.4),
+                   0 0 55px rgba(184, 134, 11, 0.3),
+                   inset 0 0 30px rgba(255, 215, 0, 0.2);
+    }
+}
+
+@keyframes goldBorderPulse {
+    0%, 100% {
+        border-color: rgba(255, 215, 0, 0.3);
+    }
+    50% {
+        border-color: rgba(255, 215, 0, 0.7);
+    }
+}
+
+@keyframes badgeSpin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+@keyframes goldenShine {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.vip-badge {
+    animation: badgeSpin 3s ease-in-out infinite;
+}
+
+.vip-card {
+    animation: goldBorderPulse 3s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+.vip-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 70%
+    );
+    animation: goldenShine 3s linear infinite;
+    pointer-events: none;
+}
+
+.vip-status {
+    background: linear-gradient(
+        45deg,
+        #FFD700 0%,
+        #FFA500 50%,
+        #FFD700 100%
+    );
+    background-size: 200% 200%;
+    animation: goldenShine 2s linear infinite;
+}
