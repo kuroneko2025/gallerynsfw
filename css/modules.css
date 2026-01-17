@@ -4,3 +4,78 @@
 .filter-btn { padding: 8px 16px; border: 1px solid #ccc; background: transparent; cursor: pointer; border-radius: 20px; transition: all 0.3s; }
 .filter-btn.active, .filter-btn:hover { background: #000; color: #fff; border-color: #000; }
 .gallery-page-input { width: 50px; text-align: center; margin: 0 5px; padding: 4px; border: 1px solid #ccc; border-radius: 4px; }
+
+.accordion {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.accordion-item {
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #000000 0%, #fe70fe24 100%);
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: rgba(255, 215, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFD700;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.accordion-title {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.accordion-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.accordion-header.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    border-top: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.accordion-content.open {
+    max-height: 2000px;
+    transition: max-height 0.5s ease-in;
+}
+
+.accordion-content .vip-content,
+.accordion-content .artists-content {
+    padding: 20px;
+    display: none;
+}
+
+.accordion-content.open .vip-content[data-lang],
+.accordion-content.open .artists-content[data-lang] {
+    display: block;
+}
