@@ -69,7 +69,7 @@
     <link rel="stylesheet" href="css/layout.css?v=6.3">
     <link rel="stylesheet" href="css/modules.css?v=6.4">
     <link rel="stylesheet" href="css/states.css?v=6.3">
-    <link rel="stylesheet" href="css/themes.css?v=6.5">
+    <link rel="stylesheet" href="css/themes.css?v=6.6">
     <script>
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => {
@@ -752,7 +752,7 @@
     <script src="js/navigation.js?v=6.4"></script>
     <script src="js/visit-counter.js?v=6.4"></script>
     <script src="js/app.js?v=6.4"></script>
-    <script src="js/promotion.js?v=1.0"></script>
+    <script src="js/promotion.js?v=1.1"></script>
 
     <script>
         "use strict"; const animateLoader = () => { const e = document.getElementById("pageLoadingBar"); e && (e.className = "page-loading-bar loading", setTimeout((() => { e.classList.remove("loading"), e.classList.add("complete"), setTimeout((() => e.classList.remove("complete")), 200) }), 300)) }, SideNavigation = (() => { const e = { sideNav: document.getElementById("sideNav"), hamburger: document.getElementById("hamburgerButton"), closeBtn: document.getElementById("sideNavClose"), overlay: document.getElementById("menuOverlay"), links: document.querySelectorAll(".side-nav__menu-link[data-section]"), username: document.getElementById("sideNavUsername"), userInfo: document.getElementById("sideNavUserInfo"), navLang: document.getElementById("sideNavLanguageSelector"), mainLang: document.getElementById("languageSelector") }; if (!e.sideNav) return { init: () => { }, close: () => { }, open: () => { } }; const n = n => { const t = n ? "add" : "remove"; e.sideNav.classList[t]("side-nav--open"), e.overlay?.classList[t]("menu-overlay--active"), document.body.classList[t]("body--menu-open"), document.body.style.overflow = n ? "hidden" : "", n ? e.hamburger?.classList.add("header__hamburger--active") : e.hamburger?.classList.remove("header__hamburger--active") }, t = e => { n(!1), animateLoader() }, a = () => { try { const n = localStorage.getItem("currentUser"); if (n && e.userInfo) { const t = JSON.parse(n); e.username.textContent = t.username, e.userInfo.style.display = "block" } else e.userInfo && (e.userInfo.style.display = "none") } catch (e) { console.error("Error parsing user:", e) } }; return { init: () => { e.hamburger?.addEventListener("click", (e => { e.stopPropagation(), n(!0) })), e.closeBtn?.addEventListener("click", (() => n(!1))), e.overlay?.addEventListener("click", (() => n(!1))), e.links.forEach((e => e.addEventListener("click", t))), document.addEventListener("keydown", (e => { "Escape" === e.key && n(!1) })), document.addEventListener("userLoggedIn", a), document.addEventListener("userLoggedOut", a), a(), (() => { if (!e.mainLang || !e.navLang) return; const n = (e, n) => { e.addEventListener("change", (() => { n.value !== e.value && (n.value = e.value, n.dispatchEvent(new Event("change", { bubbles: !0 }))) })) }; e.navLang.value = e.mainLang.value, n(e.navLang, e.mainLang), n(e.mainLang, e.navLang) })() }, open: () => n(!0), close: () => n(!1), updateUserInfo: a } })(); document.addEventListener("DOMContentLoaded", (() => { SideNavigation.init(), setTimeout(animateLoader, 100); const e = new IntersectionObserver((n => { n.forEach((n => { n.isIntersecting && (n.target.classList.add("revealed"), e.unobserve(n.target)) })) }), { threshold: .15 }); document.querySelectorAll(".scroll-reveal").forEach((n => e.observe(n))) }));
