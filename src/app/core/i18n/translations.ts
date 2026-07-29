@@ -53,13 +53,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '現在も開発中です。'
       },
       introLine1: 'クロネコくん 2.0 の新しい世界へようこそ。',
-      introLine2: '無料コンテンツは Pixiv と X で公開しています。',
+      introLine2: '無料コンテンツは X で公開しています。',
       introLine3: '限定ギャラリーは、FANBOX または PayPal で支援してくださる方のための特別なエリアです。',
-      pixivLabel: 'Pixiv',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
       paypalLabel: 'PayPal',
-      pixivSmall: 'クロネコ工房のすべてのキャラクターが登場する無料の18歳以上向けコンテンツ。',
       xSmall: '最新情報',
       fanboxSmall: 'VIP支援',
       paypalSmall: 'VIP支援',
@@ -76,11 +74,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
       },
       adultSectionTitle: '無料の18歳以上向けコンテンツ',
       accounts: {
-        emergency: {
-          title: 'クロネコ工房｜緊急連絡用',
-          username: '@er_mao13619',
-          description: 'クロネコ工房公式緊急連絡用🐈‍⬛ 小さな物語やお知らせ、SFWイラストをお届け🌸'
-        },
         shin: {
           title: 'クロネコ工房｜シン・クロネコ（公式アカ）',
           username: '@shinai_kuroneko',
@@ -96,11 +89,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           username: '@mika_kuroneko',
           description: '共同管理者・友人のアカウント'
         },
-        instagram: {
-          title: 'Instagram',
-          username: '',
-          description: 'SFWイラスト専用Instagram'
-        }
       },
       supportPlans: {
         title: '🐾 クロネコエンジンを応援する',
@@ -603,13 +591,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: 'El proyecto continúa en desarrollo.'
       },
       introLine1: 'Bienvenido al nuevo mundo de Kuroneko 2.0.',
-      introLine2: 'El contenido gratuito está disponible en Pixiv y X.',
+      introLine2: 'El contenido gratuito está disponible en X.',
       introLine3: 'La galería exclusiva es un área especial para quienes apoyan el proyecto en FANBOX o PayPal.',
-      pixivLabel: 'Pixiv',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
       paypalLabel: 'PayPal',
-      pixivSmall: 'Contenido gratuito para mayores de 18 años con todos los personajes de クロネコ工房.',
       xSmall: 'Novedades',
       fanboxSmall: 'Apoyo VIP',
       paypalSmall: 'Apoyo VIP',
@@ -626,11 +612,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
       },
       adultSectionTitle: 'Contenido gratuito para mayores de 18 años',
       accounts: {
-        emergency: {
-          title: 'クロネコ工房｜緊急連絡用',
-          username: '@er_mao13619',
-          description: 'Cuenta oficial de emergencia de Kuroneko Workshop 🐈‍⬛ Noticias, pequeñas historias e ilustraciones SFW.'
-        },
         shin: {
           title: 'クロネコ工房｜シン・クロネコ（公式アカ）',
           username: '@shinai_kuroneko',
@@ -646,11 +627,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           username: '@mika_kuroneko',
           description: 'Cuenta del coadministrador y amigo.'
         },
-        instagram: {
-          title: 'Instagram',
-          username: '',
-          description: 'Instagram dedicado exclusivamente a ilustraciones SFW.'
-        }
       },
       supportPlans: {
         title: '🐾 Apoya Kuroneko Engine',
@@ -1153,13 +1129,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: 'This project is still under active development.'
       },
       introLine1: 'Welcome to the new world of Kuroneko 2.0.',
-      introLine2: 'Free content is available on Pixiv and X.',
+      introLine2: 'Free content is available on X.',
       introLine3: 'The exclusive gallery is a special area for supporters on FANBOX or PayPal.',
-      pixivLabel: 'Pixiv',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
       paypalLabel: 'PayPal',
-      pixivSmall: 'Free 18+ content featuring all クロネコ工房 characters.',
       xSmall: 'Updates',
       fanboxSmall: 'VIP support',
       paypalSmall: 'VIP support',
@@ -1176,11 +1150,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
       },
       adultSectionTitle: 'Free content for adults 18+',
       accounts: {
-        emergency: {
-          title: 'クロネコ工房｜緊急連絡用',
-          username: '@er_mao13619',
-          description: 'Official Kuroneko Workshop emergency account 🐈‍⬛ News, short stories and SFW illustrations.'
-        },
         shin: {
           title: 'クロネコ工房｜シン・クロネコ（公式アカ）',
           username: '@shinai_kuroneko',
@@ -1196,11 +1165,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           username: '@mika_kuroneko',
           description: "Co-administrator and friend's account."
         },
-        instagram: {
-          title: 'Instagram',
-          username: '',
-          description: 'Instagram dedicated exclusively to SFW illustrations.'
-        }
       },
       supportPlans: {
         title: '🐾 Support Kuroneko Engine',
@@ -1703,13 +1667,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '项目仍在持续开发中。'
       },
       introLine1: '欢迎来到 Kuroneko 2.0 的新世界。',
-      introLine2: '免费内容会在 Pixiv 和 X 发布。',
+      introLine2: '免费内容会在 X 发布。',
       introLine3: '限定画廊是为 FANBOX 或 PayPal 支持者准备的特别区域。',
-      pixivLabel: 'Pixiv',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
       paypalLabel: 'PayPal',
-      pixivSmall: '收录クロネコ工房全部角色的免费成人内容。',
       xSmall: '最新消息',
       fanboxSmall: 'VIP 支持',
       paypalSmall: 'VIP 支持',
@@ -1726,11 +1688,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
       },
       adultSectionTitle: '免费成人内容（18岁以上）',
       accounts: {
-        emergency: {
-          title: 'クロネコ工房｜緊急連絡用',
-          username: '@er_mao13619',
-          description: 'クロネコ工房官方紧急联络账号🐈‍⬛ 发布公告、短篇故事与 SFW 插画🌸'
-        },
         shin: {
           title: 'クロネコ工房｜シン・クロネコ（公式アカ）',
           username: '@shinai_kuroneko',
@@ -1746,11 +1703,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           username: '@mika_kuroneko',
           description: '共同管理员兼朋友的账号。'
         },
-        instagram: {
-          title: 'Instagram',
-          username: '',
-          description: '仅发布 SFW 插画的 Instagram。'
-        }
       },
       supportPlans: {
         title: '🐾 支持 Kuroneko Engine',
@@ -2253,13 +2205,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '專案仍在持續開發中。'
       },
       introLine1: '歡迎來到 Kuroneko 2.0 的新世界。',
-      introLine2: '免費內容會在 Pixiv 與 X 公開。',
+      introLine2: '免費內容會在 X 公開。',
       introLine3: '限定畫廊是為 FANBOX 或 PayPal 支援者準備的特別區域。',
-      pixivLabel: 'Pixiv',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
       paypalLabel: 'PayPal',
-      pixivSmall: '收錄クロネコ工房全部角色的免費成人內容。',
       xSmall: '最新消息',
       fanboxSmall: 'VIP 支援',
       paypalSmall: 'VIP 支援',
@@ -2276,11 +2226,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
       },
       adultSectionTitle: '免費成人內容（18歲以上）',
       accounts: {
-        emergency: {
-          title: 'クロネコ工房｜緊急連絡用',
-          username: '@er_mao13619',
-          description: 'クロネコ工房官方緊急聯絡帳號🐈‍⬛ 發布公告、小故事與 SFW 插畫🌸'
-        },
         shin: {
           title: 'クロネコ工房｜シン・クロネコ（公式アカ）',
           username: '@shinai_kuroneko',
@@ -2296,11 +2241,6 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           username: '@mika_kuroneko',
           description: '共同管理員兼朋友的帳號。'
         },
-        instagram: {
-          title: 'Instagram',
-          username: '',
-          description: '僅發布 SFW 插畫的 Instagram。'
-        }
       },
       supportPlans: {
         title: '🐾 支持 Kuroneko Engine',

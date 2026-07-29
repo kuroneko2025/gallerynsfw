@@ -53,11 +53,9 @@ export interface TranslationMap {
     introLine1: string;
     introLine2: string;
     introLine3: string;
-    pixivLabel: string;
     xLabel: string;
     fanboxLabel: string;
     paypalLabel: string;
-    pixivSmall: string;
     xSmall: string;
     fanboxSmall: string;
     paypalSmall: string;
@@ -74,11 +72,6 @@ export interface TranslationMap {
     };
     adultSectionTitle: string;
     accounts: {
-      emergency: {
-        title: string;
-        username: string;
-        description: string;
-      };
       shin: {
         title: string;
         username: string;
@@ -90,11 +83,6 @@ export interface TranslationMap {
         description: string;
       };
       mika: {
-        title: string;
-        username: string;
-        description: string;
-      };
-      instagram: {
         title: string;
         username: string;
         description: string;

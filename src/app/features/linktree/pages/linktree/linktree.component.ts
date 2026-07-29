@@ -21,7 +21,7 @@ interface SupportPlanViewModel {
 }
 
 interface AccountLinkViewModel {
-  readonly id: 'emergency' | 'shin' | 'nyx' | 'pixiv' | 'mika' | 'instagram';
+  readonly id: 'shin' | 'nyx' | 'mika';
   readonly href: string;
   readonly title: string;
   readonly subtitle: string;
@@ -71,24 +71,10 @@ export class LinktreeComponent implements OnInit, OnDestroy {
 
     return [
       {
-        id: 'emergency',
-        href: 'https://x.com/er_mao13619',
-        title: accounts.emergency.title,
-        subtitle: this.formatAccountSubtitle(accounts.emergency.username, accounts.emergency.description),
-        ageRestricted: false
-      },
-      {
         id: 'mika',
         href: 'https://x.com/mika_kuroneko',
         title: accounts.mika.title,
         subtitle: this.formatAccountSubtitle(accounts.mika.username, accounts.mika.description),
-        ageRestricted: false
-      },
-      {
-        id: 'instagram',
-        href: 'https://www.instagram.com/kuro.nekoworld/',
-        title: accounts.instagram.title,
-        subtitle: this.formatAccountSubtitle(accounts.instagram.username, accounts.instagram.description),
         ageRestricted: false
       }
     ];
@@ -109,13 +95,6 @@ export class LinktreeComponent implements OnInit, OnDestroy {
         href: 'https://x.com/nyx_kuroneko',
         title: accounts.nyx.title,
         subtitle: this.formatAccountSubtitle(accounts.nyx.username, accounts.nyx.description),
-        ageRestricted: true
-      },
-      {
-        id: 'pixiv',
-        href: this.links.pixiv,
-        title: this.texts().linktree.pixivLabel,
-        subtitle: this.texts().linktree.pixivSmall,
         ageRestricted: true
       }
     ];
