@@ -53,7 +53,7 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '現在も開発中です。'
       },
       introLine1: 'クロネコくん 2.0 の新しい世界へようこそ。',
-      introLine2: '無料コンテンツは X で公開しています。',
+      introLine2: '無料コンテンツは X と Pixiv で公開しています。',
       introLine3: '限定ギャラリーは、FANBOX または PayPal で支援してくださる方のための特別なエリアです。',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
@@ -83,6 +83,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           title: 'クロネコ工房｜Nyx・クロネコ（公式アカ）',
           username: '@nyx_kuroneko',
           description: 'クロネコくん1.0とNyxちゃんが登場する無料の18歳以上向けコンテンツ。'
+        },
+        pixiv: {
+          title: 'Pixiv',
+          username: '',
+          description: 'クロネコ工房のすべてのキャラクターが登場する無料の18歳以上向けコンテンツ。'
         },
         mika: {
           title: 'クロネコ工房｜ミカン・クロネコ（公式アカ）',
@@ -591,7 +596,7 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: 'El proyecto continúa en desarrollo.'
       },
       introLine1: 'Bienvenido al nuevo mundo de Kuroneko 2.0.',
-      introLine2: 'El contenido gratuito está disponible en X.',
+      introLine2: 'El contenido gratuito está disponible en X y Pixiv.',
       introLine3: 'La galería exclusiva es un área especial para quienes apoyan el proyecto en FANBOX o PayPal.',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
@@ -621,6 +626,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           title: 'クロネコ工房｜Nyx・クロネコ（公式アカ）',
           username: '@nyx_kuroneko',
           description: 'Contenido gratuito para mayores de 18 años protagonizado por クロネコくん1.0 y Nyxちゃん.'
+        },
+        pixiv: {
+          title: 'Pixiv',
+          username: '',
+          description: 'Contenido gratuito para mayores de 18 años con todos los personajes de クロネコ工房.'
         },
         mika: {
           title: 'クロネコ工房｜ミカン・クロネコ（公式アカ）',
@@ -1129,7 +1139,7 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: 'This project is still under active development.'
       },
       introLine1: 'Welcome to the new world of Kuroneko 2.0.',
-      introLine2: 'Free content is available on X.',
+      introLine2: 'Free content is available on X and Pixiv.',
       introLine3: 'The exclusive gallery is a special area for supporters on FANBOX or PayPal.',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
@@ -1159,6 +1169,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           title: 'クロネコ工房｜Nyx・クロネコ（公式アカ）',
           username: '@nyx_kuroneko',
           description: 'Free 18+ content featuring クロネコくん1.0 and Nyxちゃん.'
+        },
+        pixiv: {
+          title: 'Pixiv',
+          username: '',
+          description: 'Free 18+ content featuring all クロネコ工房 characters.'
         },
         mika: {
           title: 'クロネコ工房｜ミカン・クロネコ（公式アカ）',
@@ -1667,7 +1682,7 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '项目仍在持续开发中。'
       },
       introLine1: '欢迎来到 Kuroneko 2.0 的新世界。',
-      introLine2: '免费内容会在 X 发布。',
+      introLine2: '免费内容会在 X 和 Pixiv 发布。',
       introLine3: '限定画廊是为 FANBOX 或 PayPal 支持者准备的特别区域。',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
@@ -1697,6 +1712,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           title: 'クロネコ工房｜Nyx・クロネコ（公式アカ）',
           username: '@nyx_kuroneko',
           description: '以クロネコくん1.0和Nyxちゃん为主角的免费成人内容。'
+        },
+        pixiv: {
+          title: 'Pixiv',
+          username: '',
+          description: '收录クロネコ工房全部角色的免费成人内容。'
         },
         mika: {
           title: 'クロネコ工房｜ミカン・クロネコ（公式アカ）',
@@ -2205,7 +2225,7 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
         developmentNotice: '專案仍在持續開發中。'
       },
       introLine1: '歡迎來到 Kuroneko 2.0 的新世界。',
-      introLine2: '免費內容會在 X 公開。',
+      introLine2: '免費內容會在 X 與 Pixiv 公開。',
       introLine3: '限定畫廊是為 FANBOX 或 PayPal 支援者準備的特別區域。',
       xLabel: 'X',
       fanboxLabel: 'FANBOX',
@@ -2235,6 +2255,11 @@ export const TRANSLATIONS: Record<LanguageCode, TranslationMap> = {
           title: 'クロネコ工房｜Nyx・クロネコ（公式アカ）',
           username: '@nyx_kuroneko',
           description: '以クロネコくん1.0和Nyxちゃん為主角的免費成人內容。'
+        },
+        pixiv: {
+          title: 'Pixiv',
+          username: '',
+          description: '收錄クロネコ工房全部角色的免費成人內容。'
         },
         mika: {
           title: 'クロネコ工房｜ミカン・クロネコ（公式アカ）',

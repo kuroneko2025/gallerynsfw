@@ -82,6 +82,11 @@ export interface TranslationMap {
         username: string;
         description: string;
       };
+      pixiv: {
+        title: string;
+        username: string;
+        description: string;
+      };
       mika: {
         title: string;
         username: string;

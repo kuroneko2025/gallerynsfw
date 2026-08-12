@@ -21,7 +21,7 @@ interface SupportPlanViewModel {
 }
 
 interface AccountLinkViewModel {
-  readonly id: 'shin' | 'nyx' | 'mika';
+  readonly id: 'shin' | 'nyx' | 'mika' | 'pixiv';
   readonly href: string;
   readonly title: string;
   readonly subtitle: string;
@@ -95,6 +95,13 @@ export class LinktreeComponent implements OnInit, OnDestroy {
         href: 'https://x.com/nyx_kuroneko',
         title: accounts.nyx.title,
         subtitle: this.formatAccountSubtitle(accounts.nyx.username, accounts.nyx.description),
+        ageRestricted: true
+      },
+      {
+        id: 'pixiv',
+        href: this.links.pixiv,
+        title: accounts.pixiv.title,
+        subtitle: this.formatAccountSubtitle(accounts.pixiv.username, accounts.pixiv.description),
         ageRestricted: true
       }
     ];
