@@ -53,12 +53,10 @@ export interface TranslationMap {
     introLine1: string;
     introLine2: string;
     introLine3: string;
+    paymentNoticeTitle: string;
+    paymentNoticeMessage: string;
     xLabel: string;
-    fanboxLabel: string;
-    paypalLabel: string;
     xSmall: string;
-    fanboxSmall: string;
-    paypalSmall: string;
     systemButton: string;
     systemSmall: string;
     visitCount: string;

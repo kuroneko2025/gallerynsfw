@@ -12,8 +12,10 @@ test('loads the public LinkTree with primary actions', async ({ page }) => {
 
   await expect(page.locator('.linktree__title')).toBeVisible();
   await expect(page.getByRole('link', { name: /Pixiv/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: /FANBOX/ })).toBeVisible();
-  await expect(page.getByRole('link', { name: /^X\s/ })).toBeVisible();
+  await expect(page.locator('a[href*="x.com"]')).toHaveCount(3);
+  await expect(page.locator('.linktree__payment-notice')).toBeVisible();
+  await expect(page.locator('.linktree__payment-notice')).toContainText(/お支払い方法|Medios de pago|Payment methods|支付方式/);
+  await expect(page.locator('a[href*="fanbox"], a[href*="paypal"]')).toHaveCount(0);
   await expect(page.locator('.linktree__button--system')).toBeVisible();
   await expect(page.locator('.linktree__counter')).toBeVisible();
   await expect(page.locator('.linktree__music')).toBeVisible();
