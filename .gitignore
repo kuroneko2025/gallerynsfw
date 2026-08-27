@@ -39,6 +39,14 @@ yarn-error.log
 testem.log
 /typings
 
+# Local/private backend and credentials
+/backend/
+.clasp.json
+.clasprc.json
+.env
+.env.*
+!.env.example
+
 # System files
 .DS_Store
 Thumbs.db

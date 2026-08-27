@@ -301,7 +301,7 @@
                 <span class="admin-card__kicker">{{ texts().admin.panel.keysKicker }}</span>
                 <h2>{{ texts().admin.panel.keysTitle }}</h2>
               </div>
-              <span class="admin-count">{{ accessKeys.length }} {{ texts().admin.panel.countSuffix }}</span>
+              <span class="admin-count">{{ filteredAccessKeys().length }} / {{ accessKeys.length }} {{ texts().admin.panel.countSuffix }}</span>
               @if (accessKeysLastUpdatedAt) {
                 <span class="admin-count">{{ lastUpdatedLabel(accessKeysLastUpdatedAt) }}</span>
               }
@@ -320,22 +320,38 @@
               </button>
             </div>
 
-            @if (!isFetching && accessKeys.length === 0) {
+            <div class="admin-request-filters" [attr.aria-label]="texts().admin.keyStatus.summaryTitle">
+              @for (filter of keyFilters; track filter) {
+                <button
+                  class="admin-filter-card"
+                  type="button"
+                  [class.active]="activeKeyFilter === filter"
+                  (click)="setActiveKeyFilter(filter)"
+                >
+                  <span>{{ keyFilterLabel(filter) }}</span>
+                  <strong>{{ keyCount(filter) }}</strong>
+                </button>
+              }
+            </div>
+
+            @if (!isFetching && filteredAccessKeys().length === 0) {
               <p class="admin-empty">{{ texts().admin.panel.emptyKeys }}</p>
             }
 
             <div class="admin-grid admin-grid--keys">
-              @for (item of accessKeys; track trackKey($index, item)) {
+              @for (item of filteredAccessKeys(); track trackKey($index, item)) {
                 <article class="admin-card admin-key">
                   <div class="admin-card__top">
                     <div>
                       <strong>{{ item.userCode }}</strong>
                       <span>{{ item.displayName }}</span>
                     </div>
-                    <span class="admin-status" [ngClass]="'admin-status--' + item.status">
-                      {{ keyStatusLabel(item.status) }}
+                    <span class="admin-status" [ngClass]="'admin-status--' + keyEffectiveStatus(item)">
+                      {{ keyStatusLabel(keyEffectiveStatus(item)) }}
                     </span>
                   </div>
+
+                  <p class="admin-request__help">{{ keyStatusDescription(item) }}</p>
 
                   <dl class="admin-details">
                     <div>
@@ -534,6 +550,10 @@
 
         @case ('gallery') {
           <app-admin-gallery-manager />
+        }
+
+        @case ('linktree') {
+          <app-admin-linktree-manager />
         }
       }
     }

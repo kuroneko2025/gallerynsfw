@@ -12,6 +12,13 @@ import {
   AdminGalleryItemPayload,
   AdminGalleryItemResponse,
   AdminGalleryItemsResponse,
+  AdminLinktreeConfig,
+  AdminLinktreeConfigResponse,
+  AdminLinktreeItem,
+  AdminLinktreeItemPayload,
+  AdminLinktreeItemResponse,
+  AdminLinktreeMutationResponse,
+  AdminLinktreeSettingsPayload,
   AdminMutationResponse,
   AdminVipIllustrationRequest,
   AdminVipIllustrationRequestUpdateResponse,
@@ -73,6 +80,92 @@ export class AdminService {
 
     this.assertSuccess(response, '発行済みアクセスキーを読み込めませんでした。');
     return response.items ?? [];
+  }
+
+  async adminGetLinktreeConfig(credentials: AdminCredentials): Promise<AdminLinktreeConfig> {
+    const response = await this.api.post<AdminLinktreeConfigResponse>({
+      action: 'admin_get_linktree_config',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword
+    });
+
+    this.assertSuccess(response, 'Could not load Linktree configuration.');
+    return this.readLinktreeConfig(response);
+  }
+
+  async adminUpdateLinktreeSettings(
+    credentials: AdminCredentials,
+    payload: AdminLinktreeSettingsPayload
+  ): Promise<AdminLinktreeConfig> {
+    const response = await this.api.post<AdminLinktreeConfigResponse>({
+      action: 'admin_update_linktree_settings',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword,
+      ...payload
+    });
+
+    this.assertSuccess(response, 'Could not update Linktree settings.');
+    return this.readLinktreeConfig(response);
+  }
+
+  async adminAddLinktreeItem(
+    credentials: AdminCredentials,
+    payload: AdminLinktreeItemPayload
+  ): Promise<AdminLinktreeItem> {
+    const response = await this.api.post<AdminLinktreeItemResponse>({
+      action: 'admin_add_linktree_item',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword,
+      ...payload
+    });
+
+    this.assertSuccess(response, 'Could not create Linktree item.');
+    return this.readLinktreeItem(response);
+  }
+
+  async adminUpdateLinktreeItem(
+    credentials: AdminCredentials,
+    id: string,
+    payload: AdminLinktreeItemPayload
+  ): Promise<AdminLinktreeItem> {
+    const response = await this.api.post<AdminLinktreeItemResponse>({
+      action: 'admin_update_linktree_item',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword,
+      id,
+      ...payload
+    });
+
+    this.assertSuccess(response, 'Could not update Linktree item.');
+    return this.readLinktreeItem(response);
+  }
+
+  async adminSetLinktreeItemStatus(
+    credentials: AdminCredentials,
+    id: string,
+    status: 'active' | 'disabled'
+  ): Promise<AdminLinktreeItem> {
+    const response = await this.api.post<AdminLinktreeItemResponse>({
+      action: 'admin_set_linktree_item_status',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword,
+      id,
+      status
+    });
+
+    this.assertSuccess(response, 'Could not update Linktree item status.');
+    return this.readLinktreeItem(response);
+  }
+
+  async adminDeleteLinktreeItem(credentials: AdminCredentials, id: string): Promise<void> {
+    const response = await this.api.post<AdminLinktreeMutationResponse>({
+      action: 'admin_delete_linktree_item',
+      adminUsername: credentials.adminUsername,
+      adminPassword: credentials.adminPassword,
+      id
+    });
+
+    this.assertSuccess(response, 'Could not delete Linktree item.');
   }
 
   async approveRequest(
@@ -302,5 +395,21 @@ export class AdminService {
     }
 
     throw new Error('ギャラリー項目のレスポンスを確認できませんでした。');
+  }
+  private readLinktreeConfig(response: AdminLinktreeConfigResponse): AdminLinktreeConfig {
+    if (response.settings && Array.isArray(response.items)) {
+      return {
+        settings: response.settings,
+        items: response.items
+      };
+    }
+
+    throw new Error('Could not read Linktree configuration response.');
+  }
+
+  private readLinktreeItem(response: AdminLinktreeItemResponse): AdminLinktreeItem {
+    if (response.item) return response.item;
+
+    throw new Error('Could not read Linktree item response.');
   }
 }

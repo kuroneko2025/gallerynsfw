@@ -2,14 +2,14 @@
 
 Aplicacion web Angular para `クロネコプロジェクト`, orientada a centralizar enlaces publicos, acceso VIP y gestion manual de solicitudes para una galeria exclusiva.
 
-El sitio funciona como una entrada tipo LinkTree: el contenido gratuito vive en Pixiv y X, mientras que la galeria VIP queda reservada para usuarios que apoyan el proyecto mediante FANBOX o PayPal. El acceso VIP se realiza con `userCode` y `accessKey`, emitidos luego de una revision manual desde el panel de administracion.
+El sitio funciona como una entrada tipo LinkTree: el contenido gratuito vive en Pixiv y X, y los enlaces publicos se pueden administrar desde `/admin` usando Google Sheets como fuente de datos. El acceso VIP se realiza con `userCode` y `accessKey`, emitidos luego de una revision manual desde el panel de administracion.
 
 ## Flujo principal
 
 ```text
 Usuario
   -> LinkTree
-  -> Pixiv / X / FANBOX / PayPal / VIP Access Center
+  -> Pixiv / X / enlaces configurados / VIP Access Center
   -> Solicitud o login VIP
   -> Galeria exclusiva
   -> VIP Request Board
@@ -31,7 +31,7 @@ Usuario
 
 ## Funcionalidades principales
 
-- LinkTree publico con enlaces oficiales del proyecto.
+- LinkTree publico con enlaces oficiales configurables desde el panel administrador.
 - Contador de visitas con control por sesion.
 - Sistema de traducciones para japones, espanol, ingles, chino simplificado y chino tradicional.
 - Centro VIP con solicitud, consulta de estado y login.
@@ -39,7 +39,7 @@ Usuario
 - Galeria exclusiva cargada solo con `userCode` y `accessKey` validos.
 - Slideshow fullscreen con navegacion, zoom y pan.
 - Tablero VIP para sugerir proximas ilustraciones.
-- Panel admin para revisar solicitudes, aprobar, rechazar, pedir mas informacion, listar claves y extender/desactivar accesos.
+- Panel admin para revisar solicitudes, aprobar, rechazar, pedir mas informacion, listar claves, extender/desactivar accesos, gestionar galeria y administrar el LinkTree publico.
 - Pagina 404 personalizada.
 - Estilos responsive con estetica oscura japonesa/cyberpunk.
 
@@ -77,16 +77,42 @@ Acciones publicas usadas por la app:
 - `get_exclusive_gallery`
 - `save_vip_illustration_request`
 - `get_vip_illustration_requests`
+- `get_linktree_config`
 
 Acciones administrativas usadas por `/admin`:
 
 - `admin_get_access_requests`
 - `admin_get_access_keys`
+- `admin_get_gallery_items`
+- `admin_add_gallery_item`
+- `admin_update_gallery_item`
+- `admin_disable_gallery_item`
+- `admin_delete_gallery_item`
+- `admin_get_vip_illustration_requests`
+- `admin_update_vip_illustration_request_status`
+- `admin_get_linktree_config`
+- `admin_update_linktree_settings`
+- `admin_add_linktree_item`
+- `admin_update_linktree_item`
+- `admin_set_linktree_item_status`
+- `admin_delete_linktree_item`
 - `approve_access_request`
 - `reject_access_request`
 - `need_more_info_request`
 - `disable_access_key`
 - `extend_access_key`
+
+Hojas usadas por Apps Script:
+
+- `GALLERY_ITEMS`
+- `VISITS`
+- `ACCESS_REQUESTS`
+- `ACCESS_KEYS`
+- `VIP_ILLUSTRATION_REQUESTS`
+- `LINKTREE_ITEMS`
+- `LINKTREE_SETTINGS`
+
+Para migrar sin borrar datos existentes, ejecutar `setupKuronekoSheetsWithoutReset()` desde Apps Script. La rutina crea columnas faltantes y agrega defaults solo cuando corresponde.
 
 Las credenciales administrativas no deben guardarse en el frontend, en archivos del proyecto, en Git ni en logs. El panel `/admin` las solicita en tiempo de uso y las mantiene solo durante la sesion actual.
 
@@ -222,20 +248,19 @@ El proyecto se encuentra en estado de prototipo avanzado y funcional:
 
 - Flujo VIP implementado.
 - Panel administrador implementado.
-- API de Google Apps Script probada durante desarrollo.
-- Tests unitarios basicos funcionando.
+- API de Google Apps Script preparada para migraciones retrocompatibles.
+- Build Angular y suite E2E con Playwright disponibles.
 - Checklist manual E2E agregado en `docs/E2E_MANUAL_CHECKLIST.md`.
-- No hay suite automatizada E2E con Playwright/Cypress por ahora.
 
 ## Pruebas E2E
 
-Actualmente se usa Karma/Jasmine para pruebas unitarias. Para flujos completos se mantiene una guia manual en:
+Actualmente se usa Playwright para flujos completos y se mantiene una guia manual en:
 
 ```text
 docs/E2E_MANUAL_CHECKLIST.md
 ```
 
-Una futura version estable puede incorporar Playwright o Cypress para automatizar:
+La suite automatizada cubre flujos principales como:
 
 - solicitud VIP,
 - aprobacion admin,

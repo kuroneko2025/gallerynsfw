@@ -282,6 +282,99 @@
   }
 }
 
+.linktree__paypal-panel {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+  text-align: left;
+  border: 1px solid rgba(255, 215, 0, 0.34);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(20, 20, 20, 0.9));
+  box-shadow: inset 0 0 18px rgba(138, 43, 226, 0.12);
+}
+
+.linktree__paypal-copy {
+  display: grid;
+  gap: 0.3rem;
+
+  strong {
+    color: #ffd700;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+
+  small {
+    color: rgba(224, 224, 224, 0.78);
+    line-height: 1.55;
+  }
+}
+
+.linktree__amount-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.linktree__amount-button,
+.linktree__custom-amount button {
+  min-height: 2.6rem;
+  border: 1px solid rgba(255, 215, 0, 0.45);
+  border-radius: 8px;
+  color: #ffd700;
+  background: rgba(10, 10, 10, 0.68);
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: #ffd700;
+    color: #0a0a0a;
+    background: #ffd700;
+  }
+}
+
+.linktree__custom-amount {
+  display: grid;
+  gap: 0.45rem;
+
+  label {
+    color: rgba(224, 224, 224, 0.78);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  input {
+    width: 100%;
+    min-height: 2.6rem;
+    padding: 0 0.75rem;
+    border: 1px solid rgba(255, 215, 0, 0.28);
+    border-radius: 8px;
+    color: #f3f3f3;
+    background: rgba(10, 10, 10, 0.72);
+    font: inherit;
+    outline: none;
+
+    &:focus {
+      border-color: #ffd700;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.12);
+    }
+  }
+}
+
+.linktree__custom-amount-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem;
+}
+
+.linktree__custom-amount-error {
+  color: #ffd7e3;
+  line-height: 1.45;
+}
+
 .linktree__activity-hours {
   display: grid;
   gap: 0.35rem;
@@ -356,6 +449,13 @@
   line-height: 1.35;
   text-align: left;
   box-shadow: inset 0 0 16px rgba(255, 92, 138, 0.08);
+}
+
+.linktree__section-title--payment {
+  color: #ffe8a3;
+  border-color: rgba(255, 215, 0, 0.32);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.11), rgba(20, 20, 20, 0.72));
+  box-shadow: inset 0 0 16px rgba(255, 215, 0, 0.08);
 }
 
 .linktree__button--age-restricted {
@@ -506,6 +606,11 @@
 
   .linktree__music-button {
     width: 100%;
+  }
+
+  .linktree__amount-grid,
+  .linktree__custom-amount-row {
+    grid-template-columns: 1fr;
   }
 
   .linktree__warning {

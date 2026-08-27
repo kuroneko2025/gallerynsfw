@@ -1,4 +1,12 @@
 import { AccessRequestStatus, AccessSource, ApiResponse } from '../../core/models/access.models';
+import {
+  AdminLinktreeConfig,
+  AdminLinktreeItem,
+  LinktreeItemPayload,
+  LinktreeSettingsPayload
+} from '../../core/models/linktree.models';
+
+export type { AdminLinktreeConfig, AdminLinktreeItem } from '../../core/models/linktree.models';
 
 export interface AdminCredentials {
   adminUsername: string;
@@ -23,6 +31,7 @@ export interface AdminAccessRequestItem {
 }
 
 export type AdminAccessKeyStatus = 'active' | 'expired' | 'disabled';
+export type AdminAccessKeyEffectiveStatus = AdminAccessKeyStatus | 'expiring_soon';
 
 export type VipIllustrationRequestStatus =
   | 'pending'
@@ -44,6 +53,12 @@ export interface AdminAccessKeyItem {
   endDate: string;
   createdAt: string;
   notes: string;
+  effectiveStatus?: AdminAccessKeyEffectiveStatus;
+  daysUntilExpiration?: number | null;
+  expiredDaysAgo?: number | null;
+  isExpired?: boolean;
+  isExpiringSoon?: boolean;
+  expirationDate?: string;
 }
 
 export type AdminAccessRequestsResponse = ApiResponse<{
@@ -52,6 +67,7 @@ export type AdminAccessRequestsResponse = ApiResponse<{
 
 export type AdminAccessKeysResponse = ApiResponse<{
   items?: AdminAccessKeyItem[];
+  expiringSoonDays?: number;
 }>;
 
 export type AdminApproveAccessResponse = ApiResponse<{
@@ -98,9 +114,10 @@ export interface AdminKeyDraft {
   notes: string;
 }
 
-export type AdminPanelTab = 'requests' | 'keys' | 'gallery' | 'vipRequests';
+export type AdminPanelTab = 'requests' | 'keys' | 'gallery' | 'vipRequests' | 'linktree';
 
 export type AdminRequestFilter = 'all' | AdminAccessRequestStatus;
+export type AdminKeyFilter = 'all' | AdminAccessKeyEffectiveStatus;
 
 export type AdminVipRequestFilter = 'all' | VipIllustrationRequestStatus;
 
@@ -136,3 +153,17 @@ export type AdminGalleryItemsResponse = ApiResponse<{
 export type AdminGalleryItemResponse = ApiResponse<{
   item?: AdminGalleryItem;
 } & Partial<AdminGalleryItem>>;
+
+export type AdminLinktreeConfigResponse = ApiResponse<Partial<AdminLinktreeConfig>>;
+
+export type AdminLinktreeItemResponse = ApiResponse<{
+  item?: AdminLinktreeItem;
+}>;
+
+export type AdminLinktreeMutationResponse = ApiResponse<{
+  id?: string;
+}>;
+
+export type AdminLinktreeSettingsPayload = LinktreeSettingsPayload;
+
+export type AdminLinktreeItemPayload = LinktreeItemPayload;

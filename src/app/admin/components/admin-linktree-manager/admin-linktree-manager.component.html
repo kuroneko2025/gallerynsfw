@@ -1,0 +1,393 @@
+<section class="admin-gallery admin-linktree">
+  <div class="admin-gallery__header">
+    <div>
+      <span class="admin-gallery__kicker">{{ texts().admin.linktree.kicker }}</span>
+      <h2>{{ texts().admin.linktree.title }}</h2>
+      <p>{{ texts().admin.linktree.subtitle }}</p>
+      @if (lastUpdatedAt) {
+        <span class="admin-gallery__last-updated">{{ lastUpdatedLabel() }}</span>
+      }
+    </div>
+    <button
+      class="admin-gallery__button admin-gallery__button--ghost"
+      type="button"
+      [disabled]="isFetching"
+      [attr.aria-busy]="isFetching"
+      (click)="refreshConfig()"
+    >
+      @if (isFetching) {
+        <app-loading-spinner [label]="texts().refresh.action" />
+      } @else {
+        {{ texts().refresh.action }}
+      }
+    </button>
+  </div>
+
+  @if (errorMessage) {
+    <div class="admin-gallery__message admin-gallery__message--error" role="alert">{{ errorMessage }}</div>
+  }
+
+  <div class="admin-gallery__form-card">
+    <div class="admin-gallery__form-heading">
+      <span>{{ texts().admin.linktree.settingsTitle }}</span>
+      <small>{{ texts().admin.linktree.settingsDescription }}</small>
+    </div>
+
+    <form class="admin-gallery__form admin-linktree__settings-form" (ngSubmit)="saveSettings()">
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.paymentStatus }}</span>
+        <select name="paymentsStatus" [(ngModel)]="settingsForm.paymentsStatus" [disabled]="isSavingSettings">
+          <option value="disabled">{{ texts().admin.linktree.paymentDisabled }}</option>
+          <option value="enabled">{{ texts().admin.linktree.paymentEnabled }}</option>
+        </select>
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.paypalEnabled }}</span>
+        <select name="paypalEnabled" [(ngModel)]="settingsForm.paypalEnabled" [disabled]="isSavingSettings">
+          <option [ngValue]="false">{{ texts().admin.linktree.disabled }}</option>
+          <option [ngValue]="true">{{ texts().admin.linktree.active }}</option>
+        </select>
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.paypalUrl }}</span>
+        <input name="paypalUrl" [(ngModel)]="settingsForm.paypalUrl" [disabled]="isSavingSettings" placeholder="https://paypal.me/...">
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.paypalCurrency }}</span>
+        <input name="paypalCurrency" maxlength="3" [(ngModel)]="settingsForm.paypalCurrency" [disabled]="isSavingSettings" placeholder="USD">
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.paypalSuggestedAmounts }}</span>
+        <input name="paypalSuggestedAmounts" [(ngModel)]="settingsForm.paypalSuggestedAmounts" [disabled]="isSavingSettings" placeholder="5, 10, 15">
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.expiringSoonDays }}</span>
+        <input name="expiringSoonDays" type="number" min="1" max="60" [(ngModel)]="settingsForm.expiringSoonDays" [disabled]="isSavingSettings">
+      </label>
+
+      <label class="admin-gallery__field admin-linktree__checkbox">
+        <input name="paypalAllowCustomAmount" type="checkbox" [(ngModel)]="settingsForm.paypalAllowCustomAmount" [disabled]="isSavingSettings">
+        <span>{{ texts().admin.linktree.paypalAllowCustomAmount }}</span>
+      </label>
+
+      <p class="admin-linktree__hint admin-gallery__field--wide">{{ texts().admin.linktree.amountHelp }}</p>
+
+      <fieldset class="admin-linktree__locale-grid admin-gallery__field--wide">
+        <legend>{{ texts().admin.linktree.noticeTitle }}</legend>
+        <label>
+          <span>JA</span>
+          <input name="paymentNoticeTitleJa" [(ngModel)]="settingsForm.paymentNoticeTitleJa" [disabled]="isSavingSettings">
+        </label>
+        <label>
+          <span>ES</span>
+          <input name="paymentNoticeTitleEs" [(ngModel)]="settingsForm.paymentNoticeTitleEs" [disabled]="isSavingSettings">
+        </label>
+        <label>
+          <span>EN</span>
+          <input name="paymentNoticeTitleEn" [(ngModel)]="settingsForm.paymentNoticeTitleEn" [disabled]="isSavingSettings">
+        </label>
+        <label>
+          <span>ZH-CN</span>
+          <input name="paymentNoticeTitleZhCN" [(ngModel)]="settingsForm.paymentNoticeTitleZhCN" [disabled]="isSavingSettings">
+        </label>
+        <label>
+          <span>ZH-TW</span>
+          <input name="paymentNoticeTitleZhTW" [(ngModel)]="settingsForm.paymentNoticeTitleZhTW" [disabled]="isSavingSettings">
+        </label>
+      </fieldset>
+
+      <fieldset class="admin-linktree__locale-grid admin-gallery__field--wide">
+        <legend>{{ texts().admin.linktree.noticeMessage }}</legend>
+        <label>
+          <span>JA</span>
+          <textarea name="paymentNoticeMessageJa" [(ngModel)]="settingsForm.paymentNoticeMessageJa" [disabled]="isSavingSettings"></textarea>
+        </label>
+        <label>
+          <span>ES</span>
+          <textarea name="paymentNoticeMessageEs" [(ngModel)]="settingsForm.paymentNoticeMessageEs" [disabled]="isSavingSettings"></textarea>
+        </label>
+        <label>
+          <span>EN</span>
+          <textarea name="paymentNoticeMessageEn" [(ngModel)]="settingsForm.paymentNoticeMessageEn" [disabled]="isSavingSettings"></textarea>
+        </label>
+        <label>
+          <span>ZH-CN</span>
+          <textarea name="paymentNoticeMessageZhCN" [(ngModel)]="settingsForm.paymentNoticeMessageZhCN" [disabled]="isSavingSettings"></textarea>
+        </label>
+        <label>
+          <span>ZH-TW</span>
+          <textarea name="paymentNoticeMessageZhTW" [(ngModel)]="settingsForm.paymentNoticeMessageZhTW" [disabled]="isSavingSettings"></textarea>
+        </label>
+      </fieldset>
+
+      <div class="admin-gallery__actions admin-gallery__field--wide">
+        <button class="admin-gallery__button" type="submit" [disabled]="isSavingSettings || isSettingsFormInvalid()" [attr.aria-busy]="isSavingSettings">
+          @if (isSavingSettings) {
+            <app-loading-spinner [label]="texts().admin.linktree.saveSettings" />
+          } @else {
+            {{ texts().admin.linktree.saveSettings }}
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="admin-gallery__form-card">
+    <div class="admin-gallery__form-heading">
+      <span>{{ editingItemId ? texts().admin.linktree.editItem : texts().admin.linktree.addItem }}</span>
+      @if (editingItemId) {
+        <code>{{ editingItemId }}</code>
+      }
+    </div>
+
+    <form class="admin-gallery__form admin-linktree__item-form" (ngSubmit)="saveItem()">
+      @if (!editingItemId) {
+        <label class="admin-gallery__field">
+          <span>ID</span>
+          <input name="linktreeId" [(ngModel)]="itemForm.id" [disabled]="isSavingItem" placeholder="wallet-mercadopago">
+        </label>
+      }
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.type }}</span>
+        <input name="linktreeType" [(ngModel)]="itemForm.type" [disabled]="isSavingItem" placeholder="social">
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.provider }}</span>
+        <input name="linktreeProvider" [(ngModel)]="itemForm.provider" [disabled]="isSavingItem" placeholder="x, pixiv, paypal">
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.section }}</span>
+        <select name="linktreeSection" [(ngModel)]="itemForm.section" [disabled]="isSavingItem">
+          @for (section of sections; track section) {
+            <option [value]="section">{{ sectionLabel(section) }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.behavior }}</span>
+        <select name="linktreeBehavior" [(ngModel)]="itemForm.behavior" [disabled]="isSavingItem">
+          @for (behavior of behaviors; track behavior) {
+            <option [value]="behavior">{{ behaviorLabel(behavior) }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.status }}</span>
+        <select name="linktreeStatus" [(ngModel)]="itemForm.status" [disabled]="isSavingItem">
+          @for (status of statuses; track status) {
+            <option [value]="status">{{ statusLabel(status) }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="admin-gallery__field">
+        <span>{{ texts().admin.linktree.sortOrder }}</span>
+        <input name="linktreeSortOrder" type="number" min="0" [(ngModel)]="itemForm.sortOrder" [disabled]="isSavingItem">
+      </label>
+
+      <label class="admin-gallery__field admin-linktree__url-field">
+        <span>{{ texts().admin.linktree.url }}</span>
+        <input name="linktreeUrl" [(ngModel)]="itemForm.url" [disabled]="isSavingItem" placeholder="https://">
+      </label>
+
+      <label class="admin-gallery__field admin-linktree__checkbox">
+        <input name="linktreeAdultWarning" type="checkbox" [(ngModel)]="itemForm.requiresAdultWarning" [disabled]="isSavingItem">
+        <span>{{ texts().admin.linktree.requiresAdultWarning }}</span>
+      </label>
+
+      <fieldset class="admin-linktree__locale-grid admin-gallery__field--wide">
+        <legend>{{ texts().admin.linktree.label }}</legend>
+        <label>
+          <span>JA</span>
+          <input name="labelJa" [(ngModel)]="itemForm.labelJa" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ES</span>
+          <input name="labelEs" [(ngModel)]="itemForm.labelEs" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>EN</span>
+          <input name="labelEn" [(ngModel)]="itemForm.labelEn" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ZH-CN</span>
+          <input name="labelZhCN" [(ngModel)]="itemForm.labelZhCN" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ZH-TW</span>
+          <input name="labelZhTW" [(ngModel)]="itemForm.labelZhTW" [disabled]="isSavingItem">
+        </label>
+      </fieldset>
+
+      <fieldset class="admin-linktree__locale-grid admin-gallery__field--wide">
+        <legend>{{ texts().admin.linktree.subtitleField }}</legend>
+        <label>
+          <span>JA</span>
+          <input name="subtitleJa" [(ngModel)]="itemForm.subtitleJa" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ES</span>
+          <input name="subtitleEs" [(ngModel)]="itemForm.subtitleEs" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>EN</span>
+          <input name="subtitleEn" [(ngModel)]="itemForm.subtitleEn" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ZH-CN</span>
+          <input name="subtitleZhCN" [(ngModel)]="itemForm.subtitleZhCN" [disabled]="isSavingItem">
+        </label>
+        <label>
+          <span>ZH-TW</span>
+          <input name="subtitleZhTW" [(ngModel)]="itemForm.subtitleZhTW" [disabled]="isSavingItem">
+        </label>
+      </fieldset>
+
+      <label class="admin-gallery__field admin-gallery__field--wide">
+        <span>{{ texts().admin.linktree.metadata }}</span>
+        <textarea name="linktreeMetadata" [(ngModel)]="itemForm.metadata" [disabled]="isSavingItem"></textarea>
+      </label>
+
+      <div class="admin-gallery__actions admin-gallery__field--wide">
+        <button class="admin-gallery__button" type="submit" [disabled]="isSavingItem || isItemFormInvalid()" [attr.aria-busy]="isSavingItem">
+          @if (isSavingItem) {
+            <app-loading-spinner [label]="texts().admin.linktree.saveItem" />
+          } @else {
+            {{ texts().admin.linktree.saveItem }}
+          }
+        </button>
+        @if (editingItemId) {
+          <button class="admin-gallery__button admin-gallery__button--ghost" type="button" [disabled]="isSavingItem" (click)="cancelEdit()">
+            {{ texts().admin.linktree.cancelEdit }}
+          </button>
+        }
+      </div>
+    </form>
+  </div>
+
+  <div class="admin-gallery__tools" [attr.aria-label]="texts().admin.linktree.filtersLabel">
+    <div class="admin-gallery__search">
+      <label for="adminLinktreeSearch">{{ texts().admin.linktree.search }}</label>
+      <input
+        id="adminLinktreeSearch"
+        type="search"
+        [ngModel]="searchTerm"
+        [placeholder]="texts().admin.linktree.searchPlaceholder"
+        (ngModelChange)="setSearchTerm($event)"
+      >
+    </div>
+
+    <div class="admin-gallery__status-filters">
+      @for (filter of filters; track filter) {
+        <button
+          class="admin-gallery__filter"
+          type="button"
+          [class.active]="activeFilter === filter"
+          (click)="setActiveFilter(filter)"
+        >
+          {{ filterLabel(filter) }}
+        </button>
+      }
+    </div>
+
+    <span class="admin-gallery__result-count">
+      {{ filteredItems().length }} / {{ items.length }} {{ texts().admin.linktree.results }}
+    </span>
+  </div>
+
+  @if (isFetching) {
+    <div class="admin-gallery__loading">
+      <app-loading-spinner [label]="texts().admin.linktree.loading" />
+      <span>{{ texts().admin.linktree.loading }}</span>
+    </div>
+  } @else if (filteredItems().length === 0) {
+    <p class="admin-gallery__empty">{{ texts().admin.linktree.empty }}</p>
+  }
+
+  <div class="admin-gallery__grid">
+    @for (item of filteredItems(); track trackItem($index, item)) {
+      <article class="admin-gallery__item admin-linktree__item">
+        <div class="admin-gallery__item-body">
+          <div class="admin-gallery__item-top">
+            <div>
+              <strong>{{ item.label.es || item.label.en || item.label.ja || item.id }}</strong>
+              <code>{{ item.id }}</code>
+            </div>
+            <span class="admin-gallery__status" [class.admin-gallery__status--active]="item.status === 'active'">
+              {{ statusLabel(item.status) }}
+            </span>
+          </div>
+
+          <dl class="admin-gallery__details">
+            <div>
+              <dt>{{ texts().admin.linktree.provider }}</dt>
+              <dd>{{ item.provider || '-' }}</dd>
+            </div>
+            <div>
+              <dt>{{ texts().admin.linktree.section }}</dt>
+              <dd>{{ sectionLabel(item.section) }}</dd>
+            </div>
+            <div>
+              <dt>{{ texts().admin.linktree.behavior }}</dt>
+              <dd>{{ behaviorLabel(item.behavior) }}</dd>
+            </div>
+            <div>
+              <dt>{{ texts().admin.linktree.sortOrder }}</dt>
+              <dd>{{ item.sortOrder }}</dd>
+            </div>
+            <div>
+              <dt>{{ texts().admin.panel.updatedAt }}</dt>
+              <dd>{{ item.updatedAt || '-' }}</dd>
+            </div>
+            <div>
+              <dt>{{ texts().admin.linktree.requiresAdultWarning }}</dt>
+              <dd>{{ item.requiresAdultWarning ? texts().admin.linktree.active : texts().admin.linktree.disabled }}</dd>
+            </div>
+            <div class="admin-gallery__details-wide">
+              <dt>{{ texts().admin.linktree.url }}</dt>
+              <dd>{{ item.url || '-' }}</dd>
+            </div>
+            <div class="admin-gallery__details-wide">
+              <dt>{{ texts().admin.linktree.subtitleField }}</dt>
+              <dd>{{ item.subtitle.es || item.subtitle.en || item.subtitle.ja || '-' }}</dd>
+            </div>
+          </dl>
+
+          <div class="admin-gallery__actions">
+            <button class="admin-gallery__button admin-gallery__button--ghost" type="button" (click)="editItem(item)">
+              {{ texts().admin.linktree.edit }}
+            </button>
+            <button
+              class="admin-gallery__button"
+              type="button"
+              [disabled]="isProcessing(item.id)"
+              [attr.aria-busy]="isProcessing(item.id)"
+              (click)="toggleItemStatus(item)"
+            >
+              {{ item.status === 'active' ? texts().admin.linktree.disable : texts().admin.linktree.enable }}
+            </button>
+            <button
+              class="admin-gallery__button admin-gallery__button--danger"
+              type="button"
+              [disabled]="isProcessing(item.id)"
+              [attr.aria-busy]="isProcessing(item.id)"
+              (click)="deleteItem(item)"
+            >
+              {{ texts().admin.linktree.delete }}
+            </button>
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+</section>

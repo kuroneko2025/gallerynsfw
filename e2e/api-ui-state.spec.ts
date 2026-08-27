@@ -262,7 +262,7 @@ test('admin approve action releases row loading and shows issued credentials', a
   await page.locator('#adminPassword').fill('test-password');
   await page.locator('form.admin-login button[type="submit"]').click();
 
-  await expect(page.locator('.admin-tab')).toHaveCount(4);
+  await expect(page.locator('.admin-tab')).toHaveCount(5);
 
   const requestCard = page.locator('.admin-request').filter({ hasText: 'REQ-ADMIN-1' });
   await expect(requestCard).toBeVisible();

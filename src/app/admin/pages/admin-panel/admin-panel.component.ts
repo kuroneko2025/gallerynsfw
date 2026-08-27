@@ -8,14 +8,16 @@ import { LoadingMessageComponent } from '../../../shared/components/loading-mess
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { ModalService } from '../../../shared/services/modal.service';
 import { AdminGalleryManagerComponent } from '../../components/admin-gallery-manager/admin-gallery-manager.component';
+import { AdminLinktreeManagerComponent } from '../../components/admin-linktree-manager/admin-linktree-manager.component';
 import { AdminService } from '../../services/admin.service';
 import {
+  AdminAccessKeyEffectiveStatus,
   AdminAccessKeyItem,
-  AdminAccessKeyStatus,
   AdminAccessRequestItem,
   AdminAccessRequestStatus,
   AdminApproveAccessResponse,
   AdminCredentials,
+  AdminKeyFilter,
   AdminKeyDraft,
   AdminPanelTab,
   AdminRequestDraft,
@@ -33,7 +35,8 @@ import {
     LanguageSelectorComponent,
     LoadingMessageComponent,
     LoadingSpinnerComponent,
-    AdminGalleryManagerComponent
+    AdminGalleryManagerComponent,
+    AdminLinktreeManagerComponent
   ],
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.scss']
@@ -45,8 +48,9 @@ export class AdminPanelComponent implements OnInit {
   private readonly modalService = inject(ModalService);
 
   readonly filters: readonly AdminRequestFilter[] = ['all', 'pending', 'approved', 'rejected', 'need_more_info', 'disabled'];
+  readonly keyFilters: readonly AdminKeyFilter[] = ['all', 'active', 'expiring_soon', 'expired', 'disabled'];
   readonly vipRequestFilters: readonly AdminVipRequestFilter[] = ['all', 'pending', 'reviewed', 'accepted', 'rejected', 'done', 'disabled'];
-  readonly tabs: readonly AdminPanelTab[] = ['requests', 'keys', 'gallery', 'vipRequests'];
+  readonly tabs: readonly AdminPanelTab[] = ['requests', 'keys', 'gallery', 'vipRequests', 'linktree'];
   readonly texts = this.languageService.texts;
 
   adminUsername = '';
@@ -58,6 +62,7 @@ export class AdminPanelComponent implements OnInit {
   successMessage = '';
   activeAdminTab: AdminPanelTab = 'requests';
   activeFilter: AdminRequestFilter = 'all';
+  activeKeyFilter: AdminKeyFilter = 'all';
   activeVipRequestFilter: AdminVipRequestFilter = 'all';
   processingRequestCode: string | null = null;
   processingRequestAction: 'approve' | 'reject' | 'needMoreInfo' | 'disable' | null = null;
@@ -154,6 +159,11 @@ export class AdminPanelComponent implements OnInit {
     return this.requests.filter(request => request.status === this.activeFilter);
   }
 
+  filteredAccessKeys(): AdminAccessKeyItem[] {
+    if (this.activeKeyFilter === 'all') return this.accessKeys;
+    return this.accessKeys.filter(item => this.keyEffectiveStatus(item) === this.activeKeyFilter);
+  }
+
   filteredVipRequests(): AdminVipIllustrationRequest[] {
     if (this.activeVipRequestFilter === 'all') return this.vipIllustrationRequests;
     return this.vipIllustrationRequests.filter(request => request.status === this.activeVipRequestFilter);
@@ -166,6 +176,11 @@ export class AdminPanelComponent implements OnInit {
 
   setActiveFilter(filter: AdminRequestFilter): void {
     this.activeFilter = filter;
+    this.markViewForUpdate();
+  }
+
+  setActiveKeyFilter(filter: AdminKeyFilter): void {
+    this.activeKeyFilter = filter;
     this.markViewForUpdate();
   }
 
@@ -207,6 +222,11 @@ export class AdminPanelComponent implements OnInit {
     return this.requests.filter(request => request.status === filter).length;
   }
 
+  keyCount(filter: AdminKeyFilter): number {
+    if (filter === 'all') return this.accessKeys.length;
+    return this.accessKeys.filter(item => this.keyEffectiveStatus(item) === filter).length;
+  }
+
   vipRequestCount(filter: AdminVipRequestFilter): number {
     if (filter === 'all') return this.vipIllustrationRequests.length;
     return this.vipIllustrationRequests.filter(request => request.status === filter).length;
@@ -246,15 +266,46 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
-  keyStatusLabel(status: AdminAccessKeyStatus): string {
+  keyFilterLabel(filter: AdminKeyFilter): string {
+    if (filter === 'all') return this.texts().admin.keyStatus.all;
+
+    return this.keyStatusLabel(filter);
+  }
+
+  keyEffectiveStatus(item: AdminAccessKeyItem): AdminAccessKeyEffectiveStatus {
+    return item.effectiveStatus ?? item.status;
+  }
+
+  keyStatusLabel(status: AdminAccessKeyEffectiveStatus): string {
     switch (status) {
       case 'active':
         return this.texts().statuses.active;
+      case 'expiring_soon':
+        return this.texts().admin.keyStatus.expiringSoon;
       case 'expired':
         return this.texts().statuses.expired;
       case 'disabled':
         return this.texts().statuses.disabled;
     }
+  }
+
+  keyStatusDescription(item: AdminAccessKeyItem): string {
+    const keyStatus = this.texts().admin.keyStatus;
+    const status = this.keyEffectiveStatus(item);
+
+    if (status === 'disabled') return keyStatus.disabledHelp;
+    if (status === 'expired') {
+      const days = item.expiredDaysAgo ?? 0;
+      return keyStatus.expiredDaysAgo.replace('{days}', String(days));
+    }
+
+    const daysUntilExpiration = item.daysUntilExpiration;
+    if (daysUntilExpiration === 0) return keyStatus.expiresToday;
+    if (typeof daysUntilExpiration === 'number' && daysUntilExpiration > 0) {
+      return keyStatus.daysRemaining.replace('{days}', String(daysUntilExpiration));
+    }
+
+    return keyStatus.noExpiration;
   }
 
   requestStateHelp(status: AdminAccessRequestStatus): string {
@@ -544,6 +595,7 @@ export class AdminPanelComponent implements OnInit {
         await this.loadVipIllustrationRequests(credentials, true);
         return;
       case 'gallery':
+      case 'linktree':
         return;
     }
   }

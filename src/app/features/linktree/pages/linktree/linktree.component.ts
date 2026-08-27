@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { APP_LINKS } from '../../../../core/constants/app-links.config';
 import { LanguageService } from '../../../../core/i18n/language.service';
+import { LocalizedText, LinktreePublicItem, LinktreeSettings } from '../../../../core/models/linktree.models';
+import { LinktreeConfigService } from '../../../../core/services/linktree-config.service';
 import { LanguageSelectorComponent } from '../../../../shared/components/language-selector/language-selector.component';
 import { VipSessionStatusComponent } from '../../../../shared/components/vip-session-status/vip-session-status.component';
 import { ModalService } from '../../../../shared/services/modal.service';
 import { VisitCounterService } from '../../services/visit-counter.service';
 
 interface AccountLinkViewModel {
-  readonly id: 'shin' | 'nyx' | 'mika' | 'pixiv';
+  readonly id: string;
   readonly href: string;
   readonly title: string;
   readonly subtitle: string;
@@ -25,6 +27,7 @@ interface AccountLinkViewModel {
 })
 export class LinktreeComponent implements OnInit, OnDestroy {
   private readonly languageService = inject(LanguageService);
+  private readonly linktreeConfigService = inject(LinktreeConfigService);
   private readonly visitCounterService = inject(VisitCounterService);
   private readonly modalService = inject(ModalService);
   private readonly router = inject(Router);
@@ -46,6 +49,11 @@ export class LinktreeComponent implements OnInit, OnDestroy {
   readonly links = APP_LINKS;
   readonly texts = this.languageService.texts;
   readonly projectVersion = environment.app.version;
+  readonly linktreeItems = signal<readonly LinktreePublicItem[]>([]);
+  readonly linktreeSettings = signal<LinktreeSettings | null>(null);
+  readonly isLinktreeConfigLoading = signal(true);
+  readonly customPaypalAmount = signal('');
+  readonly customPaypalAmountError = signal('');
   readonly visitCount = signal<number | null>(null);
   readonly isVisitCountLoading = signal(true);
   readonly isPlaying = signal(false);
@@ -54,6 +62,12 @@ export class LinktreeComponent implements OnInit, OnDestroy {
   readonly isMusicLoading = signal(false);
   readonly showAdultWarning = signal(false);
   readonly generalAccountLinks = computed<readonly AccountLinkViewModel[]>(() => {
+    if (this.linktreeItems().length > 0) {
+      return this.linktreeItems()
+        .filter(item => item.section === 'general' || item.section === 'custom')
+        .map(item => this.toAccountLinkViewModel(item));
+    }
+
     const accounts = this.texts().linktree.accounts;
 
     return [
@@ -67,6 +81,12 @@ export class LinktreeComponent implements OnInit, OnDestroy {
     ];
   });
   readonly adultAccountLinks = computed<readonly AccountLinkViewModel[]>(() => {
+    if (this.linktreeItems().length > 0) {
+      return this.linktreeItems()
+        .filter(item => item.section === 'adult')
+        .map(item => this.toAccountLinkViewModel(item));
+    }
+
     const accounts = this.texts().linktree.accounts;
 
     return [
@@ -93,6 +113,28 @@ export class LinktreeComponent implements OnInit, OnDestroy {
       }
     ];
   });
+  readonly paymentAccountLinks = computed<readonly AccountLinkViewModel[]>(() => {
+    if (!this.arePaymentsEnabled()) return [];
+
+    return this.linktreeItems()
+      .filter(item => item.section === 'payment')
+      .map(item => this.toAccountLinkViewModel(item));
+  });
+  readonly shouldShowPaymentLinks = computed(() => this.paymentAccountLinks().length > 0);
+  readonly shouldShowPaypalPanel = computed(() => {
+    const settings = this.linktreeSettings();
+
+    return settings?.paymentStatus === 'enabled' && settings.paypal.enabled && !!settings.paypal.url;
+  });
+  readonly paypalSuggestedAmounts = computed(() => this.linktreeSettings()?.paypal.suggestedAmounts ?? []);
+  readonly paypalCurrency = computed(() => this.linktreeSettings()?.paypal.currency ?? 'USD');
+  readonly paypalAllowsCustomAmount = computed(() => !!this.linktreeSettings()?.paypal.allowCustomAmount);
+  readonly paymentNoticeTitle = computed(() =>
+    this.localizedText(this.linktreeSettings()?.paymentNoticeTitle, this.texts().linktree.paymentNoticeTitle)
+  );
+  readonly paymentNoticeMessage = computed(() =>
+    this.localizedText(this.linktreeSettings()?.paymentNoticeMessage, this.texts().linktree.paymentNoticeMessage)
+  );
   readonly shouldShowVisitCounter = computed(() => this.isVisitCountLoading() || this.visitCount() !== null);
   readonly formattedVisitCount = computed(() => {
     const count = this.visitCount();
@@ -111,9 +153,10 @@ export class LinktreeComponent implements OnInit, OnDestroy {
   async ngOnInit(): Promise<void> {
     this.prepareAudio();
 
-    const count = await this.visitCounterService.loadVisitCount();
-    this.visitCount.set(count);
-    this.isVisitCountLoading.set(false);
+    await Promise.all([
+      this.loadLinktreeConfig(),
+      this.loadVisitCount()
+    ]);
   }
 
   ngOnDestroy(): void {
@@ -165,6 +208,56 @@ export class LinktreeComponent implements OnInit, OnDestroy {
     }
   }
 
+  setCustomPaypalAmount(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.customPaypalAmount.set(input.value);
+    this.customPaypalAmountError.set('');
+  }
+
+  openSuggestedPaypalAmount(amount: number): void {
+    const href = this.paypalAmountHref(amount);
+    if (!href) return;
+
+    this.openExternalLink(href);
+  }
+
+  openCustomPaypalAmount(): void {
+    const amount = Number(this.customPaypalAmount().replace(',', '.'));
+
+    if (!Number.isFinite(amount) || amount <= 0 || amount > 10000) {
+      this.customPaypalAmountError.set(this.texts().linktree.paypalCustomError);
+      return;
+    }
+
+    const href = this.paypalAmountHref(Math.round(amount * 100) / 100);
+    if (!href) return;
+
+    this.customPaypalAmountError.set('');
+    this.openExternalLink(href);
+  }
+
+  paypalAmountHref(amount: number): string {
+    const paypalUrl = this.linktreeSettings()?.paypal.url.trim();
+    if (!paypalUrl) return '';
+
+    const normalizedAmount = amount.toString();
+    const separator = paypalUrl.includes('?') ? '&' : '?';
+
+    if (/paypal\.me/i.test(paypalUrl)) {
+      return `${paypalUrl.replace(/\/$/, '')}/${encodeURIComponent(normalizedAmount)}`;
+    }
+
+    return `${paypalUrl}${separator}amount=${encodeURIComponent(normalizedAmount)}`;
+  }
+
+  formatPaypalAmount(amount: number): string {
+    return new Intl.NumberFormat(this.languageService.currentLanguage(), {
+      style: 'currency',
+      currency: this.paypalCurrency(),
+      maximumFractionDigits: 2
+    }).format(amount);
+  }
+
   @HostListener('document:keydown.escape')
   closeWarningOnEscape(): void {
     if (this.showAdultWarning()) {
@@ -174,6 +267,47 @@ export class LinktreeComponent implements OnInit, OnDestroy {
 
   private navigateToAccess(): void {
     void this.router.navigateByUrl('/access');
+  }
+
+  private async loadLinktreeConfig(): Promise<void> {
+    try {
+      const config = await this.linktreeConfigService.getPublicConfig();
+      this.linktreeItems.set([...config.items].sort((a, b) => a.sortOrder - b.sortOrder));
+      this.linktreeSettings.set(config.settings);
+    } catch {
+      this.linktreeItems.set([]);
+      this.linktreeSettings.set(null);
+    } finally {
+      this.isLinktreeConfigLoading.set(false);
+    }
+  }
+
+  private async loadVisitCount(): Promise<void> {
+    const count = await this.visitCounterService.loadVisitCount();
+    this.visitCount.set(count);
+    this.isVisitCountLoading.set(false);
+  }
+
+  private toAccountLinkViewModel(item: LinktreePublicItem): AccountLinkViewModel {
+    return {
+      id: item.id,
+      href: item.url,
+      title: this.localizedText(item.label, item.provider),
+      subtitle: this.localizedText(item.subtitle, item.type),
+      ageRestricted: item.requiresAdultWarning
+    };
+  }
+
+  private localizedText(text: LocalizedText | undefined, fallback: string): string {
+    if (!text) return fallback;
+
+    const currentLanguage = this.languageService.currentLanguage();
+
+    return text[currentLanguage] || text.es || text.en || text.ja || fallback;
+  }
+
+  private arePaymentsEnabled(): boolean {
+    return this.linktreeSettings()?.paymentStatus === 'enabled';
   }
 
   private formatAccountSubtitle(username: string, description: string): string {

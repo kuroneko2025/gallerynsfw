@@ -84,13 +84,81 @@
           <em class="linktree__age-badge">{{ texts().linktree.ageRestrictedBadge }}</em>
         </a>
       }
-      <div class="linktree__payment-notice" role="status" aria-live="polite">
-        <span class="linktree__payment-icon" aria-hidden="true">i</span>
-        <div class="linktree__payment-copy">
-          <strong>{{ texts().linktree.paymentNoticeTitle }}</strong>
-          <small>{{ texts().linktree.paymentNoticeMessage }}</small>
+
+      @if (shouldShowPaymentLinks()) {
+        <h2 class="linktree__section-title linktree__section-title--payment">
+          {{ texts().linktree.paymentSectionTitle }}
+        </h2>
+
+        @for (account of paymentAccountLinks(); track account.id) {
+          <a
+            class="linktree__button"
+            [class.linktree__button--age-restricted]="account.ageRestricted"
+            [href]="account.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            (click)="handleExternalLinkClick($event, account)"
+          >
+            <span>{{ account.title }}</span>
+            <small>{{ account.subtitle }}</small>
+            @if (account.ageRestricted) {
+              <em class="linktree__age-badge">{{ texts().linktree.ageRestrictedBadge }}</em>
+            }
+          </a>
+        }
+      }
+
+      @if (shouldShowPaypalPanel()) {
+        <div class="linktree__paypal-panel">
+          <div class="linktree__paypal-copy">
+            <strong>{{ texts().linktree.paypalSupportTitle }}</strong>
+            <small>{{ texts().linktree.paypalSuggestedLabel }}</small>
+          </div>
+
+          @if (paypalSuggestedAmounts().length > 0) {
+            <div class="linktree__amount-grid">
+              @for (amount of paypalSuggestedAmounts(); track amount) {
+                <button type="button" class="linktree__amount-button" (click)="openSuggestedPaypalAmount(amount)">
+                  {{ formatPaypalAmount(amount) }}
+                </button>
+              }
+            </div>
+          }
+
+          @if (paypalAllowsCustomAmount()) {
+            <div class="linktree__custom-amount">
+              <label for="paypal-custom-amount">{{ texts().linktree.paypalCustomLabel }}</label>
+              <div class="linktree__custom-amount-row">
+                <input
+                  id="paypal-custom-amount"
+                  type="number"
+                  inputmode="decimal"
+                  min="1"
+                  max="10000"
+                  step="0.01"
+                  [value]="customPaypalAmount()"
+                  [placeholder]="texts().linktree.paypalCustomPlaceholder"
+                  (input)="setCustomPaypalAmount($event)"
+                >
+                <button type="button" (click)="openCustomPaypalAmount()">
+                  {{ texts().linktree.paypalCustomAction }}
+                </button>
+              </div>
+              @if (customPaypalAmountError()) {
+                <small class="linktree__custom-amount-error">{{ customPaypalAmountError() }}</small>
+              }
+            </div>
+          }
         </div>
-      </div>
+      } @else {
+        <div class="linktree__payment-notice" role="status" aria-live="polite">
+          <span class="linktree__payment-icon" aria-hidden="true">i</span>
+          <div class="linktree__payment-copy">
+            <strong>{{ paymentNoticeTitle() }}</strong>
+            <small>{{ paymentNoticeMessage() }}</small>
+          </div>
+        </div>
+      }
 
       <div class="linktree__activity-hours" aria-live="polite">
         <strong>{{ texts().access.activityHours.shortTitle }}</strong>
