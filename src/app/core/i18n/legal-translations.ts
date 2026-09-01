@@ -65,7 +65,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
     ja: {
       eyebrow: 'kuroNekoEngine',
       title: 'プライバシーポリシー',
-      lead: '本ポリシーは、kuroNekoEngine がどのような情報を取り扱い、どのような目的で利用するかを説明するものです。主な運営地および準拠法の基準は台湾であり、台湾の個人資料保護法を中心に、適用される場合には GDPR、APPI、CCPA/CPRA も考慮します。ただし、すべての法域に対する完全な適合を表明するものではありません。',
+      lead: '本ポリシーは、kuroNekoEngine がどのような情報を取り扱い、どのような目的で利用するかを説明するものです。適用される法令および規制に従い、個人データを適切に取り扱うよう努めます。該当する場合には、GDPR/RGPD、APPI、CCPA/CPRA、PDPA その他の適用法令も考慮しますが、すべての法域に対する完全または絶対的な適合を表明するものではありません。',
       updatedLabel: '最終更新日',
       lastUpdated: '2026年9月1日',
       contactLabel: `連絡先: X ${CONTACT_HANDLE}`,
@@ -154,7 +154,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'transfers',
           title: '10. 国際的な提供先',
           paragraphs: [
-            '利用者は国際的にアクセスできます。Google、PayPal、Fanbox、X、Pixiv などのサービスを利用する場合、情報が台湾以外の国または地域で処理される可能性があります。各外部サービスによる処理は、それぞれの規約およびポリシーに従います。'
+            '利用者は国際的にアクセスできます。Google、PayPal、Fanbox、X、Pixiv などのサービスを利用する場合、情報が他の国または地域、または国外で処理される可能性があります。各外部サービスによる処理は、それぞれの規約、ポリシーおよび処理体制に従います。'
           ]
         },
         {
@@ -182,7 +182,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'changes',
           title: '14. 変更',
           paragraphs: [
-            '本ポリシーは、サービス内容、法令、運用方法の変更に応じて更新される場合があります。重要な変更がある場合は、本ページ上で更新日を変更します。'
+            'kuroNekoEngine は現在 Beta 版として提供されています。本ポリシーは、現時点のサービス機能および情報取扱いの実務を反映するものであり、技術的に不変の文書ではありません。サービス機能の発展、情報取扱いの変更、外部サービスの追加または削除、適用される法令・規制上の要件の変更、または明確性・正確性の向上が必要な場合に更新されることがあります。',
+            'ただし、Beta 版であることは、適用される義務を免れる理由ではありません。本ポリシーの各版が有効である間は、kuroNekoEngine の現在の動作を適切に説明する必要があります。利用者は本ページを定期的に確認できます。重要な変更がある場合には、状況に応じて合理的な方法で通知します。'
           ]
         },
         {
@@ -197,7 +198,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
     es: {
       eyebrow: 'kuroNekoEngine',
       title: 'Política de Privacidad',
-      lead: 'Esta política explica qué información procesa kuroNekoEngine y con qué fines. La operación y jurisdicción principal se ubican en Taiwán, con referencia principal a la PDPA de Taiwán y, cuando corresponda, consideración del RGPD/GDPR, APPI de Japón y CCPA/CPRA. No implica una declaración de cumplimiento universal o absoluto.',
+      lead: 'Esta política explica qué información trata kuroNekoEngine y con qué finalidad. Procuramos tratar adecuadamente los datos personales conforme a las leyes y regulaciones aplicables. Cuando corresponda, también se consideran GDPR/RGPD, APPI, CCPA/CPRA, PDPA y otras normas aplicables, sin declarar cumplimiento absoluto con todas las jurisdicciones.',
       updatedLabel: 'Última actualización',
       lastUpdated: '1 de septiembre de 2026',
       contactLabel: `Contacto: X ${CONTACT_HANDLE}`,
@@ -286,7 +287,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'transfers',
           title: '10. Transferencias y proveedores internacionales',
           paragraphs: [
-            'El servicio puede ser usado por una audiencia internacional. Al utilizar proveedores como Google, PayPal, Fanbox, X o Pixiv, cierta información puede procesarse fuera de Taiwán. Cada proveedor externo opera bajo sus propias reglas, políticas y ubicaciones de procesamiento.'
+            'El servicio puede ser usado por una audiencia internacional. Al utilizar proveedores como Google, PayPal, Fanbox, X o Pixiv, cierta información puede procesarse en otros países o regiones. Cada proveedor externo opera bajo sus propias reglas, políticas y ubicaciones de procesamiento.'
           ]
         },
         {
@@ -314,7 +315,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'changes',
           title: '14. Cambios de la política',
           paragraphs: [
-            'Esta política puede actualizarse por cambios legales, técnicos u operativos. La fecha de última actualización indicará la versión vigente.'
+            'kuroNekoEngine se encuentra actualmente en versión Beta. Esta política refleja las funcionalidades y prácticas actuales de tratamiento de información del servicio, pero no constituye un documento técnicamente inmutable. Puede actualizarse cuando evolucionen las funcionalidades, cambien las prácticas de tratamiento de información, se incorporen o eliminen servicios externos, cambien requisitos legales o regulatorios aplicables, o sea necesario mejorar su claridad o precisión.',
+            'La condición Beta no funciona como exención de responsabilidad ni como justificación para incumplir obligaciones aplicables. Mientras una versión de esta política esté vigente, debe describir correctamente el funcionamiento actual de kuroNekoEngine. Se recomienda revisar periódicamente este documento; cuando corresponda, los cambios importantes serán comunicados de manera razonable.'
           ]
         },
         {
@@ -329,7 +331,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
     en: {
       eyebrow: 'kuroNekoEngine',
       title: 'Privacy Policy',
-      lead: 'This policy explains what information kuroNekoEngine processes and why. The main operation and jurisdiction are in Taiwan, with the Taiwan Personal Data Protection Act as the primary reference and, where applicable, consideration of the GDPR, Japan APPI, and CCPA/CPRA. This is not a statement of universal or absolute compliance.',
+      lead: 'This policy explains what information kuroNekoEngine processes and for what purposes. We seek to handle personal data appropriately in accordance with applicable laws and regulations. Where relevant, GDPR/RGPD, APPI, CCPA/CPRA, PDPA, and other applicable rules may also be considered, without claiming absolute compliance with every jurisdiction.',
       updatedLabel: 'Last updated',
       lastUpdated: 'September 1, 2026',
       contactLabel: `Contact: X ${CONTACT_HANDLE}`,
@@ -418,7 +420,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'transfers',
           title: '10. International Providers and Transfers',
           paragraphs: [
-            'The service may be used by an international audience. When providers such as Google, PayPal, Fanbox, X, or Pixiv are used, certain information may be processed outside Taiwan. Each external provider operates under its own rules, policies, and processing locations.'
+            'The service may be used by an international audience. When providers such as Google, PayPal, Fanbox, X, or Pixiv are used, certain information may be processed in other countries or regions. Each external provider operates under its own rules, policies, and processing locations.'
           ]
         },
         {
@@ -446,7 +448,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'changes',
           title: '14. Changes to This Policy',
           paragraphs: [
-            'This policy may be updated for legal, technical, or operational changes. The last updated date identifies the current version.'
+            'kuroNekoEngine is currently in Beta. This policy reflects the current features and information-handling practices of the service, but it is not a technically immutable document. It may be updated when features evolve, information-handling practices change, external services are added or removed, applicable legal or regulatory requirements change, or clarity or accuracy needs to be improved.',
+            'Beta status is not a waiver of responsibility or a justification for failing to meet applicable obligations. While a version of this policy is in effect, it must accurately describe the current operation of kuroNekoEngine. Users may review this document periodically; where appropriate, important changes will be communicated in a reasonable manner.'
           ]
         },
         {
@@ -461,7 +464,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
     'zh-CN': {
       eyebrow: 'kuroNekoEngine',
       title: '隐私政策',
-      lead: '本政策说明 kuroNekoEngine 会处理哪些信息以及处理目的。服务主要运营地和主要管辖地为台湾，主要参考台湾《个人资料保护法》，并在适用时考虑欧盟 GDPR、日本 APPI 以及 CCPA/CPRA。本政策不表示对所有司法辖区作出绝对或全面合规承诺。',
+      lead: '本政策说明 kuroNekoEngine 会处理哪些信息以及处理目的。我们会尽力依据适用的法律法规妥善处理个人数据。在适用时，也会考虑 GDPR/RGPD、APPI、CCPA/CPRA、PDPA 及其他适用规范，但不声明对所有司法辖区作出绝对或全面合规承诺。',
       updatedLabel: '最后更新',
       lastUpdated: '2026年9月1日',
       contactLabel: `联系方式：X ${CONTACT_HANDLE}`,
@@ -550,7 +553,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'transfers',
           title: '10. 国际服务商与跨境处理',
           paragraphs: [
-            '本服务面向国际受众。使用 Google、PayPal、Fanbox、X 或 Pixiv 等服务商时，某些信息可能在台湾以外处理。各外部服务商按照其自身规则、政策和处理地点运营。'
+            '本服务面向国际受众。使用 Google、PayPal、Fanbox、X 或 Pixiv 等服务商时，某些信息可能在其他国家或地区处理。各外部服务商按照其自身规则、政策和处理地点运营。'
           ]
         },
         {
@@ -578,7 +581,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'changes',
           title: '14. 政策变更',
           paragraphs: [
-            '本政策可能因法律、技术或运营变化而更新。最后更新日期表示当前版本。'
+            'kuroNekoEngine 目前处于 Beta 版本。本政策反映服务当前的功能以及信息处理实践，但并不是技术上不可变更的文件。当服务功能发展、信息处理实践发生变化、外部服务被加入或移除、适用的法律或监管要求发生变化，或需要提升清晰度与准确性时，本政策可能会更新。',
+            'Beta 状态并不构成责任豁免，也不能作为不履行适用义务的理由。在某一版本的本政策有效期间，其内容应当准确描述 kuroNekoEngine 的当前运行方式。建议用户定期查看本文件；在适当情况下，重要变更将以合理方式通知。'
           ]
         },
         {
@@ -593,7 +597,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
     'zh-TW': {
       eyebrow: 'kuroNekoEngine',
       title: '隱私政策',
-      lead: '本政策說明 kuroNekoEngine 會處理哪些資訊以及處理目的。服務主要營運地與主要管轄地為台灣，主要參考台灣《個人資料保護法》，並於適用時考量歐盟 GDPR、日本 APPI 與 CCPA/CPRA。本政策不代表對所有司法管轄區作出絕對或全面合規承諾。',
+      lead: '本政策說明 kuroNekoEngine 會處理哪些資訊以及處理目的。我們會盡力依據適用的法律與規範妥善處理個人資料。於適用時，也會考量 GDPR/RGPD、APPI、CCPA/CPRA、PDPA 與其他適用規範，但不聲明對所有司法管轄區作出絕對或全面合規承諾。',
       updatedLabel: '最後更新',
       lastUpdated: '2026年9月1日',
       contactLabel: `聯絡方式：X ${CONTACT_HANDLE}`,
@@ -682,7 +686,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'transfers',
           title: '10. 國際服務商與跨境處理',
           paragraphs: [
-            '本服務面向國際受眾。使用 Google、PayPal、Fanbox、X 或 Pixiv 等服務商時，某些資訊可能在台灣以外處理。各外部服務商依其自身規則、政策與處理地點營運。'
+            '本服務面向國際受眾。使用 Google、PayPal、Fanbox、X 或 Pixiv 等服務商時，某些資訊可能在其他國家或地區處理。各外部服務商依其自身規則、政策與處理地點營運。'
           ]
         },
         {
@@ -710,7 +714,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'changes',
           title: '14. 政策變更',
           paragraphs: [
-            '本政策可能因法律、技術或營運變化而更新。最後更新日期表示目前版本。'
+            'kuroNekoEngine 目前處於 Beta 版本。本政策反映服務目前的功能與資訊處理實務，但並非技術上不可變更的文件。當服務功能演進、資訊處理實務改變、外部服務被加入或移除、適用法律或監管要求變更，或需要提升清晰度與準確性時，本政策可能會更新。',
+            'Beta 狀態並不構成責任豁免，也不能作為不履行適用義務的理由。在某一版本的本政策有效期間，其內容應正確描述 kuroNekoEngine 目前的運作方式。建議使用者定期查看本文件；於適當情況下，重要變更將以合理方式通知。'
           ]
         },
         {
@@ -820,14 +825,15 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'jurisdiction',
           title: '12. 準拠法および管轄',
           paragraphs: [
-            '本規約の主な準拠法および管轄は台湾とします。ただし、利用者の居住地で適用される強行的な消費者保護法またはデータ保護法上の権利を排除するものではありません。'
+            '本規約は、適用される法令および規制に従って解釈されます。本規約のいかなる内容も、利用者の居住地の適用法令に基づき利用者に認められる強行的な権利を排除するものではありません。'
           ]
         },
         {
           id: 'changes',
           title: '13. 規約の変更',
           paragraphs: [
-            '本規約は、サービス内容、法令、運営上の必要に応じて更新される場合があります。重要な変更は本ページの更新日で示されます。'
+            'kuroNekoEngine は現在 Beta 版として提供されています。本規約は、現時点のサービス内容および運用実務を反映するものであり、技術的に不変の文書ではありません。サービス機能の発展、情報取扱いの変更、外部サービスの追加または削除、適用される法令・規制上の要件の変更、または明確性・正確性の向上が必要な場合に更新されることがあります。',
+            'ただし、Beta 版であることは、適用される義務を免れる理由ではありません。本規約の各版が有効である間は、kuroNekoEngine の現在の運用を適切に説明する必要があります。利用者は本ページを定期的に確認できます。重要な変更がある場合には、状況に応じて合理的な方法で通知します。'
           ]
         },
         {
@@ -935,14 +941,15 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'jurisdiction',
           title: '12. Jurisdicción',
           paragraphs: [
-            'La jurisdicción y ley principal de referencia es Taiwán, sin excluir derechos obligatorios que puedan corresponder al usuario bajo normas aplicables de su lugar de residencia.'
+            'Estos Términos se interpretarán de acuerdo con las leyes y regulaciones aplicables. Nada de estos Términos excluye derechos obligatorios que correspondan al usuario conforme a la legislación aplicable de su lugar de residencia.'
           ]
         },
         {
           id: 'changes',
           title: '13. Modificaciones',
           paragraphs: [
-            'Estos términos pueden modificarse por cambios legales, técnicos, creativos u operativos. La fecha de última actualización identifica la versión vigente.'
+            'kuroNekoEngine se encuentra actualmente en versión Beta. Estos Términos reflejan el funcionamiento y las prácticas actuales del servicio, pero no constituyen documentos técnicamente inmutables. Pueden actualizarse cuando evolucionen las funcionalidades, cambien las prácticas de tratamiento de información, se incorporen o eliminen servicios externos, cambien requisitos legales o regulatorios aplicables, o sea necesario mejorar su claridad o precisión.',
+            'La condición Beta no funciona como exención de responsabilidad ni como justificación para incumplir obligaciones aplicables. Mientras una versión de estos Términos esté vigente, debe describir correctamente el funcionamiento actual de kuroNekoEngine. Se recomienda revisarlos periódicamente; cuando corresponda, los cambios importantes serán comunicados de manera razonable.'
           ]
         },
         {
@@ -1050,14 +1057,15 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'jurisdiction',
           title: '12. Jurisdiction',
           paragraphs: [
-            'The main jurisdiction and governing law reference is Taiwan, without excluding mandatory rights that may apply to users under the laws of their place of residence.'
+            'These Terms will be interpreted in accordance with applicable laws and regulations. Nothing in these Terms excludes mandatory rights that users may have under the applicable laws of their place of residence.'
           ]
         },
         {
           id: 'changes',
           title: '13. Changes',
           paragraphs: [
-            'These terms may be changed for legal, technical, creative, or operational reasons. The last updated date identifies the current version.'
+            'kuroNekoEngine is currently in Beta. These Terms reflect the current operation and practices of the service, but they are not technically immutable documents. They may be updated when features evolve, information-handling practices change, external services are added or removed, applicable legal or regulatory requirements change, or clarity or accuracy needs to be improved.',
+            'Beta status is not a waiver of responsibility or a justification for failing to meet applicable obligations. While a version of these Terms is in effect, it must accurately describe the current operation of kuroNekoEngine. Users may review them periodically; where appropriate, important changes will be communicated in a reasonable manner.'
           ]
         },
         {
@@ -1165,14 +1173,15 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'jurisdiction',
           title: '12. 管辖',
           paragraphs: [
-            '主要管辖地和法律参考为台湾，但不排除用户依据其居住地适用法律可能享有的强制性权利。'
+            '本条款将依据适用的法律法规进行解释。本条款中的任何内容均不排除用户依据其居住地适用法律可能享有的强制性权利。'
           ]
         },
         {
           id: 'changes',
           title: '13. 修改',
           paragraphs: [
-            '本条款可能因法律、技术、创作或运营原因修改。最后更新日期表示当前版本。'
+            'kuroNekoEngine 目前处于 Beta 版本。本条款反映服务当前的运行方式与实践，但并不是技术上不可变更的文件。当服务功能发展、信息处理实践发生变化、外部服务被加入或移除、适用的法律或监管要求发生变化，或需要提升清晰度与准确性时，本条款可能会更新。',
+            'Beta 状态并不构成责任豁免，也不能作为不履行适用义务的理由。在某一版本的本条款有效期间，其内容应当准确描述 kuroNekoEngine 的当前运行方式。建议用户定期查看本条款；在适当情况下，重要变更将以合理方式通知。'
           ]
         },
         {
@@ -1280,14 +1289,15 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'jurisdiction',
           title: '12. 管轄',
           paragraphs: [
-            '主要管轄地與法律參考為台灣，但不排除使用者依其居住地適用法律可能享有的強制性權利。'
+            '本條款將依據適用的法律與規範進行解釋。本條款中的任何內容均不排除使用者依其居住地適用法律可能享有的強制性權利。'
           ]
         },
         {
           id: 'changes',
           title: '13. 修改',
           paragraphs: [
-            '本條款可能因法律、技術、創作或營運原因修改。最後更新日期表示目前版本。'
+            'kuroNekoEngine 目前處於 Beta 版本。本條款反映服務目前的運作方式與實務，但並非技術上不可變更的文件。當服務功能演進、資訊處理實務改變、外部服務被加入或移除、適用法律或監管要求變更，或需要提升清晰度與準確性時，本條款可能會更新。',
+            'Beta 狀態並不構成責任豁免，也不能作為不履行適用義務的理由。在某一版本的本條款有效期間，其內容應正確描述 kuroNekoEngine 目前的運作方式。建議使用者定期查看本條款；於適當情況下，重要變更將以合理方式通知。'
           ]
         },
         {
