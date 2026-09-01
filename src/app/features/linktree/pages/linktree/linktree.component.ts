@@ -138,10 +138,16 @@ export class LinktreeComponent implements OnInit, OnDestroy {
   readonly paypalCurrency = computed(() => this.linktreeSettings()?.paypal.currency ?? 'USD');
   readonly paypalAllowsCustomAmount = computed(() => !!this.linktreeSettings()?.paypal.allowCustomAmount);
   readonly paymentNoticeTitle = computed(() =>
-    this.localizedText(this.linktreeSettings()?.paymentNoticeTitle, this.texts().linktree.paymentNoticeTitle)
+    this.localizedText(
+      this.linktreeSettings()?.paymentNoticeTitle,
+      this.hasLinktreeConfigError() ? this.texts().linktree.paymentNoticeTitle : ''
+    )
   );
   readonly paymentNoticeMessage = computed(() =>
-    this.localizedText(this.linktreeSettings()?.paymentNoticeMessage, this.texts().linktree.paymentNoticeMessage)
+    this.localizedText(
+      this.linktreeSettings()?.paymentNoticeMessage,
+      this.hasLinktreeConfigError() ? this.texts().linktree.paymentNoticeMessage : ''
+    )
   );
   readonly shouldShowVisitCounter = computed(() => this.isVisitCountLoading() || this.visitCount() !== null);
   readonly formattedVisitCount = computed(() => {
@@ -278,6 +284,8 @@ export class LinktreeComponent implements OnInit, OnDestroy {
   }
 
   private async loadLinktreeConfig(): Promise<void> {
+    this.isLinktreeConfigLoading.set(true);
+
     try {
       const config = await this.linktreeConfigService.getPublicConfig();
       this.linktreeItems.set([...config.items].sort((a, b) => a.sortOrder - b.sortOrder));

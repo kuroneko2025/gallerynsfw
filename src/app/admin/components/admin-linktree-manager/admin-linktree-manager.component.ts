@@ -10,6 +10,7 @@ import {
   LinktreePaymentStatus,
   LinktreeSettings
 } from '../../../core/models/linktree.models';
+import { LinktreeConfigService } from '../../../core/services/linktree-config.service';
 import { LoadingSpinnerComponent } from '../../../shared/components/loading-spinner/loading-spinner.component';
 import { ModalService } from '../../../shared/services/modal.service';
 import {
@@ -79,6 +80,7 @@ export class AdminLinktreeManagerComponent implements OnInit {
   private readonly adminService = inject(AdminService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly languageService = inject(LanguageService);
+  private readonly linktreeConfigService = inject(LinktreeConfigService);
   private readonly modalService = inject(ModalService);
 
   readonly texts = this.languageService.texts;
@@ -195,6 +197,7 @@ export class AdminLinktreeManagerComponent implements OnInit {
 
     try {
       const config = await this.adminService.adminUpdateLinktreeSettings(this.credentials, payload);
+      this.linktreeConfigService.clearCachedPublicConfig();
       this.applySettings(config.settings);
       this.items = this.sortItems(config.items.filter(item => item.status !== 'deleted'));
       this.modalService.showSuccess(this.texts().modal.success, this.texts().admin.linktree.saveSuccess, 1500);
@@ -227,6 +230,7 @@ export class AdminLinktreeManagerComponent implements OnInit {
         await this.adminService.adminAddLinktreeItem(this.credentials, payload);
       }
 
+      this.linktreeConfigService.clearCachedPublicConfig();
       this.cancelEdit();
       await this.loadConfig();
       this.modalService.showSuccess(this.texts().modal.success, this.texts().admin.linktree.itemSaveSuccess, 1500);
@@ -262,6 +266,7 @@ export class AdminLinktreeManagerComponent implements OnInit {
     await this.runItemAction(item.id, async () => {
       if (!this.credentials) return;
       await this.adminService.adminSetLinktreeItemStatus(this.credentials, item.id, status);
+      this.linktreeConfigService.clearCachedPublicConfig();
       await this.loadConfig();
       this.modalService.showSuccess(this.texts().modal.success, successMessage, 1500);
     });
@@ -274,6 +279,7 @@ export class AdminLinktreeManagerComponent implements OnInit {
     await this.runItemAction(item.id, async () => {
       if (!this.credentials) return;
       await this.adminService.adminDeleteLinktreeItem(this.credentials, item.id);
+      this.linktreeConfigService.clearCachedPublicConfig();
       await this.loadConfig();
       this.modalService.showSuccess(this.texts().modal.success, this.texts().admin.linktree.itemDeleteSuccess, 1500);
     });

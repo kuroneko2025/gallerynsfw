@@ -112,6 +112,96 @@ test('keeps backend-managed Linktree content hidden while config is loading', as
   await expect(page.locator('.linktree__button')).toHaveCount(2);
 });
 
+test('uses the loaded backend Linktree config when changing to Japanese', async ({ page }) => {
+  let publicConfigRequests = 0;
+
+  await page.addInitScript(() => {
+    localStorage.setItem('kuronekoLanguage', 'es');
+  });
+
+  await page.unroute('https://script.google.com/**');
+  await mockKuronekoApi(page, action => {
+    if (action === 'get_linktree_config') {
+      publicConfigRequests += 1;
+      return {
+        success: true,
+        settings: {
+          paymentStatus: 'disabled',
+          paymentNoticeTitle: {
+            ja: 'お支払い方法について',
+            es: 'Medios de pago',
+            en: 'Payment methods',
+            'zh-CN': '付款方式',
+            'zh-TW': '付款方式'
+          },
+          paymentNoticeMessage: {
+            ja: '現在、お支払い方法は追って通知があるまで利用できません。',
+            es: 'Actualmente los medios de pago no estaran disponibles hasta nuevo aviso.',
+            en: 'Payment methods are currently unavailable until further notice.',
+            'zh-CN': '目前付款方式暂不可用，恢复时间将另行通知。',
+            'zh-TW': '目前付款方式暫不可用，恢復時間將另行通知。'
+          },
+          paypal: {
+            enabled: false,
+            url: '',
+            currency: 'USD',
+            suggestedAmounts: [],
+            allowCustomAmount: false
+          },
+          expiringSoonDays: 7
+        },
+        items: [
+          {
+            id: 'localized-social',
+            type: 'social',
+            provider: 'x',
+            section: 'general',
+            label: {
+              ja: '日本語リンク',
+              es: 'Enlace desde backend',
+              en: 'Backend link',
+              'zh-CN': 'Backend link',
+              'zh-TW': 'Backend link'
+            },
+            subtitle: {
+              ja: '管理画面から読み込み',
+              es: 'Cargado desde administracion',
+              en: 'Loaded from admin panel',
+              'zh-CN': 'Loaded from admin panel',
+              'zh-TW': 'Loaded from admin panel'
+            },
+            url: 'https://x.com/backend_social',
+            status: 'active',
+            sortOrder: 10,
+            requiresAdultWarning: false,
+            behavior: 'external_link',
+            metadata: '{}'
+          }
+        ]
+      };
+    }
+
+    return undefined;
+  });
+
+  await page.goto('/');
+  await waitForAppReady(page);
+
+  await expect(page.getByRole('link', { name: /Enlace desde backend/ })).toBeVisible();
+  expect(publicConfigRequests).toBe(1);
+
+  await page.locator('app-language-selector select').evaluate((select: HTMLSelectElement) => {
+    const japaneseOption = Array.from(select.options).find(option => option.textContent?.includes('日本語'));
+    if (!japaneseOption) throw new Error('Japanese option was not found.');
+
+    select.value = japaneseOption.value;
+    select.dispatchEvent(new Event('change', { bubbles: true }));
+  });
+  await expect(page.getByRole('link', { name: /日本語リンク/ })).toBeVisible();
+  await page.waitForTimeout(250);
+  expect(publicConfigRequests).toBe(1);
+});
+
 test('VIP session card opens gallery and sidebar logout clears the session', async ({ page }) => {
   await mockKuronekoApi(page, action => {
     if (action === 'get_exclusive_gallery') {
