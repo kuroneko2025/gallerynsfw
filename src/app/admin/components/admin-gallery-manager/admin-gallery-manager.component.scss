@@ -2,6 +2,7 @@
   display: grid;
   gap: 1rem;
   padding: clamp(1rem, 2vw, 1.35rem);
+  min-width: 0;
   border: 1px solid rgba(255, 215, 0, 0.2);
   border-radius: 12px;
   color: #e0e0e0;
@@ -21,6 +22,7 @@
 
 .admin-gallery__header h2 {
   margin: 0;
+  overflow-wrap: anywhere;
 }
 
 .admin-gallery__header p {
@@ -60,6 +62,7 @@
 .admin-gallery__form-card,
 .admin-gallery__item {
   padding: 1rem;
+  min-width: 0;
 }
 
 .admin-gallery__form-heading {
@@ -127,8 +130,8 @@
 
 .admin-gallery__preview {
   display: grid;
-  min-height: 140px;
-  max-height: 180px;
+  min-height: clamp(120px, 24vw, 140px);
+  max-height: min(220px, 42dvh);
   place-items: center;
   overflow: hidden;
   border: 1px dashed rgba(138, 43, 226, 0.5);
@@ -139,7 +142,7 @@
 .admin-gallery__preview img {
   width: auto;
   max-width: min(100%, 280px);
-  max-height: 180px;
+  max-height: min(220px, 42dvh);
   object-fit: contain;
   border: 1px solid rgba(255, 215, 0, 0.25);
   border-radius: 8px;
@@ -162,6 +165,7 @@
   justify-content: center;
   gap: 0.45rem;
   max-width: 100%;
+  min-height: var(--tap-target, 44px);
   padding: 0.72rem 1rem;
   color: #e0e0e0;
   border: 2px solid #ffd700;
@@ -209,7 +213,7 @@
 
 .admin-gallery__tools {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(180px, 260px);
+  grid-template-columns: minmax(0, 1fr) minmax(180px, 260px);
   gap: 0.85rem;
   align-items: end;
   padding: 1rem;
@@ -313,6 +317,10 @@
 }
 
 .admin-gallery__status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
   padding: 0.35rem 0.65rem;
   border: 1px solid rgba(102, 102, 102, 0.8);
   border-radius: 4px;
@@ -388,6 +396,7 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 0.5rem;
+  min-width: 0;
 }
 
 .admin-gallery__page-button {
@@ -396,6 +405,7 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.5rem 1.5rem;
+  min-height: var(--tap-target, 44px);
   color: #e0e0e0;
   border: 2px solid #ffd700;
   border-radius: 4px;
@@ -425,6 +435,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
+  flex-wrap: wrap;
   color: #e0e0e0;
 }
 
@@ -456,7 +468,7 @@
 
   .admin-gallery__thumb {
     width: 100%;
-    height: min(48vw, 180px);
+    height: clamp(130px, 48vw, 180px);
   }
 
   .admin-gallery__thumb img {

@@ -1,13 +1,16 @@
 .access-page {
   min-height: 70vh;
-  padding: 2rem 1rem;
+  min-height: 70dvh;
+  padding: clamp(1rem, 4vw, 2rem) var(--page-gutter, 1rem);
   display: flex;
   justify-content: center;
+  overflow-x: clip;
 }
 
 .access-panel {
   width: min(100%, 900px);
-  padding: 2rem;
+  min-width: 0;
+  padding: clamp(1.15rem, 4vw, 2rem);
   border: 1px solid rgba(255, 215, 0, 0.28);
   border-radius: 12px;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.85), rgba(10, 10, 10, 0.95));
@@ -39,6 +42,7 @@
 
 .access-vip-session {
   display: block;
+  width: 100%;
   max-width: 380px;
   margin: 0 0 1.5rem;
 }
@@ -94,6 +98,8 @@
 .access-card,
 .access-button {
   display: block;
+  min-width: 0;
+  min-height: var(--tap-target, 44px);
   padding: 1.2rem;
   color: #e0e0e0;
   text-decoration: none;
@@ -144,6 +150,7 @@
 .access-field {
   display: grid;
   gap: 0.4rem;
+  min-width: 0;
   text-align: left;
 
   label {
@@ -155,6 +162,7 @@
   select,
   textarea {
     width: 100%;
+    min-width: 0;
     padding: 0.85rem 1rem;
     color: #e0e0e0;
     border: 1px solid rgba(138, 43, 226, 0.45);
@@ -199,6 +207,8 @@
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
+  min-height: var(--tap-target, 44px);
+  max-width: 100%;
   transition: all 0.2s ease;
 }
 
@@ -249,12 +259,15 @@
 
 .access-code {
   display: inline-block;
+  max-width: 100%;
   margin: 0.5rem 0;
   padding: 0.5rem 0.7rem;
   color: #ffd700;
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.45);
   font-family: 'Share Tech Mono', monospace;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .access-result {

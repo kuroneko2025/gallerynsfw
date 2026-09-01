@@ -1,6 +1,6 @@
 export type AccessSource = 'fanbox' | 'paypal';
 
-export type AccessRequestStatus = 'pending' | 'approved' | 'rejected' | 'need_more_info';
+export type AccessRequestStatus = 'pending' | 'approved' | 'rejected' | 'need_more_info' | 'disabled';
 
 export interface VipAccessSession {
   userCode: string;

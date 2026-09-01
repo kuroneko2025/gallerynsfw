@@ -4,7 +4,7 @@ export const environment = {
     name: 'クロネコエンジン 2.0',
     projectName: 'クロネコプロジェクト',
     basePath: '/kuroneko2.0/',
-    version: 'v0.6.1'
+    version: 'v0.7.0'
   },
   api: {
     baseUrl: 'https://script.google.com/macros/s/AKfycbwgltvyDH_CcikA1_V54LNm1gEmaho_mtrDAaqnukfC3Ou6M3O05nbYzSHtvPG-G_P8/exec'

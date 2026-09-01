@@ -19,7 +19,7 @@ type StartLanguage = 'jp' | 'en';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './start.component.html',
-  styleUrls: ['./start.component.scss']
+  styleUrls: ['./start.component.scss', './start-panels.component.scss']
 })
 export class StartComponent implements OnInit {
   private readonly api = inject(KuronekoApiService);

@@ -1,11 +1,13 @@
 import { Component, HostListener, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../../../../environments/environment';
 import { APP_LINKS } from '../../../../core/constants/app-links.config';
+import { getLegalLinkLabels } from '../../../../core/i18n/legal-translations';
 import { LanguageService } from '../../../../core/i18n/language.service';
 import { LocalizedText, LinktreePublicItem, LinktreeSettings } from '../../../../core/models/linktree.models';
 import { LinktreeConfigService } from '../../../../core/services/linktree-config.service';
 import { LanguageSelectorComponent } from '../../../../shared/components/language-selector/language-selector.component';
+import { LoadingMessageComponent } from '../../../../shared/components/loading-message/loading-message.component';
 import { VipSessionStatusComponent } from '../../../../shared/components/vip-session-status/vip-session-status.component';
 import { ModalService } from '../../../../shared/services/modal.service';
 import { VisitCounterService } from '../../services/visit-counter.service';
@@ -21,7 +23,7 @@ interface AccountLinkViewModel {
 @Component({
   selector: 'app-linktree',
   standalone: true,
-  imports: [LanguageSelectorComponent, VipSessionStatusComponent],
+  imports: [LanguageSelectorComponent, LoadingMessageComponent, VipSessionStatusComponent, RouterLink],
   templateUrl: './linktree.component.html',
   styleUrls: ['./linktree.component.scss']
 })
@@ -48,10 +50,12 @@ export class LinktreeComponent implements OnInit, OnDestroy {
 
   readonly links = APP_LINKS;
   readonly texts = this.languageService.texts;
+  readonly legalLinks = computed(() => getLegalLinkLabels(this.languageService.currentLanguage()));
   readonly projectVersion = environment.app.version;
   readonly linktreeItems = signal<readonly LinktreePublicItem[]>([]);
   readonly linktreeSettings = signal<LinktreeSettings | null>(null);
   readonly isLinktreeConfigLoading = signal(true);
+  readonly hasLinktreeConfigError = signal(false);
   readonly customPaypalAmount = signal('');
   readonly customPaypalAmountError = signal('');
   readonly visitCount = signal<number | null>(null);
@@ -67,6 +71,8 @@ export class LinktreeComponent implements OnInit, OnDestroy {
         .filter(item => item.section === 'general' || item.section === 'custom')
         .map(item => this.toAccountLinkViewModel(item));
     }
+
+    if (!this.hasLinktreeConfigError()) return [];
 
     const accounts = this.texts().linktree.accounts;
 
@@ -86,6 +92,8 @@ export class LinktreeComponent implements OnInit, OnDestroy {
         .filter(item => item.section === 'adult')
         .map(item => this.toAccountLinkViewModel(item));
     }
+
+    if (!this.hasLinktreeConfigError()) return [];
 
     const accounts = this.texts().linktree.accounts;
 
@@ -274,9 +282,11 @@ export class LinktreeComponent implements OnInit, OnDestroy {
       const config = await this.linktreeConfigService.getPublicConfig();
       this.linktreeItems.set([...config.items].sort((a, b) => a.sortOrder - b.sortOrder));
       this.linktreeSettings.set(config.settings);
+      this.hasLinktreeConfigError.set(false);
     } catch {
       this.linktreeItems.set([]);
       this.linktreeSettings.set(null);
+      this.hasLinktreeConfigError.set(true);
     } finally {
       this.isLinktreeConfigLoading.set(false);
     }

@@ -1,0 +1,60 @@
+<main class="legal-page">
+  <div class="legal-page__shell">
+    <header class="legal-page__header">
+      <div class="legal-page__topbar">
+        <app-back-button [label]="document().backLabel" fallbackRoute="/" />
+        <app-language-selector />
+      </div>
+
+      <p class="legal-page__eyebrow">{{ document().eyebrow }}</p>
+      <h1>{{ document().title }}</h1>
+      <p class="legal-page__lead">{{ document().lead }}</p>
+
+      <div class="legal-page__meta" aria-live="polite">
+        <span>{{ document().updatedLabel }}: {{ document().lastUpdated }}</span>
+        <a href="https://x.com/er_mao13619" target="_blank" rel="noopener noreferrer">
+          {{ document().contactLabel }}
+        </a>
+      </div>
+
+      <nav class="legal-page__switch" [attr.aria-label]="document().navLabel">
+        <a
+          routerLink="/privacy"
+          class="legal-page__switch-link"
+          [class.legal-page__switch-link--active]="isPrivacy()"
+          [attr.aria-current]="isPrivacy() ? 'page' : null"
+        >
+          {{ document().privacyLink }}
+        </a>
+        <a
+          routerLink="/terms"
+          class="legal-page__switch-link"
+          [class.legal-page__switch-link--active]="isTerms()"
+          [attr.aria-current]="isTerms() ? 'page' : null"
+        >
+          {{ document().termsLink }}
+        </a>
+      </nav>
+    </header>
+
+    <article class="legal-document">
+      @for (section of document().sections; track section.id) {
+        <section class="legal-document__section" [id]="section.id">
+          <h2>{{ section.title }}</h2>
+
+          @for (paragraph of section.paragraphs; track paragraph) {
+            <p>{{ paragraph }}</p>
+          }
+
+          @if (section.bullets?.length) {
+            <ul>
+              @for (item of section.bullets; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          }
+        </section>
+      }
+    </article>
+  </div>
+</main>

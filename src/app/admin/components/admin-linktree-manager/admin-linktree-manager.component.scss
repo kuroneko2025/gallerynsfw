@@ -14,13 +14,17 @@
 }
 
 .admin-linktree__settings-form {
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
+  min-width: 0;
 }
 
 .admin-linktree__item-form {
+  display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
+  min-width: 0;
 }
 
 .admin-linktree__url-field {
@@ -56,6 +60,7 @@
     color: rgba(224, 224, 224, 0.72);
     font-size: 0.76rem;
     font-weight: 800;
+    overflow-wrap: anywhere;
   }
 
   input,
@@ -82,6 +87,7 @@
   align-self: end;
   gap: 0.65rem;
   min-height: 3.05rem;
+  min-width: 0;
   padding: 0.75rem 0.85rem;
   border: 1px solid rgba(255, 215, 0, 0.14);
   border-radius: 8px;
@@ -96,6 +102,7 @@
   span {
     color: rgba(224, 224, 224, 0.84);
     font-weight: 800;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -115,7 +122,7 @@
 }
 
 .admin-linktree .admin-gallery__tools {
-  grid-template-columns: minmax(260px, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto;
 }
 
 .admin-linktree .admin-gallery__status-filters {

@@ -55,7 +55,7 @@
         }
         <span>{{ texts().accessStatus.requestCode }}: <code class="access-code">{{ result?.requestCode }}</code></span>
 
-        @if (result?.status === 'approved') {
+        @if (result?.status === 'approved' && result?.userCode && result?.accessKey) {
           <span>{{ texts().accessStatus.accessId }}: <code class="access-code">{{ result?.userCode }}</code></span>
           <span>{{ texts().accessStatus.accessKey }}: <code class="access-code">{{ result?.accessKey }}</code></span>
           <span>{{ texts().accessStatus.loginInstruction }}</span>

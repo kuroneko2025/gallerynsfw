@@ -24,6 +24,24 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'privacy',
+    loadComponent: () =>
+      import('./features/legal/pages/legal-document.component').then(
+        m => m.LegalDocumentComponent
+      ),
+    data: { legalDocument: 'privacy' },
+    title: `${APP_TITLE} | Privacy Policy`
+  },
+  {
+    path: 'terms',
+    loadComponent: () =>
+      import('./features/legal/pages/legal-document.component').then(
+        m => m.LegalDocumentComponent
+      ),
+    data: { legalDocument: 'terms' },
+    title: `${APP_TITLE} | Terms of Service`
+  },
+  {
     path: 'admin',
     loadComponent: () =>
       import('./admin/pages/admin-panel/admin-panel.component').then(m => m.AdminPanelComponent),

@@ -5,6 +5,7 @@
   display: grid;
   place-items: center;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .app-modal__overlay {
@@ -20,6 +21,9 @@
   z-index: 1;
   display: grid;
   width: min(100%, 460px);
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
   gap: 0.9rem;
   padding: clamp(1.1rem, 4vw, 1.6rem);
   color: #e0e0e0;
@@ -70,8 +74,8 @@
   top: 0.75rem;
   right: 0.75rem;
   display: inline-flex;
-  width: 34px;
-  height: 34px;
+  width: var(--tap-target, 44px);
+  height: var(--tap-target, 44px);
   align-items: center;
   justify-content: center;
   color: #ffd700;
@@ -101,6 +105,7 @@
 .app-modal__button {
   display: inline-flex;
   min-width: 112px;
+  min-height: var(--tap-target, 44px);
   align-items: center;
   justify-content: center;
   padding: 0.72rem 1rem;
@@ -148,6 +153,10 @@
 }
 
 @media (max-width: 520px) {
+  .app-modal {
+    padding: 0.75rem;
+  }
+
   .app-modal__actions,
   .app-modal__button {
     width: 100%;

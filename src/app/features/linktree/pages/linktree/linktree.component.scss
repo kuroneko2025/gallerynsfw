@@ -1,8 +1,10 @@
 .linktree {
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 2rem 1rem;
+  padding: clamp(1rem, 4vw, 2rem) var(--page-gutter, 1rem);
+  overflow-x: clip;
   background:
     linear-gradient(135deg, rgba(10, 10, 10, 0.92), rgba(20, 20, 30, 0.96)),
     radial-gradient(circle at top, rgba(255, 215, 0, 0.14), transparent 35%),
@@ -11,8 +13,9 @@
 
 .linktree__shell {
   width: min(100%, 560px);
+  min-width: 0;
   text-align: center;
-  padding: 2rem;
+  padding: clamp(1.15rem, 4vw, 2rem);
   border: 1px solid rgba(255, 215, 0, 0.28);
   border-radius: 16px;
   background: rgba(10, 10, 10, 0.76);
@@ -23,6 +26,7 @@
 .linktree__language {
   display: flex;
   justify-content: flex-end;
+  min-width: 0;
   margin-bottom: 1.2rem;
 }
 
@@ -232,7 +236,19 @@
   display: grid;
   gap: 0.85rem;
   width: min(100%, 560px);
+  min-width: 0;
   margin: 0 auto;
+}
+
+.linktree__links[aria-busy='true'] {
+  min-height: clamp(12rem, 36vh, 18rem);
+  align-content: center;
+}
+
+.linktree__config-loading {
+  display: block;
+  width: 100%;
+  text-align: left;
 }
 
 .linktree__payment-notice {
@@ -319,6 +335,9 @@
 .linktree__amount-button,
 .linktree__custom-amount button {
   min-height: 2.6rem;
+  min-height: var(--tap-target, 44px);
+  min-width: 0;
+  padding: 0.55rem 0.65rem;
   border: 1px solid rgba(255, 215, 0, 0.45);
   border-radius: 8px;
   color: #ffd700;
@@ -366,7 +385,7 @@
 
 .linktree__custom-amount-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.55rem;
 }
 
@@ -410,6 +429,8 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  min-width: 0;
+  min-height: var(--tap-target, 44px);
   padding: 1rem 1.15rem;
   color: #f3f3f3;
   font: inherit;
@@ -429,11 +450,13 @@
 
   span {
     font-weight: 700;
+    min-width: 0;
   }
 
   small {
     color: #a9a9a9;
     font-size: 0.78rem;
+    min-width: 0;
   }
 }
 
@@ -485,6 +508,36 @@
   box-shadow: 0 0 14px rgba(255, 92, 138, 0.16);
 }
 
+.linktree__legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.14);
+  color: rgba(224, 224, 224, 0.5);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target, 44px);
+    padding: 0.25rem 0.45rem;
+    color: rgba(224, 224, 224, 0.64);
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-decoration: none;
+    transition: color 0.16s ease, background 0.16s ease;
+
+    &:hover {
+      color: #ffd700;
+      background: rgba(255, 215, 0, 0.06);
+    }
+  }
+}
+
 .linktree__warning-overlay {
   position: fixed;
   inset: 0;
@@ -499,6 +552,7 @@
 .linktree__warning {
   width: min(100%, 620px);
   max-height: min(88vh, 760px);
+  max-height: min(88dvh, 760px);
   overflow-y: auto;
   padding: 1.5rem;
   border: 1px solid rgba(255, 215, 0, 0.35);
@@ -551,6 +605,7 @@
 
 .linktree__warning-button {
   min-width: 7rem;
+  min-height: var(--tap-target, 44px);
   padding: 0.75rem 1rem;
   border: 1px solid rgba(255, 215, 0, 0.55);
   border-radius: 8px;
@@ -585,10 +640,6 @@
 }
 
 @media (max-width: 520px) {
-  .linktree__shell {
-    padding: 1.35rem;
-  }
-
   .linktree__language {
     justify-content: stretch;
   }

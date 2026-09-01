@@ -55,7 +55,18 @@
       </button>
     </div>
 
-    <div class="linktree__links" [attr.aria-label]="texts().linktree.ariaLabel">
+    <div
+      class="linktree__links"
+      [attr.aria-label]="texts().linktree.ariaLabel"
+      [attr.aria-busy]="isLinktreeConfigLoading()"
+    >
+      @if (isLinktreeConfigLoading()) {
+        <app-loading-message
+          class="linktree__config-loading"
+          [title]="texts().loadingMessage.loading"
+          [spinnerLabel]="texts().loadingMessage.processing"
+        />
+      } @else {
       @for (account of generalAccountLinks(); track account.id) {
         <a
           class="linktree__button"
@@ -68,21 +79,23 @@
         </a>
       }
 
-      <h2 class="linktree__section-title">{{ texts().linktree.adultSectionTitle }}</h2>
+      @if (adultAccountLinks().length > 0) {
+        <h2 class="linktree__section-title">{{ texts().linktree.adultSectionTitle }}</h2>
 
-      @for (account of adultAccountLinks(); track account.id) {
-        <a
-          class="linktree__button"
-          [class.linktree__button--age-restricted]="true"
-          [href]="account.href"
-          target="_blank"
-          rel="noopener noreferrer"
-          (click)="handleExternalLinkClick($event, account)"
-        >
-          <span>{{ account.title }}</span>
-          <small>{{ account.subtitle }}</small>
-          <em class="linktree__age-badge">{{ texts().linktree.ageRestrictedBadge }}</em>
-        </a>
+        @for (account of adultAccountLinks(); track account.id) {
+          <a
+            class="linktree__button"
+            [class.linktree__button--age-restricted]="true"
+            [href]="account.href"
+            target="_blank"
+            rel="noopener noreferrer"
+            (click)="handleExternalLinkClick($event, account)"
+          >
+            <span>{{ account.title }}</span>
+            <small>{{ account.subtitle }}</small>
+            <em class="linktree__age-badge">{{ texts().linktree.ageRestrictedBadge }}</em>
+          </a>
+        }
       }
 
       @if (shouldShowPaymentLinks()) {
@@ -169,6 +182,13 @@
         <span>{{ texts().linktree.systemButton }}</span>
         <small>{{ texts().linktree.systemSmall }}</small>
       </button>
+
+      <nav class="linktree__legal-links" [attr.aria-label]="legalLinks().ariaLabel">
+        <a routerLink="/privacy">{{ legalLinks().privacy }}</a>
+        <span aria-hidden="true">·</span>
+        <a routerLink="/terms">{{ legalLinks().terms }}</a>
+      </nav>
+      }
     </div>
   </div>
 
