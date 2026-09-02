@@ -30,7 +30,7 @@ export interface LegalLinkLabels {
 }
 
 const CONTACT_HANDLE = '@er_mao13619';
-const LAST_UPDATED_ISO = '2026-09-01';
+const LAST_UPDATED_ISO = '2026-09-02';
 
 export const LEGAL_LINK_LABELS: Record<LanguageCode, LegalLinkLabels> = {
   ja: {
@@ -67,7 +67,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: 'プライバシーポリシー',
       lead: '本ポリシーは、kuroNekoEngine がどのような情報を取り扱い、どのような目的で利用するかを説明するものです。適用される法令および規制に従い、個人データを適切に取り扱うよう努めます。該当する場合には、GDPR/RGPD、APPI、CCPA/CPRA、PDPA その他の適用法令も考慮しますが、すべての法域に対する完全または絶対的な適合を表明するものではありません。',
       updatedLabel: '最終更新日',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `連絡先: X ${CONTACT_HANDLE}`,
       backLabel: 'リンク一覧へ戻る',
       navLabel: '法的文書の切り替え',
@@ -200,7 +200,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: 'Política de Privacidad',
       lead: 'Esta política explica qué información trata kuroNekoEngine y con qué finalidad. Procuramos tratar adecuadamente los datos personales conforme a las leyes y regulaciones aplicables. Cuando corresponda, también se consideran GDPR/RGPD, APPI, CCPA/CPRA, PDPA y otras normas aplicables, sin declarar cumplimiento absoluto con todas las jurisdicciones.',
       updatedLabel: 'Última actualización',
-      lastUpdated: '1 de septiembre de 2026',
+      lastUpdated: '2 de septiembre de 2026',
       contactLabel: `Contacto: X ${CONTACT_HANDLE}`,
       backLabel: 'Volver al Linktree',
       navLabel: 'Cambiar documento legal',
@@ -333,7 +333,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: 'Privacy Policy',
       lead: 'This policy explains what information kuroNekoEngine processes and for what purposes. We seek to handle personal data appropriately in accordance with applicable laws and regulations. Where relevant, GDPR/RGPD, APPI, CCPA/CPRA, PDPA, and other applicable rules may also be considered, without claiming absolute compliance with every jurisdiction.',
       updatedLabel: 'Last updated',
-      lastUpdated: 'September 1, 2026',
+      lastUpdated: 'September 2, 2026',
       contactLabel: `Contact: X ${CONTACT_HANDLE}`,
       backLabel: 'Back to Linktree',
       navLabel: 'Switch legal document',
@@ -466,7 +466,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: '隐私政策',
       lead: '本政策说明 kuroNekoEngine 会处理哪些信息以及处理目的。我们会尽力依据适用的法律法规妥善处理个人数据。在适用时，也会考虑 GDPR/RGPD、APPI、CCPA/CPRA、PDPA 及其他适用规范，但不声明对所有司法辖区作出绝对或全面合规承诺。',
       updatedLabel: '最后更新',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `联系方式：X ${CONTACT_HANDLE}`,
       backLabel: '返回 Linktree',
       navLabel: '切换法律文件',
@@ -599,7 +599,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: '隱私政策',
       lead: '本政策說明 kuroNekoEngine 會處理哪些資訊以及處理目的。我們會盡力依據適用的法律與規範妥善處理個人資料。於適用時，也會考量 GDPR/RGPD、APPI、CCPA/CPRA、PDPA 與其他適用規範，但不聲明對所有司法管轄區作出絕對或全面合規承諾。',
       updatedLabel: '最後更新',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `聯絡方式：X ${CONTACT_HANDLE}`,
       backLabel: '返回 Linktree',
       navLabel: '切換法律文件',
@@ -734,7 +734,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: '利用規約',
       lead: '本規約は、kuroNekoEngine の利用条件を定めるものです。本サービスは、アニメ・マンガ調のデジタルイラストと関連する支援、VIP アクセス、限定コンテンツを扱うクリエイティブサービスです。',
       updatedLabel: '最終更新日',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `連絡先: X ${CONTACT_HANDLE}`,
       backLabel: 'リンク一覧へ戻る',
       navLabel: '法的文書の切り替え',
@@ -854,7 +854,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: 'Términos de Servicio',
       lead: 'Estos términos regulan el uso de kuroNekoEngine, un servicio creativo vinculado a ilustración digital estilo anime/manga, enlaces públicos, acceso VIP y contenido exclusivo administrado por クロネコ工房.',
       updatedLabel: 'Última actualización',
-      lastUpdated: '1 de septiembre de 2026',
+      lastUpdated: '2 de septiembre de 2026',
       contactLabel: `Contacto: X ${CONTACT_HANDLE}`,
       backLabel: 'Volver al Linktree',
       navLabel: 'Cambiar documento legal',
@@ -974,7 +974,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: 'Terms of Service',
       lead: 'These terms govern the use of kuroNekoEngine, a creative service connected to anime/manga-style digital illustration, public links, VIP access, and exclusive content managed by クロネコ工房.',
       updatedLabel: 'Last updated',
-      lastUpdated: 'September 1, 2026',
+      lastUpdated: 'September 2, 2026',
       contactLabel: `Contact: X ${CONTACT_HANDLE}`,
       backLabel: 'Back to Linktree',
       navLabel: 'Switch legal document',
@@ -1094,7 +1094,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: '服务条款',
       lead: '本条款适用于 kuroNekoEngine 的使用。kuroNekoEngine 是由 クロネコ工房 管理的创作服务，内容涉及动漫/漫画风格数字插画、公开链接、VIP 访问和限定内容。',
       updatedLabel: '最后更新',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `联系方式：X ${CONTACT_HANDLE}`,
       backLabel: '返回 Linktree',
       navLabel: '切换法律文件',
@@ -1214,7 +1214,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
       title: '服務條款',
       lead: '本條款適用於 kuroNekoEngine 的使用。kuroNekoEngine 是由 クロネコ工房 管理的創作服務，內容涉及動漫/漫畫風格數位插畫、公開連結、VIP 存取與限定內容。',
       updatedLabel: '最後更新',
-      lastUpdated: '2026年9月1日',
+      lastUpdated: '2026年9月2日',
       contactLabel: `聯絡方式：X ${CONTACT_HANDLE}`,
       backLabel: '返回 Linktree',
       navLabel: '切換法律文件',
