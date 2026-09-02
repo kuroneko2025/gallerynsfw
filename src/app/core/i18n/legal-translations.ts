@@ -752,7 +752,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'service',
           title: '2. サービスの性質',
           paragraphs: [
-            '本サービスは、クロネコ工房 によるイラスト、キャラクター、ギャラリー、支援案内、VIP 機能を提供または案内します。内容は芸術的・娯楽的性質を持ち、すべての地域、年齢、文化的基準に適するとは限りません。'
+            '本サービスは、クロネコ工房 によるデジタルイラスト、キャラクター、ギャラリー、支援案内、VIP 機能を提供または案内します。内容には、アニメ・漫画調の表現、オリジナルキャラクター、AI により生成または支援された作品、少年キャラクター表現（いわゆる「ショタ」系を含む）、ボーイッシュなキャラクター表現、アンドロジナスまたはジェンダー表現がスタイライズされたキャラクター表現、その他アニメ・漫画由来の表現が含まれる場合があります。これらの分類は説明および透明性のためのものであり、それ自体が性的内容を意味するものではありません。',
+            '作品の架空性、視覚スタイル、または芸術的カテゴリは、それだけで適法性または許容性を決定するものではありません。特定の内容は、該当する国または地域の適用法令により異なる制限を受ける場合があります。'
           ]
         },
         {
@@ -782,9 +783,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'intellectual-property',
           title: '6. 知的財産',
           paragraphs: [
-            '本サービスで公開されるイラスト、キャラクター、ロゴ、文章、UI 要素その他のコンテンツには、アニメ・漫画調の表現、オリジナルキャラクター、AI により生成または支援された作品が含まれる場合があります。これらは、対応する権利が適用法令により認められる範囲で、クロネコ工房 または各権利者に帰属します。公開されていること自体は、複製、再配布、再販売、商用利用、大量抽出、または AI モデル・システムの学習を目的としたデータセットへの組み込みを一般的に許可するものではありません。',
-            '明示的な許可がある場合、または適用法令が別段の権利・例外を定める場合を除き、コンテンツの無断再配布、作品またはキャラクターを自分のものとして販売・サブライセンス・商用利用すること、無断の大量取得や乱用的スクレイピング、未許可の AI 学習用データセットへの利用は禁止されます。',
-            '本規約は、利用者がクロネコ工房 のキャラクターを題材にした表現やファンアートを制作すること自体を、単にそのキャラクターを使用したという理由だけで禁止するものではありません。ただし、原作者または権利者であると偽ること、クロネコ工房、そのメンバー、公式代理人であると偽ること、その他許可範囲や適用法令に反する利用は認められません。'
+            '本サービスで公開されるイラスト、キャラクター、ロゴ、文章、UI 要素その他のコンテンツは、対応する権利が適用法令により認められる範囲で、クロネコ工房 または各権利者に帰属します。公開されていること自体は、複製、再配布、再販売、商用利用、大量抽出、または AI モデル・システムの学習を目的としたデータセットへの組み込みを一般的に許可するものではありません。',
+            '明示的な許可がある場合、または適用法令が別段の権利・例外を定める場合を除き、コンテンツの無断再配布、キャラクター・ロゴ・作品を自分のものとして販売・サブライセンス・商用利用すること、無断の大量取得や乱用的スクレイピング、未許可の AI 学習用データセットへの利用は禁止されます。',
+            '本規約は、利用者がクロネコ工房 のキャラクターを題材にした非商用の表現やファンアートを制作すること自体を、単にそのキャラクターを使用したという理由だけで禁止するものではありません。ただし、原作者または権利者であると偽ること、クロネコ工房、そのメンバー、公式代理人であると偽ること、その他許可範囲や適用法令に反する利用は認められません。'
           ]
         },
         {
@@ -792,8 +793,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           title: '7. 禁止行為',
           paragraphs: [
             '利用者は、詐欺、不正アクセス、アクセス制限の回避、キーの共有、無断再配布、乱用的スクレイピング、サービスの運営妨害、なりすまし、アクセス取得またはサービスへの損害を目的とする意図的な虚偽情報の送信、その他適用法令に反する行為を行ってはなりません。',
-            'kuroNekoEngine を、実在する児童の性的搾取または虐待に関連する素材の要求、宣伝、助長、保存、配布、その他実在する人物の搾取または虐待を伴う違法行為のために利用することは、厳格に禁止されます。',
-            '本規約は、架空のキャラクター、アニメ・漫画調の表現、AI により生成または支援されたイラストその他の架空表現を、実在する人物に対する違法行為と自動的に同一視するものではありません。ただし、そのような架空コンテンツも、利用者がアクセスする国または地域の法令により異なる制限を受ける場合があります。'
+            'kuroNekoEngine を、児童の性的搾取または虐待に関連する素材の要求、宣伝、助長、保存、配布、または実在する人物に対する搾取、虐待その他の違法行為を助長する目的で利用することは、厳格に禁止されます。',
+            '架空のキャラクター、アニメ・漫画調の表現、AI により生成または支援されたコンテンツ、または特定の芸術的カテゴリが含まれることは、それだけで許容性または違法性を決定するものではありません。すべてのコンテンツおよび本サービスの利用は、本規約および法域により異なる場合のある適用法令に従います。'
           ]
         },
         {
@@ -871,7 +872,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'service',
           title: '2. Naturaleza del servicio',
           paragraphs: [
-            'kuroNekoEngine presenta ilustraciones, personajes, galerías, información de apoyo y funciones VIP de クロネコ工房. El contenido tiene naturaleza artística y de entretenimiento, y puede no ser adecuado para todas las edades, regiones o sensibilidades culturales.'
+            'kuroNekoEngine presenta ilustración digital, personajes, galerías, información de apoyo y funciones VIP de クロネコ工房. El contenido puede incluir obras de estilo anime/manga, personajes originales y obras generadas o asistidas mediante IA. Entre sus categorías creativas pueden aparecer personajes masculinos ficticios de apariencia juvenil, incluidos estilos conocidos en japonés como shota-kei, personajes femeninos de estética boyish o tomboy cuando corresponda, personajes andróginos o con expresión de género estilizada y otros estilos propios de la ilustración anime/manga. Estas categorías son descriptivas y de transparencia, y no implican por sí mismas contenido sexual.',
+            'La naturaleza ficticia, el estilo visual o la categoría artística de una obra no determinan por sí solos su legalidad o admisibilidad. Determinados contenidos pueden estar sujetos a restricciones diferentes conforme a la legislación aplicable del país o región correspondiente.'
           ]
         },
         {
@@ -901,9 +903,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'intellectual-property',
           title: '6. Propiedad intelectual',
           paragraphs: [
-            'Las ilustraciones, personajes, logotipos, textos, elementos de interfaz y demás contenidos disponibles en kuroNekoEngine, incluidas obras de estilo anime/manga, personajes originales y obras generadas o asistidas mediante IA, corresponden a クロネコ工房 o a sus respectivos titulares, en la medida en que los derechos correspondientes sean reconocidos por la legislación aplicable. Su disponibilidad pública no implica una autorización general para copiarlos, redistribuirlos, revenderlos, explotarlos comercialmente, extraerlos masivamente o incorporarlos a conjuntos de datos destinados al entrenamiento de modelos o sistemas de IA.',
-            'Salvo autorización expresa o cuando la legislación aplicable disponga lo contrario, no está permitido redistribuir contenido obtenido del servicio sin autorización, vender, sublicenciar o explotar comercialmente personajes u obras de クロネコ工房 como si fueran propios, realizar extracción masiva o scraping abusivo, ni utilizar contenido protegido de クロネコ工房 en conjuntos de datos destinados al entrenamiento de sistemas de IA cuando ese uso no haya sido autorizado.',
-            'Estos Términos no prohíben que un usuario genere una representación o fanart de un personaje de クロネコ工房 únicamente por utilizar ese personaje. Lo que no está autorizado es atribuirse falsamente la autoría original o titularidad del personaje, presentarse falsamente como クロネコ工房, como uno de sus miembros o como representante oficial, o usar ese contenido fuera de los permisos correspondientes y de lo permitido por la legislación aplicable.'
+            'Las ilustraciones, personajes, logotipos, textos, elementos de interfaz y demás contenidos disponibles en kuroNekoEngine corresponden a クロネコ工房 o a sus respectivos titulares, en la medida en que los derechos correspondientes sean reconocidos por la legislación aplicable. Su disponibilidad pública no implica una autorización general para copiarlos, redistribuirlos, revenderlos, explotarlos comercialmente, extraerlos masivamente o incorporarlos a conjuntos de datos destinados al entrenamiento de modelos o sistemas de IA.',
+            'Salvo autorización expresa o cuando la legislación aplicable disponga lo contrario, no está permitido redistribuir contenido obtenido del servicio sin autorización, vender, sublicenciar o explotar comercialmente personajes, logotipos u obras de クロネコ工房 como si fueran propios, realizar extracción masiva o scraping abusivo, ni utilizar contenido protegido de クロネコ工房 en conjuntos de datos destinados al entrenamiento de sistemas de IA cuando ese uso no haya sido autorizado.',
+            'Estos Términos no prohíben que un usuario dibuje, genere o cree una representación no comercial o fanart de un personaje de クロネコ工房 únicamente por utilizar ese personaje. Lo que no está autorizado es atribuirse falsamente la creación original o titularidad del personaje, presentarse falsamente como クロネコ工房, como uno de sus miembros o como representante oficial, o usar ese contenido fuera de los permisos correspondientes y de lo permitido por la legislación aplicable.'
           ]
         },
         {
@@ -911,8 +913,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           title: '7. Conductas prohibidas',
           paragraphs: [
             'Se prohíbe fraude, acceso no autorizado, evasión de controles de acceso, redistribución no autorizada, scraping abusivo, interferencia con el funcionamiento del servicio, suplantación de identidad, información deliberadamente falsa utilizada para obtener acceso o perjudicar el servicio y cualquier otro uso contrario a la legislación aplicable.',
-            'Queda terminantemente prohibido utilizar kuroNekoEngine para solicitar, promover, facilitar, almacenar o distribuir material relacionado con explotación o abuso sexual infantil real, así como cualquier otra conducta ilegal que implique explotación o abuso de personas reales.',
-            'Estos Términos no equiparan automáticamente personajes ficticios, anime/manga, ilustraciones generadas o asistidas por IA ni otras representaciones ficticias con personas reales o conductas delictivas reales. Aun así, determinados contenidos ficticios pueden estar sujetos a restricciones diferentes según las leyes del país o región desde el que se acceda al servicio.'
+            'Queda terminantemente prohibido utilizar kuroNekoEngine para solicitar, promover, facilitar, almacenar o distribuir material de explotación o abuso sexual infantil, así como para facilitar explotación, abuso u otras conductas ilícitas contra personas reales.',
+            'La presencia de personajes ficticios, estilos anime/manga, contenido generado o asistido mediante IA o determinadas categorías artísticas no determina por sí sola su admisibilidad o ilicitud. Todo contenido y uso del servicio permanece sujeto a estos Términos y a la legislación aplicable, que puede variar entre jurisdicciones.'
           ]
         },
         {
@@ -990,7 +992,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'service',
           title: '2. Nature of the Service',
           paragraphs: [
-            'kuroNekoEngine presents illustrations, characters, galleries, support information, and VIP features from クロネコ工房. The content is artistic and entertainment-oriented and may not be suitable for every age, region, or cultural sensitivity.'
+            'kuroNekoEngine presents digital illustration, characters, galleries, support information, and VIP features from クロネコ工房. Content may include anime/manga-style works, original characters, and AI-generated or AI-assisted works. Creative categories may include fictional youthful male characters, including styles known in Japanese as shota-kei, female characters with a boyish or tomboy aesthetic where applicable, androgynous characters or stylized gender expression, and other styles associated with anime/manga illustration. These categories are descriptive and for transparency; they do not by themselves mean sexual content.',
+            'The fictional nature, visual style, or artistic category of a work does not by itself determine its legality or admissibility. Certain content may be subject to different restrictions under the applicable laws of the relevant country or region.'
           ]
         },
         {
@@ -1020,9 +1023,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'intellectual-property',
           title: '6. Intellectual Property',
           paragraphs: [
-            'Illustrations, characters, logos, text, interface elements, and other content available through kuroNekoEngine, including anime/manga-style works, original characters, and AI-generated or AI-assisted works, belong to クロネコ工房 or their respective rights holders to the extent the corresponding rights are recognized by applicable law. Public availability does not, by itself, grant general authorization to copy, redistribute, resell, commercially exploit, bulk extract, or include protected content in datasets intended to train AI models or systems.',
-            'Unless expressly authorized or unless applicable law provides otherwise, users may not redistribute content obtained from the service without authorization, sell, sublicense, or commercially exploit クロネコ工房 characters or works as their own, perform bulk extraction or abusive scraping, or use protected クロネコ工房 content in datasets intended to train AI systems when that use has not been authorized.',
-            'These Terms do not prohibit a user from creating a representation or fanart of a クロネコ工房 character solely because that character is used. What is not authorized is falsely claiming original authorship or ownership of the character, falsely presenting oneself as クロネコ工房, one of its members, or an official representative, or using that content outside the relevant permissions and what applicable law allows.'
+            'Illustrations, characters, logos, text, interface elements, and other content available through kuroNekoEngine belong to クロネコ工房 or their respective rights holders to the extent the corresponding rights are recognized by applicable law. Public availability does not, by itself, grant general authorization to copy, redistribute, resell, commercially exploit, bulk extract, or include protected content in datasets intended to train AI models or systems.',
+            'Unless expressly authorized or unless applicable law provides otherwise, users may not redistribute content obtained from the service without authorization, sell, sublicense, or commercially exploit クロネコ工房 characters, logos, or works as their own, perform bulk extraction or abusive scraping, or use protected クロネコ工房 content in datasets intended to train AI systems when that use has not been authorized.',
+            'These Terms do not prohibit a user from drawing, generating, or creating a non-commercial representation or fanart of a クロネコ工房 character solely because that character is used. What is not authorized is falsely claiming original creation or ownership of the character, falsely presenting oneself as クロネコ工房, one of its members, or an official representative, or using that content outside the relevant permissions and what applicable law allows.'
           ]
         },
         {
@@ -1030,8 +1033,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           title: '7. Prohibited Conduct',
           paragraphs: [
             'Fraud, unauthorized access, bypassing access controls, unauthorized redistribution, abusive scraping, interference with service operation, impersonation, deliberately false information used to obtain access or harm the service, and any other use contrary to applicable law are prohibited.',
-            'It is strictly prohibited to use kuroNekoEngine to request, promote, facilitate, store, or distribute material related to real child sexual exploitation or abuse, as well as any other illegal conduct involving exploitation or abuse of real persons.',
-            'These Terms do not automatically equate fictional characters, anime/manga, AI-generated or AI-assisted illustrations, or other fictional representations with real persons or real criminal conduct. However, certain fictional content may be subject to different restrictions depending on the laws of the country or region from which the service is accessed.'
+            'It is strictly prohibited to use kuroNekoEngine to request, promote, facilitate, store, or distribute child sexual exploitation or abuse material, or to facilitate exploitation, abuse, or other unlawful conduct against real persons.',
+            'The presence of fictional characters, anime/manga styles, AI-generated or AI-assisted content, or particular artistic categories does not by itself determine admissibility or illegality. All content and use of the service remain subject to these Terms and to applicable law, which may vary between jurisdictions.'
           ]
         },
         {
@@ -1109,7 +1112,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'service',
           title: '2. 服务性质',
           paragraphs: [
-            'kuroNekoEngine 展示 クロネコ工房 的插画、角色、图库、支持信息和 VIP 功能。内容具有艺术和娱乐性质，并不一定适合所有年龄、地区或文化敏感度。'
+            'kuroNekoEngine 展示 クロネコ工房 的数字插画、角色、图库、支持信息和 VIP 功能。内容可能包括动漫/漫画风格作品、原创角色以及由 AI 生成或辅助创作的作品。创作类别可能包括外观较为年少的虚构男性角色表现（包括日语中所谓「ショタ」系风格）、boyish 或 tomboy 风格的女性角色表现（在适用时）、中性或性别表达风格化的角色表现，以及其他动漫/漫画插画常见风格。这些类别仅用于描述和提高透明度，并不当然表示性内容。',
+            '作品的虚构性质、视觉风格或艺术类别本身，并不单独决定其合法性或可接受性。某些内容可能会根据相关国家或地区的适用法律受到不同限制。'
           ]
         },
         {
@@ -1139,9 +1143,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'intellectual-property',
           title: '6. 知识产权',
           paragraphs: [
-            'kuroNekoEngine 中提供的插画、角色、标识、文字、界面元素及其他内容，包括动漫/漫画风格作品、原创角色以及由 AI 生成或辅助创作的作品，在相应权利受适用法律承认的范围内，归 クロネコ工房 或各自权利人所有。内容公开可见本身并不构成复制、再分发、转售、商业利用、大量抓取，或将受保护内容纳入用于训练 AI 模型或系统的数据集的一般授权。',
-            '除非获得明确授权，或适用法律另有规定，用户不得未经授权再分发从服务取得的内容，不得将 クロネコ工房 的角色或作品作为自己的内容进行销售、再授权或商业利用，不得进行大量提取或滥用性抓取，也不得在未经授权的情况下将 クロネコ工房 的受保护内容用于训练 AI 系统的数据集。',
-            '本条款并不因用户使用 クロネコ工房 的角色而单纯禁止其创作该角色的表现形式或同人作品。未被授权的是虚假声称自己为该角色的原始作者或权利人，虚假冒充 クロネコ工房、其成员或官方代表，或超出相应许可及适用法律允许范围使用相关内容。'
+            'kuroNekoEngine 中提供的插画、角色、标识、文字、界面元素及其他内容，在相应权利受适用法律承认的范围内，归 クロネコ工房 或各自权利人所有。内容公开可见本身并不构成复制、再分发、转售、商业利用、大量抓取，或将受保护内容纳入用于训练 AI 模型或系统的数据集的一般授权。',
+            '除非获得明确授权，或适用法律另有规定，用户不得未经授权再分发从服务取得的内容，不得将 クロネコ工房 的角色、标识或作品作为自己的内容进行销售、再授权或商业利用，不得进行大量提取或滥用性抓取，也不得在未经授权的情况下将 クロネコ工房 的受保护内容用于训练 AI 系统的数据集。',
+            '本条款并不因用户使用 クロネコ工房 的角色而单纯禁止其绘制、生成或创作该角色的非商业表现形式或同人作品。未被授权的是虚假声称自己为该角色的原始创作者或权利人，虚假冒充 クロネコ工房、其成员或官方代表，或超出相应许可及适用法律允许范围使用相关内容。'
           ]
         },
         {
@@ -1149,8 +1153,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           title: '7. 禁止行为',
           paragraphs: [
             '禁止欺诈、未经授权访问、绕过访问控制、未经授权再分发、滥用性抓取、干扰服务运行、冒充身份、为获取访问权限或损害服务而故意提供虚假信息，以及任何其他违反适用法律的用途。',
-            '严禁使用 kuroNekoEngine 请求、宣传、便利、存储或分发与真实儿童性剥削或虐待有关的材料，以及任何涉及剥削或虐待真实人物的其他非法行为。',
-            '本条款不会将虚构角色、动漫/漫画、由 AI 生成或辅助创作的插画，或其他虚构表现自动等同于真实人物或真实犯罪行为。不过，某些虚构内容可能会根据访问服务所在国家或地区的法律受到不同限制。'
+            '严禁使用 kuroNekoEngine 请求、宣传、便利、存储或分发儿童性剥削或虐待材料，或便利针对真实人物的剥削、虐待或其他违法行为。',
+            '虚构角色、动漫/漫画风格、由 AI 生成或辅助创作的内容，或特定艺术类别的存在，并不单独决定其可接受性或违法性。所有内容和服务使用均受本条款以及可能因司法辖区不同而变化的适用法律约束。'
           ]
         },
         {
@@ -1228,7 +1232,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'service',
           title: '2. 服務性質',
           paragraphs: [
-            'kuroNekoEngine 展示 クロネコ工房 的插畫、角色、圖庫、支持資訊與 VIP 功能。內容具有藝術與娛樂性質，並不一定適合所有年齡、地區或文化敏感度。'
+            'kuroNekoEngine 展示 クロネコ工房 的數位插畫、角色、圖庫、支持資訊與 VIP 功能。內容可能包括動漫/漫畫風格作品、原創角色以及由 AI 生成或輔助創作的作品。創作類別可能包括外觀較為年少的虛構男性角色表現（包括日語中所謂「ショタ」系風格）、boyish 或 tomboy 風格的女性角色表現（於適用時）、中性或性別表達風格化的角色表現，以及其他動漫/漫畫插畫常見風格。這些類別僅用於描述與提高透明度，並不當然表示性內容。',
+            '作品的虛構性質、視覺風格或藝術類別本身，並不單獨決定其合法性或可接受性。某些內容可能會依據相關國家或地區的適用法律受到不同限制。'
           ]
         },
         {
@@ -1258,9 +1263,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           id: 'intellectual-property',
           title: '6. 智慧財產權',
           paragraphs: [
-            'kuroNekoEngine 中提供的插畫、角色、標誌、文字、介面元素與其他內容，包括動漫/漫畫風格作品、原創角色以及由 AI 生成或輔助創作的作品，在相應權利受適用法律承認的範圍內，歸 クロネコ工房 或各自權利人所有。內容公開可見本身並不構成複製、再散布、轉售、商業利用、大量擷取，或將受保護內容納入用於訓練 AI 模型或系統之資料集的一般授權。',
-            '除非取得明確授權，或適用法律另有規定，使用者不得未經授權再散布從服務取得的內容，不得將 クロネコ工房 的角色或作品作為自己的內容進行銷售、再授權或商業利用，不得進行大量擷取或濫用性擷取，也不得在未經授權的情況下將 クロネコ工房 的受保護內容用於訓練 AI 系統的資料集。',
-            '本條款並不因使用者使用 クロネコ工房 的角色而單純禁止其創作該角色的表現形式或同人作品。未被授權的是虛假聲稱自己為該角色的原始作者或權利人，虛假冒充 クロネコ工房、其成員或官方代表，或超出相應許可及適用法律允許範圍使用相關內容。'
+            'kuroNekoEngine 中提供的插畫、角色、標誌、文字、介面元素與其他內容，在相應權利受適用法律承認的範圍內，歸 クロネコ工房 或各自權利人所有。內容公開可見本身並不構成複製、再散布、轉售、商業利用、大量擷取，或將受保護內容納入用於訓練 AI 模型或系統之資料集的一般授權。',
+            '除非取得明確授權，或適用法律另有規定，使用者不得未經授權再散布從服務取得的內容，不得將 クロネコ工房 的角色、標誌或作品作為自己的內容進行銷售、再授權或商業利用，不得進行大量擷取或濫用性擷取，也不得在未經授權的情況下將 クロネコ工房 的受保護內容用於訓練 AI 系統的資料集。',
+            '本條款並不因使用者使用 クロネコ工房 的角色而單純禁止其繪製、生成或創作該角色的非商業表現形式或同人作品。未被授權的是虛假聲稱自己為該角色的原始創作者或權利人，虛假冒充 クロネコ工房、其成員或官方代表，或超出相應許可及適用法律允許範圍使用相關內容。'
           ]
         },
         {
@@ -1268,8 +1273,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentType, Record<LanguageCode, Leg
           title: '7. 禁止行為',
           paragraphs: [
             '禁止詐欺、未經授權存取、繞過存取控制、未經授權再散布、濫用性擷取、干擾服務運作、冒充身分、為取得存取權限或損害服務而故意提供虛假資訊，以及任何其他違反適用法律的用途。',
-            '嚴禁使用 kuroNekoEngine 請求、宣傳、便利、儲存或散布與真實兒童性剝削或虐待有關的資料，以及任何涉及剝削或虐待真實人物的其他非法行為。',
-            '本條款不會將虛構角色、動漫/漫畫、由 AI 生成或輔助創作的插畫，或其他虛構表現自動等同於真實人物或真實犯罪行為。不過，某些虛構內容可能會依據存取服務所在國家或地區的法律受到不同限制。'
+            '嚴禁使用 kuroNekoEngine 請求、宣傳、便利、儲存或散布兒童性剝削或虐待資料，或便利針對真實人物的剝削、虐待或其他違法行為。',
+            '虛構角色、動漫/漫畫風格、由 AI 生成或輔助創作的內容，或特定藝術類別的存在，並不單獨決定其可接受性或違法性。所有內容與服務使用均受本條款以及可能因司法管轄區不同而變化的適用法律約束。'
           ]
         },
         {
